@@ -1,0 +1,230 @@
+﻿<Window x:Class="Gym_Aplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Gym_Aplication"
+        mc:Ignorable="d"
+        Title="Zarządzanie Siłownią" Height="536" Width="893">
+
+
+    <Window.Resources>
+        <!-- Styles for buttons and labels -->
+        <Style x:Key="SidebarButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Margin" Value="0,10"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Panel.ZIndex" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="#0078D7" BorderThickness="0,0,0,2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#0078D7"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#005a9e"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Title/Label/Style -->
+        <Style x:Key="TitleLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
+        <!-- Custom style for TabControl -->
+        <Style TargetType="TabControl" x:Key="CustomTabControlStyle">
+            <Setter Property="TabStripPlacement" Value="Top" />
+            <Setter Property="Padding" Value="10" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Sidebar -->
+        <StackPanel x:Name="LeftSidebar" Grid.Column="0" Background="#0078D7">
+            <Button Content="Harmonogram" Style="{StaticResource SidebarButtonStyle}" Click="Harmonogram_Click"/>
+            <Button Content="Logowanie" Style="{StaticResource SidebarButtonStyle}" Click="Logowanie_Click"/>
+            <Button Content="Informacje" Style="{StaticResource SidebarButtonStyle}" Click="Informacje_Click"/>
+            <Button Content="Rezerwacja sprzętu" Style="{StaticResource SidebarButtonStyle}" Click="Rezerwacja_Click"/>
+            <Button Content="Ocenianie treningów" Style="{StaticResource SidebarButtonStyle}" Click="Ocenianie_Click"/>
+            <Button Content="Zarządzanie trenerami" Style="{StaticResource SidebarButtonStyle}" Click="Zarzadzanie_Click"/>
+            <Button Content="Rezerwacja zajęć" Style="{StaticResource SidebarButtonStyle}" Click="RezerwacjaZajec_Click"/>
+            <Button Content="Raportowanie awarii" Style="{StaticResource SidebarButtonStyle}" Click="Raportowanie_Click"/>
+            <Button Content="Artykuły i porady" Style="{StaticResource SidebarButtonStyle}" Click="Artykuly_Click"/>
+        </StackPanel>
+        <!-- Main -->
+        <Grid x:Name="MainGrid" Grid.Column="1" Background="#F7F7F7">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label x:Name="WelcomeLabel" Content="Witaj w aplikacji zarządzania siłownią!" Style="{StaticResource TitleLabelStyle}" />
+
+            <TabControl x:Name="MainTabControl" Grid.Row="1" Style="{StaticResource CustomTabControlStyle}">
+                <TabItem x:Name="TabItem_Harmonogram" Header="Harmonogram">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Label Content="Harmonogram zajęć" Grid.Row="0" Style="{StaticResource TitleLabelStyle}" />
+                        <DataGrid x:Name="ScheduleDataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Czas" Binding="{Binding Time}" />
+                                <DataGridTextColumn Header="Zajęcia" Binding="{Binding Activity}" />
+                                <DataGridTextColumn Header="Trener" Binding="{Binding Trainer}" />
+                                <DataGridTextColumn Header="Sala" Binding="{Binding Room}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Logowanie">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Nazwa użytkownika:" Grid.Row="0"/>
+                        <TextBox x:Name="UsernameTextBox" Grid.Row="1"/>
+
+                        <Label Content="Hasło:" Grid.Row="2"/>
+                        <PasswordBox x:Name="PasswordTextBox" Grid.Row="3"/>
+
+                        <Button Content="Zaloguj" Grid.Row="4" Click="LoginButton_Click"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Informacje">
+                    <!-- Informacje content -->
+                    <StackPanel>
+                        <Label Content="O siłowni" Style="{StaticResource TitleLabelStyle}" />
+                        <TextBlock TextWrapping="Wrap" Margin="10">
+                    Nasza siłownia oferuje szeroką gamę urządzeń i zajęć dla osób na każdym poziomie zaawansowania. Znajdziesz tu miłą atmosferę, profesjonalnych trenerów i nowoczesny sprzęt.
+                        </TextBlock>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Rezerwacja sprzętu">
+                    <!-- Rezerwacja sprzętu content -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Wybierz sprzęt do rezerwacji:" Grid.Row="0"/>
+                        <ComboBox x:Name="EquipmentComboBox" Grid.Row="1">
+                            <ComboBoxItem>Rowerek stacjonarny</ComboBoxItem>
+                            <ComboBoxItem>Orbitrek</ComboBoxItem>
+                            <ComboBoxItem>Ławka do ćwiczeń</ComboBoxItem>
+                        </ComboBox>
+                        <Button Content="Rezerwuj" Grid.Row="2" Click="ReserveEquipment_Click"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Ocenianie treningów">
+                    <!-- Ocenianie treningów content -->
+                    <StackPanel>
+                        <Label Content="Oceń swój ostatni trening:" />
+                        <Slider x:Name="TrainingRatingSlider" Minimum="1" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                        <Button Content="Oceń" Click="RateTraining_Click"/>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Zarządzanie trenerami">
+                    <!-- Zarządzanie trenerami content -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Lista trenerów:" Grid.Row="0"/>
+                        <ListBox x:Name="TrainersListBox" Grid.Row="1">
+                            <ListBoxItem>Jan Kowalski</ListBoxItem>
+                            <ListBoxItem>Anna Nowak</ListBoxItem>
+                            <ListBoxItem>Piotr Wiśniewski</ListBoxItem>
+                        </ListBox>
+                        <Button Content="Dodaj trenera" Grid.Row="2" Click="AddTrainer_Click"/>
+                        <Button Content="Usuń trenera" Grid.Row="3" Click="RemoveTrainer_Click"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Rezerwacja zajęć">
+                    <!-- Rezerwacja zajęć content -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Wybierz zajęcia do rezerwacji:" Grid.Row="0"/>
+                        <ComboBox x:Name="ClassesComboBox" Grid.Row="1">
+                            <ComboBoxItem>Yoga</ComboBoxItem>
+                            <ComboBoxItem>Zumba</ComboBoxItem>
+                            <ComboBoxItem>Kickboxing</ComboBoxItem>
+                            <ComboBoxItem>Spinning</ComboBoxItem>
+                        </ComboBox>
+                        <Button Content="Rezerwuj" Grid.Row="2" Click="ReserveClass_Click"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Raportowanie awarii">
+                    <!-- Raportowanie awarii content -->
+                    <StackPanel>
+                        <Label Content="Zgłoś awarię sprzętu:"/>
+                        <ComboBox x:Name="BrokenEquipmentComboBox">
+                            <ComboBoxItem>Rowerek stacjonarny</ComboBoxItem>
+                            <ComboBoxItem>Orbitrek</ComboBoxItem>
+                            <ComboBoxItem>Ławka do ćwiczeń</ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="Opis problemu:"/>
+                        <TextBox x:Name="ProblemDescriptionTextBox" AcceptsReturn="True" TextWrapping="Wrap" Height="100"/>
+                        <Button Content="Zgłoś" Click="ReportIssue_Click"/>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Artykuły i porady">
+                    <!-- Artykuły i porady content -->
+                    <StackPanel>
+                        <Label Content="Najnowsze artykuły i porady" Style="{StaticResource TitleLabelStyle}" />
+                        <ListBox>
+                            <ListBoxItem>Jak poprawić technikę w trakcie treningu siłowego?</ListBoxItem>
+                            <ListBoxItem>10 prostych ćwiczeń na rozgrzewkę przed treningiem</ListBoxItem>
+                            <ListBoxItem>Dieta dla sportowców - jak się odżywiać, aby osiągnąć lepsze wyniki?</ListBoxItem>
+                        </ListBox>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+        <!-- Right Sidebar -->
+        <StackPanel x:Name="RightSidebar" Grid.Column="2" Background="#0078D7">
+            <Button x:Name="Button_Ustawienia" Content="Ustawienia" Style="{StaticResource SidebarButtonStyle}" Click="Ustawienia_Click"/>
+            <Button Content="Pomoc" Style="{StaticResource SidebarButtonStyle}" Click="Pomoc_Click"/>
+            <Button Content="Wyloguj" Style="{StaticResource SidebarButtonStyle}" Click="Wyloguj_Click"/>
+            <Label Content="Harmonogram zajęć" Style="{StaticResource TitleLabelStyle}" Margin="0,80,10,0"/>
+            <Calendar/>
+            <TextBlock Text="Poniżej znajduje się harmonogram zajęć na dziś:" Margin="10" FontSize="10"/>
+            <ListBox>
+                <ListBoxItem>Yoga - 8:00-9:00</ListBoxItem>
+                <ListBoxItem>Zumba - 10:00-11:00</ListBoxItem>
+                <ListBoxItem>Kickboxing - 12:00-13:00</ListBoxItem> Spinning - 14:00-15:00
+            </ListBox>
+        </StackPanel>
+    </Grid>
+</Window>
+
