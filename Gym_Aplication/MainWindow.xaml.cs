@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-
+using MySql.Data.MySqlClient; //import
 namespace Gym_Aplication
 {
     public partial class MainWindow : Window
@@ -23,17 +23,34 @@ namespace Gym_Aplication
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            //na chwilę obecną bez zabezpieczeń user: test password: Pa$$w0rd
             string username = UsernameTextBox.Text;
             string password = PasswordTextBox.Password;
+            string server= "server=polsl.online;";
+            string connection_string = server += "uid=" + username + ";pwd=" + password + ";database=Baza_projekt;";
 
-            if (username == "admin" && password == "password") 
+            MySqlConnection connection_name = new MySqlConnection();
+            connection_name.ConnectionString = connection_string;
+            connection_name.Open();
+
+            string querry1= "SELECT * FROM `Karnet`;";
+
+            MySqlCommand commend = new MySqlCommand(querry1, connection_name);
+            MySqlDataReader data_from_querry1 = commend.ExecuteReader();
+
+            while (data_from_querry1.Read())
             {
-                MessageBox.Show("Logged in successfully.");
+                MessageBox.Show("Należy zużyć do:   " + data_from_querry1["data_warznosci"]);
             }
-            else
-            {
-                MessageBox.Show("Invalid username or password.");
-            }
+
+            //if (username == "admin" && password == "password") 
+            //{
+            //    MessageBox.Show("Logged in successfully.");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Invalid username or password.");
+            //}
         }
 
         private void PopulateScheduleDataGrid()
@@ -114,7 +131,6 @@ namespace Gym_Aplication
         private void Logowanie_Click(object sender, RoutedEventArgs e)
         {
             SwitchTab(1);
-            MessageBox.Show("Otwieranie okna logowania...");
         }
 
         private void Informacje_Click(object sender, RoutedEventArgs e)
