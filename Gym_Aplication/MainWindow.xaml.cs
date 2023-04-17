@@ -114,7 +114,6 @@ namespace Gym_Aplication
         private void Logowanie_Click(object sender, RoutedEventArgs e)
         {
             SwitchTab(1);
-            MessageBox.Show("Otwieranie okna logowania...");
         }
 
         private void Informacje_Click(object sender, RoutedEventArgs e)
