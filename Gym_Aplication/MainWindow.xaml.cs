@@ -18,16 +18,8 @@ namespace Gym_Aplication
         private string connection_string = "server=polsl.online;" + "uid=test" + ";pwd=Pa$$w0rd" + ";database=Baza_projekt;";
         MySqlConnection connection_name = new MySqlConnection();
 
-        public class ScheduleEntry
-        {
-            public string Time { get; set; }
-            public string Activity { get; set; }
-            public string Trainer { get; set; }
-            public string Room { get; set; }
-        }
 
-
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -100,6 +92,7 @@ namespace Gym_Aplication
             MainTabControl.SelectedIndex = tabIndex;
         }
 
+        //Rezerwuj
         private void ReserveEquipment_Click(object sender, RoutedEventArgs e)
         {
 
@@ -121,6 +114,7 @@ namespace Gym_Aplication
             MessageBox.Show($"Training rated {rating} out of 5.");
         }
 
+
         private void AddTrainer_Click(object sender, RoutedEventArgs e)
         {
 
@@ -134,6 +128,8 @@ namespace Gym_Aplication
             string trainerName = "Trainer to Remove";
             MessageBox.Show($"Trainer {trainerName} removed successfully.");
         }
+
+
 
         private void ReserveClass_Click(object sender, RoutedEventArgs e)
         {
@@ -181,8 +177,45 @@ namespace Gym_Aplication
 
         private void Zarzadzanie_Click(object sender, RoutedEventArgs e)
         {
+
             SwitchTab(5);
-            MessageBox.Show("Otwieranie zarządzania trenerami...");
+
+            if (user_privilege == 1)
+            {
+                connection_name.Open();
+
+                string querry2 = "SELECT * FROM `Trenerzy`;";
+
+                MySqlCommand commend2 = new MySqlCommand(querry2, connection_name);
+                MySqlDataReader data_from_querry2 = commend2.ExecuteReader();
+
+                var listOfTrainers = new List<TrainerManagement>();
+
+
+                while (data_from_querry2.Read())
+                {
+                    string name = (data_from_querry2["imie"]).ToString();
+
+                    string surname = (data_from_querry2["nazwisko"]).ToString();
+                    string phone = data_from_querry2["telefon"].ToString();
+                    string e_mail = data_from_querry2["e-mail"].ToString();
+                    string dateOfBirth = data_from_querry2["data_urodzenia"].ToString();
+                    string address = data_from_querry2["adres"].ToString();
+                    string dateOfEmployment = data_from_querry2["data_zatrudenienia"].ToString();
+
+                    TrainerManagement feld = new TrainerManagement { Name = name, Surname = surname, Phone = phone, E_Mail = e_mail, DateOfBirth = dateOfBirth, Address = address, DateOfEmployment = dateOfEmployment };
+
+                    listOfTrainers.Add(feld);
+                }
+
+                connection_name.Close();
+
+            }
+            else
+            {
+                MessageBox.Show("Otwieranie zarządzania trenerami...");
+
+            }
         }
 
         private void RezerwacjaZajec_Click(object sender, RoutedEventArgs e)
