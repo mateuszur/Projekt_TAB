@@ -135,21 +135,7 @@ namespace Gym_Aplication
             }
         }
 
-        //private void PopulateScheduleDataGrid()
-        //{
-        //    var sampleSchedule = new List<ScheduleEntry>
-        //    {
-        //        new ScheduleEntry { Time = "8:00-9:00", Activity = "Yoga", Trainer = "Jan Kowalski", Room = "1" },
-        //        new ScheduleEntry { Time = "10:00-11:00", Activity = "Zumba", Trainer = "Anna Nowak", Room = "2" },
-        //        new ScheduleEntry
-        //            { Time = "12:00-13:00", Activity = "Kickboxing", Trainer = "Piotr Wiśniewski", Room = "3" },
-        //        new ScheduleEntry
-        //            { Time = "14:00-15:00", Activity = "Spinning", Trainer = "Marta Zielińska", Room = "4" },
-        //    };
-
-        //    ScheduleDataGrid.ItemsSource = sampleSchedule;
-        //}
-
+       
         private void UsernameButton_Click(object sender, RoutedEventArgs e)
         {
             UserContextMenu.IsOpen = true;
