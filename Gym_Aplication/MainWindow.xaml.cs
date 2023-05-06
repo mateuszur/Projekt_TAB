@@ -24,7 +24,7 @@ namespace Gym_Aplication
         public MainWindow()
         {
             InitializeComponent();
-            PopulateScheduleDataGrid();
+            //PopulateScheduleDataGrid();
         }
 
         private void EnableButtons()
@@ -135,20 +135,20 @@ namespace Gym_Aplication
             }
         }
 
-        private void PopulateScheduleDataGrid()
-        {
-            var sampleSchedule = new List<ScheduleEntry>
-            {
-                new ScheduleEntry { Time = "8:00-9:00", Activity = "Yoga", Trainer = "Jan Kowalski", Room = "1" },
-                new ScheduleEntry { Time = "10:00-11:00", Activity = "Zumba", Trainer = "Anna Nowak", Room = "2" },
-                new ScheduleEntry
-                    { Time = "12:00-13:00", Activity = "Kickboxing", Trainer = "Piotr Wiśniewski", Room = "3" },
-                new ScheduleEntry
-                    { Time = "14:00-15:00", Activity = "Spinning", Trainer = "Marta Zielińska", Room = "4" },
-            };
+        //private void PopulateScheduleDataGrid()
+        //{
+        //    var sampleSchedule = new List<ScheduleEntry>
+        //    {
+        //        new ScheduleEntry { Time = "8:00-9:00", Activity = "Yoga", Trainer = "Jan Kowalski", Room = "1" },
+        //        new ScheduleEntry { Time = "10:00-11:00", Activity = "Zumba", Trainer = "Anna Nowak", Room = "2" },
+        //        new ScheduleEntry
+        //            { Time = "12:00-13:00", Activity = "Kickboxing", Trainer = "Piotr Wiśniewski", Room = "3" },
+        //        new ScheduleEntry
+        //            { Time = "14:00-15:00", Activity = "Spinning", Trainer = "Marta Zielińska", Room = "4" },
+        //    };
 
-            ScheduleDataGrid.ItemsSource = sampleSchedule;
-        }
+        //    ScheduleDataGrid.ItemsSource = sampleSchedule;
+        //}
 
         private void UsernameButton_Click(object sender, RoutedEventArgs e)
         {
@@ -163,7 +163,72 @@ namespace Gym_Aplication
         private void Harmonogram_Click(object sender, RoutedEventArgs e)
         {
             ChangePageVisibility(Content_Harmonogram);
-        }
+
+            if (user_privilege == 1)
+            {
+                connection_name.Open();
+
+                string querry = "SELECT * FROM `rezerwacje2`;";
+
+                MySqlCommand commend = new MySqlCommand(querry, connection_name);
+                MySqlDataReader data_from_querry = commend.ExecuteReader();
+
+                var listOfSchedule = new List<ScheduleEntry>();
+
+                string ID = "";
+                string Name = "";
+                string Surname = "";
+                string Phone = "";
+                string Activity = "";
+
+                string Room = "";
+
+                string Date = "";
+
+                string Start_time = "";
+                string End_time = "";
+
+
+
+                while (data_from_querry.Read())
+                {
+
+
+
+                    ScheduleEntry feld = new ScheduleEntry
+                    {
+                        ID = (data_from_querry["id"]).ToString(),
+                        Name = (data_from_querry["imie"]).ToString(),
+                        Surname = (data_from_querry["nazwisko"]).ToString(),
+                        Phone = data_from_querry["telefon"].ToString(),
+                        Activity = (data_from_querry["Temat"]).ToString(),
+                        Room = (data_from_querry["Sala"]).ToString(),
+                        Date = (data_from_querry["DataRezerwacji"]).ToString(),
+                        Start_time = (data_from_querry["start_time"]).ToString(),
+                        End_time = (data_from_querry["end_time"]).ToString(),
+                    };
+                
+
+
+
+                listOfSchedule.Add(feld);
+            }
+
+
+                ScheduleDataGrid.ItemsSource = listOfSchedule;
+                connection_name.Close();
+         
+}
+            else
+            {
+                MessageBox.Show("Otwieranie zarządzania trenerami...");
+            }
+
+
+
+        
+}
+
 
         private void Zarzadzanie_Click(object sender, RoutedEventArgs e)
         {
@@ -180,17 +245,25 @@ namespace Gym_Aplication
 
                 var listOfTrainers = new List<TrainerManagement>();
 
+                string name = "";
+
+                string surname = "";
+                string phone = "";
+                string e_mail = "";
+                string dateOfBirth = "";
+                string address = "";
+                string dateOfEmployment= "";
 
                 while (data_from_querry2.Read())
                 {
-                    string name = (data_from_querry2["imie"]).ToString();
+                     name = (data_from_querry2["imie"]).ToString();
 
-                    string surname = (data_from_querry2["nazwisko"]).ToString();
-                    string phone = data_from_querry2["telefon"].ToString();
-                    string e_mail = data_from_querry2["e-mail"].ToString();
-                    string dateOfBirth = data_from_querry2["data_urodzenia"].ToString();
-                    string address = data_from_querry2["adres"].ToString();
-                    string dateOfEmployment = data_from_querry2["data_zatrudenienia"].ToString();
+                     surname = (data_from_querry2["nazwisko"]).ToString();
+                     phone = data_from_querry2["telefon"].ToString();
+                     e_mail = data_from_querry2["e-mail"].ToString();
+                     dateOfBirth = data_from_querry2["data_urodzenia"].ToString();
+                     address = data_from_querry2["adres"].ToString();
+                     dateOfEmployment = data_from_querry2["data_zatrudenienia"].ToString();
 
                     TrainerManagement feld = new TrainerManagement
                     {
@@ -206,6 +279,8 @@ namespace Gym_Aplication
                     listOfTrainers.Add(feld);
                 }
 
+                
+                TrenersData.ItemsSource =listOfTrainers;
                 connection_name.Close();
             }
             else

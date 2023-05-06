@@ -202,15 +202,26 @@
                     <Label Content="Harmonogram zajęć" Grid.Row="0" Style="{StaticResource TitleLabelStyle}" />
                     <DataGrid x:Name="ScheduleDataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Width="474" HorizontalAlignment="Left">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Czas" Binding="{Binding Time}" />
-                            <DataGridTextColumn Header="Zajęcia" Binding="{Binding Activity}" />
-                            <DataGridTextColumn Header="Trener" Binding="{Binding Trainer}" />
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
+                            <DataGridTextColumn Header="Imię" Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Nazwisko" Binding="{Binding Surname}" />
+                            <DataGridTextColumn Header="Telefon" Binding="{Binding Phone}" />
+                            <DataGridTextColumn Header="Temat" Binding="{Binding Activity }" />
                             <DataGridTextColumn Header="Sala" Binding="{Binding Room}" />
+                            <DataGridTextColumn Header="Data" Binding="{Binding Date }" />
+
+                            <DataGridTextColumn Header="Godzina rozpoczęcia" Binding="{Binding Start_time}" />
+                            <DataGridTextColumn Header="Godzina zakończenia" Binding="{Binding End_time}" />
+                            
+                            
+                            
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </Grid>
-
+      
+            
+            
             <Grid x:Name="Content_ZarządzanieTrenerami" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
                 <!-- Zarządzanie trenerami content -->
                 <Grid>
@@ -220,11 +231,26 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Content="Lista trenerów:" Grid.Row="0"/>
-                    <ListBox x:Name="TrainersListBox" Grid.Row="1">
+
+                    <DataGrid x:Name="TrenersData" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Width="474" HorizontalAlignment="Left">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Imię" Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Nazwisko" Binding="{Binding Surname}" />
+                            <DataGridTextColumn Header="Telefon" Binding="{Binding Phone}" />
+                            <DataGridTextColumn Header="E-mail" Binding="{Binding E_Mail}" />
+                            <DataGridTextColumn Header="Data urodzenia" Binding="{Binding DateOfBirth}" />
+                            <DataGridTextColumn Header="Adres" Binding="{Binding Address}" />
+                            <DataGridTextColumn Header="Data zatrudnienia" Binding="{Binding DateOfEmployment}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!--<ListBox x:Name="TrainersListBox" Grid.Row="1">
                         <ListBoxItem>Jan Kowalski</ListBoxItem>
                         <ListBoxItem>Anna Nowak</ListBoxItem>
                         <ListBoxItem>Piotr Wiśniewski</ListBoxItem>
-                    </ListBox>
+                    </ListBox>-->
+                    
+                    
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
