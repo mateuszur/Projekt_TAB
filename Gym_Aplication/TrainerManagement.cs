@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Gym_Aplication
+﻿namespace Gym_Aplication
 {
     internal class TrainerManagement
     {
