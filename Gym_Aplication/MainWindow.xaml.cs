@@ -24,7 +24,7 @@ namespace Gym_Aplication
         public MainWindow()
         {
             InitializeComponent();
-            //PopulateScheduleDataGrid();
+          EnableButtons();
         }
 
         private void EnableButtons()
@@ -107,31 +107,38 @@ namespace Gym_Aplication
 
             connection_name.ConnectionString = connection_string;
 
-            connection_name.Open();
-
-            string query1 = "SELECT * FROM `Uzytkownicy` WHERE Nazwa LIKE @username AND Hasło LIKE @password;";
-            MySqlCommand command = new MySqlCommand(query1, connection_name);
-            command.Parameters.AddWithValue("@username", username);
-            command.Parameters.AddWithValue("@password", password);
-            MySqlDataReader data_from_query1 = command.ExecuteReader();
-
-            while (data_from_query1.Read())
+            try
             {
-                user_id = (int)data_from_query1["ID"];
-                user_privilege = (int)data_from_query1["Uprawnienia"];
-            }
+                connection_name.Open();
+                {
+                    string query1 = "SELECT * FROM `Uzytkownicy` WHERE Nazwa LIKE @username AND Hasło LIKE @password;";
+                    MySqlCommand command = new MySqlCommand(query1, connection_name);
+                    command.Parameters.AddWithValue("@username", username);
+                    command.Parameters.AddWithValue("@password", password);
+                    MySqlDataReader data_from_query1 = command.ExecuteReader();
 
-            if (user_id != 0)
+                    while (data_from_query1.Read())
+                    {
+                        user_id = (int)data_from_query1["ID"];
+                        user_privilege = (int)data_from_query1["Uprawnienia"];
+                    }
+
+                    if (user_id != 0)
+                    {
+                        MessageBox.Show("Logowanie zakończone pomyślnie. Witaj: " + username + " Twoje uprawnienia to: " +
+                                        user_privilege);
+                        EnableButtons();
+                        connection_name.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Niepoprawna nazwa użytkownika lub hasła.");
+                        connection_name.Close();
+                    }
+                }
+            } catch (Exception ex)
             {
-                MessageBox.Show("Logowanie zakończone pomyślnie. Witaj: " + username + " Twoje uprawnienia to: " +
-                                user_privilege);
-                EnableButtons();
-                connection_name.Close();
-            }
-            else
-            {
-                MessageBox.Show("Niepoprawna nazwa użytkownika lub hasła.");
-                connection_name.Close();
+                MessageBox.Show("Błąd połączenia do bazy danych!");
             }
         }
 
@@ -207,7 +214,7 @@ namespace Gym_Aplication
 }
             else
             {
-                MessageBox.Show("Otwieranie zarządzania trenerami...");
+                MessageBox.Show("Otwieranie listy rezerwacji...");
             }
 
 
@@ -278,6 +285,68 @@ namespace Gym_Aplication
         private void Czlonek_Click(object sender, RoutedEventArgs e)
         {
             ChangePageVisibility(Content_ZarzadzanieCzlonkami);
+
+            if (user_privilege == 1)
+            {
+                connection_name.Open();
+
+                string querry = "SELECT * FROM `Klienci`;";
+
+                MySqlCommand commend = new MySqlCommand(querry, connection_name);
+                MySqlDataReader data_from_querry = commend.ExecuteReader();
+
+                var listOfCustomer = new List<Customers>();
+
+                string ID = "";
+                string Name = "";
+                string Surname = "";
+                string Phone = "";
+                string Activity = "";
+
+                string Room = "";
+
+                string Date = "";
+
+                string Start_time = "";
+                string End_time = "";
+
+
+
+                while (data_from_querry.Read())
+                {
+
+
+
+                    ScheduleEntry feld = new ScheduleEntry
+                    {
+                        ID = (data_from_querry["id"]).ToString(),
+                        Name = (data_from_querry["imie"]).ToString(),
+                        Surname = (data_from_querry["nazwisko"]).ToString(),
+                        Phone = data_from_querry["telefon"].ToString(),
+                        Activity = (data_from_querry["Temat"]).ToString(),
+                        Room = (data_from_querry["Sala"]).ToString(),
+                        Date = (data_from_querry["DataRezerwacji"]).ToString(),
+                        Start_time = (data_from_querry["start_time"]).ToString(),
+                        End_time = (data_from_querry["end_time"]).ToString(),
+                    };
+
+
+
+
+                    listOfCustomer.Add(feld);
+                }
+
+
+                MembersDataGrid.ItemsSource = listOfCustomer;
+                connection_name.Close();
+
+            }
+            else
+            {
+                MessageBox.Show("Otwieranie listy rezerwacji...");
+            }
+
+
         }
 
         private void RezerwacjaZajec_Click(object sender, RoutedEventArgs e)

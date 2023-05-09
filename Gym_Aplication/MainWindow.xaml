@@ -244,11 +244,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <!--<ListBox x:Name="TrainersListBox" Grid.Row="1">
-                        <ListBoxItem>Jan Kowalski</ListBoxItem>
-                        <ListBoxItem>Anna Nowak</ListBoxItem>
-                        <ListBoxItem>Piotr Wiśniewski</ListBoxItem>
-                    </ListBox>-->
+                   
                     
                     
                     <Grid Grid.Row="2">
@@ -263,6 +259,7 @@
             </Grid>
 
             <Grid x:Name="Content_ZarzadzanieCzlonkami" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
+              
                 <!-- Zarzadzanie Czlonkami content -->
                 <Grid>
                     <Grid.RowDefinitions>
