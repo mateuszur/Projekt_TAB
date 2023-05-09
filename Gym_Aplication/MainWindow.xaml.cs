@@ -25,6 +25,7 @@ namespace Gym_Aplication
         {
             InitializeComponent();
             //PopulateScheduleDataGrid();
+           
         }
 
         private void EnableButtons()
