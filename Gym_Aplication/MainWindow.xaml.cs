@@ -109,31 +109,39 @@ namespace Gym_Aplication
 
             connection_name.ConnectionString = connection_string;
 
-            connection_name.Open();
-
-            string query1 = "SELECT * FROM `Uzytkownicy` WHERE Nazwa LIKE @username AND Hasło LIKE @password;";
-            MySqlCommand command = new MySqlCommand(query1, connection_name);
-            command.Parameters.AddWithValue("@username", username);
-            command.Parameters.AddWithValue("@password", password);
-            MySqlDataReader data_from_query1 = command.ExecuteReader();
-
-            while (data_from_query1.Read())
+            try
             {
-                user_id = (int)data_from_query1["ID"];
-                user_privilege = (int)data_from_query1["Uprawnienia"];
+                connection_name.Open();
+                {
+                    string query1 = "SELECT * FROM `Uzytkownicy` WHERE Nazwa LIKE @username AND Hasło LIKE @password;";
+                    MySqlCommand command = new MySqlCommand(query1, connection_name);
+                    command.Parameters.AddWithValue("@username", username);
+                    command.Parameters.AddWithValue("@password", password);
+                    MySqlDataReader data_from_query1 = command.ExecuteReader();
+
+                    while (data_from_query1.Read())
+                    {
+                        user_id = (int)data_from_query1["ID"];
+                        user_privilege = (int)data_from_query1["Uprawnienia"];
+                    }
+
+                    if (user_id != 0)
+                    {
+                        MessageBox.Show("Logowanie zakończone pomyślnie. Witaj: " + username + " Twoje uprawnienia to: " +
+                                        user_privilege);
+                        EnableButtons();
+                        connection_name.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Niepoprawna nazwa użytkownika lub hasła.");
+                        connection_name.Close();
+                    }
+                }
             }
-
-            if (user_id != 0)
+            catch (Exception ex)
             {
-                MessageBox.Show("Logowanie zakończone pomyślnie. Witaj: " + username + " Twoje uprawnienia to: " +
-                                user_privilege);
-                EnableButtons();
-                connection_name.Close();
-            }
-            else
-            {
-                MessageBox.Show("Niepoprawna nazwa użytkownika lub hasła.");
-                connection_name.Close();
+                MessageBox.Show("Błąd połączenia do bazy danych!");
             }
         }
 
@@ -151,52 +159,56 @@ namespace Gym_Aplication
         private void Harmonogram_Click(object sender, RoutedEventArgs e)
         {
             ChangePageVisibility(Content_Harmonogram);
-
-            if (user_privilege == 1)
+            try
             {
-                connection_name.Open();
-
-                string querry = "SELECT * FROM `rezerwacje2`;";
-
-                MySqlCommand commend = new MySqlCommand(querry, connection_name);
-                MySqlDataReader data_from_querry = commend.ExecuteReader();
-
-                var listOfSchedule = new List<ScheduleEntry>();
-
-               
-                while (data_from_querry.Read())
+                if (user_privilege == 1)
                 {
+                    connection_name.Open();
+
+                    string querry = "SELECT * FROM `rezerwacje2`;";
+
+                    MySqlCommand commend = new MySqlCommand(querry, connection_name);
+                    MySqlDataReader data_from_querry = commend.ExecuteReader();
+
+                    var listOfSchedule = new List<ScheduleEntry>();
 
 
-
-                    ScheduleEntry feld = new ScheduleEntry
+                    while (data_from_querry.Read())
                     {
-                        ID = (data_from_querry["id"]).ToString(),
-                        Name = (data_from_querry["imie"]).ToString(),
-                        Surname = (data_from_querry["nazwisko"]).ToString(),
-                        Phone = data_from_querry["telefon"].ToString(),
-                        Activity = (data_from_querry["Temat"]).ToString(),
-                        Room = (data_from_querry["Sala"]).ToString(),
-                        Date = (data_from_querry["DataRezerwacji"]).ToString(),
-                        Start_time = (data_from_querry["start_time"]).ToString(),
-                        End_time = (data_from_querry["end_time"]).ToString(),
-                    };
-                
 
 
 
-                listOfSchedule.Add(feld);
-            }
+                        ScheduleEntry feld = new ScheduleEntry
+                        {
+                            ID = (data_from_querry["id"]).ToString(),
+                            Name = (data_from_querry["imie"]).ToString(),
+                            Surname = (data_from_querry["nazwisko"]).ToString(),
+                            Phone = data_from_querry["telefon"].ToString(),
+                            Activity = (data_from_querry["Temat"]).ToString(),
+                            Room = (data_from_querry["Sala"]).ToString(),
+                            Date = (data_from_querry["DataRezerwacji"]).ToString(),
+                            Start_time = (data_from_querry["start_time"]).ToString(),
+                            End_time = (data_from_querry["end_time"]).ToString(),
+                        };
 
 
-                ScheduleDataGrid.ItemsSource = listOfSchedule;
-                connection_name.Close();
-         
-}
-            else
-            {
-                MessageBox.Show("Otwieranie zarządzania trenerami...");
-            }
+
+
+                        listOfSchedule.Add(feld);
+                    }
+
+
+                    ScheduleDataGrid.ItemsSource = listOfSchedule;
+                    connection_name.Close();
+
+                }
+                else
+                {
+                    MessageBox.Show("Brak uprawnień!");
+                }
+
+            }catch(Exception ex)
+            { MessageBox.Show("Otwieranie zarządzania hermonogramem..."); }
 
 
 
@@ -208,56 +220,62 @@ namespace Gym_Aplication
         {
             ChangePageVisibility(Content_ZarządzanieTrenerami);
 
-            if (user_privilege == 1)
+            try
             {
-                connection_name.Open();
-
-                string querry2 = "SELECT * FROM `Trenerzy`;";
-
-                MySqlCommand commend2 = new MySqlCommand(querry2, connection_name);
-                MySqlDataReader data_from_querry2 = commend2.ExecuteReader();
-
-                var listOfTrainers = new List<TrainerManagement>();
-
-                string name = "";
-
-                string surname = "";
-                string phone = "";
-                string e_mail = "";
-                string dateOfBirth = "";
-                string address = "";
-                string dateOfEmployment= "";
-
-                while (data_from_querry2.Read())
+                if (user_privilege == 1)
                 {
-                     name = (data_from_querry2["imie"]).ToString();
+                    connection_name.Open();
 
-                     surname = (data_from_querry2["nazwisko"]).ToString();
-                     phone = data_from_querry2["telefon"].ToString();
-                     e_mail = data_from_querry2["e-mail"].ToString();
-                     dateOfBirth = data_from_querry2["data_urodzenia"].ToString();
-                     address = data_from_querry2["adres"].ToString();
-                     dateOfEmployment = data_from_querry2["data_zatrudenienia"].ToString();
+                    string querry2 = "SELECT * FROM `Trenerzy`;";
 
-                    TrainerManagement feld = new TrainerManagement
+                    MySqlCommand commend2 = new MySqlCommand(querry2, connection_name);
+                    MySqlDataReader data_from_querry2 = commend2.ExecuteReader();
+
+                    var listOfTrainers = new List<TrainerManagement>();
+
+                    string name = "";
+
+                    string surname = "";
+                    string phone = "";
+                    string e_mail = "";
+                    string dateOfBirth = "";
+                    string address = "";
+                    string dateOfEmployment = "";
+
+                    while (data_from_querry2.Read())
                     {
-                        Name = name,
-                        Surname = surname,
-                        Phone = phone,
-                        E_Mail = e_mail,
-                        DateOfBirth = dateOfBirth,
-                        Address = address,
-                        DateOfEmployment = dateOfEmployment
-                    };
+                        name = (data_from_querry2["imie"]).ToString();
 
-                    listOfTrainers.Add(feld);
+                        surname = (data_from_querry2["nazwisko"]).ToString();
+                        phone = data_from_querry2["telefon"].ToString();
+                        e_mail = data_from_querry2["e-mail"].ToString();
+                        dateOfBirth = data_from_querry2["data_urodzenia"].ToString();
+                        address = data_from_querry2["adres"].ToString();
+                        dateOfEmployment = data_from_querry2["data_zatrudenienia"].ToString();
+
+                        TrainerManagement feld = new TrainerManagement
+                        {
+                            Name = name,
+                            Surname = surname,
+                            Phone = phone,
+                            E_Mail = e_mail,
+                            DateOfBirth = dateOfBirth,
+                            Address = address,
+                            DateOfEmployment = dateOfEmployment
+                        };
+
+                        listOfTrainers.Add(feld);
+                    }
+
+
+                    TrenersData.ItemsSource = listOfTrainers;
+                    connection_name.Close();
                 }
-
-                
-                TrenersData.ItemsSource =listOfTrainers;
-                connection_name.Close();
-            }
-            else
+                else
+                {
+                    MessageBox.Show("Brak uprawnień!");
+                }
+            }catch (Exception ex)
             {
                 MessageBox.Show("Otwieranie zarządzania trenerami...");
             }
@@ -267,45 +285,50 @@ namespace Gym_Aplication
         {
             ChangePageVisibility(Content_ZarzadzanieCzlonkami);
 
-
-            if (user_privilege == 1)
+            try
             {
-                connection_name.Open();
-
-                string querry = "SELECT * FROM `Klienci`;";
-
-                MySqlCommand commend = new MySqlCommand(querry, connection_name);
-                MySqlDataReader data_from_querry = commend.ExecuteReader();
-
-                var listOfMembers = new List<MembersManagement>();
-             
-
-                while (data_from_querry.Read())
+                if (user_privilege == 1)
                 {
-                    MembersManagement feld = new MembersManagement()
+                    connection_name.Open();
+
+                    string querry = "SELECT * FROM `Klienci`;";
+
+                    MySqlCommand commend = new MySqlCommand(querry, connection_name);
+                    MySqlDataReader data_from_querry = commend.ExecuteReader();
+
+                    var listOfMembers = new List<MembersManagement>();
+
+
+                    while (data_from_querry.Read())
                     {
-                        ID = (data_from_querry["id_klienta"]).ToString(),
-                        FristName = (data_from_querry["imie"]).ToString(),
-                        LastName = (data_from_querry["nazwisko"]).ToString(),
-                        E_Mail = data_from_querry["e-mail"].ToString(),
-                        Phone = data_from_querry["telefon"].ToString(),
-                        DateOfRegistration = data_from_querry["data_utworzenia"].ToString(),
-                        Sex = data_from_querry["płec"].ToString(),
-                        Adress = data_from_querry["adres"].ToString(),
-                    
-               
-                    };
+                        MembersManagement feld = new MembersManagement()
+                        {
+                            ID = (data_from_querry["id_klienta"]).ToString(),
+                            FristName = (data_from_querry["imie"]).ToString(),
+                            LastName = (data_from_querry["nazwisko"]).ToString(),
+                            E_Mail = data_from_querry["e-mail"].ToString(),
+                            Phone = data_from_querry["telefon"].ToString(),
+                            DateOfRegistration = data_from_querry["data_utworzenia"].ToString(),
+                            Sex = data_from_querry["płec"].ToString(),
+                            Adress = data_from_querry["adres"].ToString(),
 
-                    listOfMembers.Add(feld);
+
+                        };
+
+                        listOfMembers.Add(feld);
+                    }
+
+
+                    MembersDataGrid.ItemsSource = listOfMembers;
+                    connection_name.Close();
                 }
-
-
-                MembersDataGrid.ItemsSource = listOfMembers;
-                connection_name.Close();
-            }
-            else
+                else
+                {
+                    MessageBox.Show("Brak uprawnień!");
+                }
+            }catch (Exception ex)
             {
-                MessageBox.Show("Otwieranie zarządzania trenerami...");
+                MessageBox.Show("Otwieranie zarządzania klientami...");
             }
 
 

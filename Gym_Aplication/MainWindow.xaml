@@ -273,9 +273,9 @@
                     <DataGrid x:Name="MembersDataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" IsReadOnly="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
-                            <DataGridTextColumn Header="Imię" Binding="{Binding FirstName}"/>
+                            <DataGridTextColumn Header="Imię" Binding="{Binding FristName}"/>
                             <DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}"/>
-                            <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+                            <DataGridTextColumn Header="Email" Binding="{Binding E_Mail}"/>
                             <DataGridTextColumn Header="Telefon" Binding="{Binding Phone}"/>
                             <DataGridTextColumn Header="Data rejestracji" Binding="{Binding DateOfRegistration}"/>
                             <DataGridTextColumn Header="Płeć" Binding="{Binding Sex}"/>
