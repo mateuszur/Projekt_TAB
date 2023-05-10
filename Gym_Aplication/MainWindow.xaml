@@ -149,7 +149,7 @@
                         <TextBlock Text="Raportowanie awarii" VerticalAlignment="Center"/>
                     </StackPanel>
                 </RadioButton>
-                <RadioButton x:Name="Informacje" Style="{StaticResource SidebarButtonStyle}" Click="Informacje_Click" IsEnabled="False" IsChecked="False">
+                <RadioButton x:Name="Informacje" Style="{StaticResource SidebarButtonStyle}" Click="Informacje_Click" IsEnabled="True" IsChecked="False">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Information" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
                         <TextBlock Text="Informacje" VerticalAlignment="Center"/>

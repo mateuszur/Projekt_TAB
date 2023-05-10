@@ -24,7 +24,11 @@ namespace Gym_Aplication
         public MainWindow()
         {
             InitializeComponent();
-          EnableButtons();
+
+
+          
+           
+
         }
 
         private void EnableButtons()
