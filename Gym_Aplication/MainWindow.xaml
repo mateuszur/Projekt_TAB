@@ -272,10 +272,16 @@
                     <Label Content="Lista członków:" Grid.Row="0"/>
                     <DataGrid x:Name="MembersDataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" IsReadOnly="False">
                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
                             <DataGridTextColumn Header="Imię" Binding="{Binding FirstName}"/>
                             <DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}"/>
                             <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
                             <DataGridTextColumn Header="Telefon" Binding="{Binding Phone}"/>
+                            <DataGridTextColumn Header="Data rejestracji" Binding="{Binding DateOfRegistration}"/>
+                            <DataGridTextColumn Header="Płeć" Binding="{Binding Sex}"/>
+                            <DataGridTextColumn Header="Adres" Binding="{Binding Adress}"/>
+                            
+                            
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
