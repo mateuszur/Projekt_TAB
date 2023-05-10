@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Utilities.Encoders;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -162,21 +163,7 @@ namespace Gym_Aplication
 
                 var listOfSchedule = new List<ScheduleEntry>();
 
-                string ID = "";
-                string Name = "";
-                string Surname = "";
-                string Phone = "";
-                string Activity = "";
-
-                string Room = "";
-
-                string Date = "";
-
-                string Start_time = "";
-                string End_time = "";
-
-
-
+               
                 while (data_from_querry.Read())
                 {
 
@@ -279,6 +266,49 @@ namespace Gym_Aplication
         private void Czlonek_Click(object sender, RoutedEventArgs e)
         {
             ChangePageVisibility(Content_ZarzadzanieCzlonkami);
+
+
+            if (user_privilege == 1)
+            {
+                connection_name.Open();
+
+                string querry = "SELECT * FROM `Klienci`;";
+
+                MySqlCommand commend = new MySqlCommand(querry, connection_name);
+                MySqlDataReader data_from_querry = commend.ExecuteReader();
+
+                var listOfMembers = new List<MembersManagement>();
+             
+
+                while (data_from_querry.Read())
+                {
+                    MembersManagement feld = new MembersManagement()
+                    {
+                        ID = (data_from_querry["id_klienta"]).ToString(),
+                        FristName = (data_from_querry["imie"]).ToString(),
+                        LastName = (data_from_querry["nazwisko"]).ToString(),
+                        E_Mail = data_from_querry["e-mail"].ToString(),
+                        Phone = data_from_querry["telefon"].ToString(),
+                        DateOfRegistration = data_from_querry["data_utworzenia"].ToString(),
+                        Sex = data_from_querry["płec"].ToString(),
+                        Adress = data_from_querry["adres"].ToString(),
+                    
+               
+                    };
+
+                    listOfMembers.Add(feld);
+                }
+
+
+                MembersDataGrid.ItemsSource = listOfMembers;
+                connection_name.Close();
+            }
+            else
+            {
+                MessageBox.Show("Otwieranie zarządzania trenerami...");
+            }
+
+
         }
 
         private void RezerwacjaZajec_Click(object sender, RoutedEventArgs e)
