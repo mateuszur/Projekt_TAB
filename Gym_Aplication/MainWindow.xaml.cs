@@ -1,12 +1,18 @@
 ﻿using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Utilities.Encoders;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
+using iText.Kernel.Pdf;
+using iText.Layout.Element;
+using Microsoft.Win32;
+using System.Windows.Media.Imaging;
+
 
 namespace Gym_Aplication
 {
@@ -26,7 +32,6 @@ namespace Gym_Aplication
         {
             InitializeComponent();
             //PopulateScheduleDataGrid();
-           
         }
 
         private void EnableButtons()
@@ -34,10 +39,7 @@ namespace Gym_Aplication
             Harmonogram.IsEnabled = true;
             Logowanie.IsEnabled = false;
             Informacje.IsEnabled = true;
-            Rezerwacja.IsEnabled = true;
-            Ocenianie.IsEnabled = true;
             Zarzadzanie.IsEnabled = true;
-            RezerwacjaZajec.IsEnabled = true;
             Raportowanie.IsEnabled = true;
             Artykuly.IsEnabled = true;
             Czlonek.IsEnabled = true;
@@ -61,11 +63,7 @@ namespace Gym_Aplication
         {
             Harmonogram.IsEnabled = false;
             Logowanie.IsEnabled = true;
-            Informacje.IsEnabled = false;
-            Rezerwacja.IsEnabled = false;
-            Ocenianie.IsEnabled = false;
             Zarzadzanie.IsEnabled = false;
-            RezerwacjaZajec.IsEnabled = false;
             Raportowanie.IsEnabled = false;
             Artykuly.IsEnabled = false;
             Czlonek.IsEnabled = false;
@@ -80,9 +78,6 @@ namespace Gym_Aplication
             Content_Harmonogram.Visibility = Visibility.Collapsed;
             Content_ZarządzanieTrenerami.Visibility = Visibility.Collapsed;
             Content_ZarzadzanieCzlonkami.Visibility = Visibility.Collapsed;
-            Content_RezerwacjaZajęć.Visibility = Visibility.Collapsed;
-            Content_RezerwacjaSprzetu.Visibility = Visibility.Collapsed;
-            Content_OcenianieTreningów.Visibility = Visibility.Collapsed;
             Content_ArtykułyIPorady.Visibility = Visibility.Collapsed;
             Content_StatystykiAnalizy.Visibility = Visibility.Collapsed;
             Content_ObslugaKlienta.Visibility = Visibility.Collapsed;
@@ -91,6 +86,21 @@ namespace Gym_Aplication
 
             pageToShow.Visibility = Visibility.Visible;
         }
+
+        public class ScaleConverter : IValueConverter
+        {
+            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                double scale = (double)value;
+                return Math.Min(scale, 1);
+            }
+
+            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
@@ -127,8 +137,8 @@ namespace Gym_Aplication
 
                     if (user_id != 0)
                     {
-                        MessageBox.Show("Logowanie zakończone pomyślnie. Witaj: " + username + " Twoje uprawnienia to: " +
-                                        user_privilege);
+                        MessageBox.Show("Logowanie zakończone pomyślnie. Witaj: " + username +
+                                        " Twoje uprawnienia to: " + user_privilege);
                         EnableButtons();
                         connection_name.Close();
                     }
@@ -145,7 +155,25 @@ namespace Gym_Aplication
             }
         }
 
-       
+        private void ShowPasswordCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            // Show the password
+            PasswordBox.PasswordChar = '\0'; // Show the password characters
+            PasswordTextBox.Password = PasswordBox.Password;
+            PasswordTextBox.Visibility = Visibility.Visible;
+            PasswordBox.Visibility = Visibility.Collapsed;
+        }
+
+        private void ShowPasswordCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // Hide the password
+            PasswordBox.PasswordChar = '*'; // Hide the password characters
+            PasswordBox.Password = PasswordTextBox.Password;
+            PasswordBox.Visibility = Visibility.Visible;
+            PasswordTextBox.Visibility = Visibility.Collapsed;
+        }
+
+
         private void UsernameButton_Click(object sender, RoutedEventArgs e)
         {
             UserContextMenu.IsOpen = true;
@@ -175,9 +203,6 @@ namespace Gym_Aplication
 
                     while (data_from_querry.Read())
                     {
-
-
-
                         ScheduleEntry feld = new ScheduleEntry
                         {
                             ID = (data_from_querry["id"]).ToString(),
@@ -192,28 +217,23 @@ namespace Gym_Aplication
                         };
 
 
-
-
                         listOfSchedule.Add(feld);
                     }
 
 
                     ScheduleDataGrid.ItemsSource = listOfSchedule;
                     connection_name.Close();
-
                 }
                 else
                 {
                     MessageBox.Show("Brak uprawnień!");
                 }
-
-            }catch(Exception ex)
-            { MessageBox.Show("Otwieranie zarządzania hermonogramem..."); }
-
-
-
-        
-}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Otwieranie zarządzania hermonogramem...");
+            }
+        }
 
 
         private void Zarzadzanie_Click(object sender, RoutedEventArgs e)
@@ -275,10 +295,15 @@ namespace Gym_Aplication
                 {
                     MessageBox.Show("Brak uprawnień!");
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Otwieranie zarządzania trenerami...");
             }
+
+
+            //TrainerManagementWindow trainerManagementWindow = new TrainerManagementWindow();
+            //trainerManagementWindow.ShowDialog();
         }
 
         private void Czlonek_Click(object sender, RoutedEventArgs e)
@@ -311,8 +336,6 @@ namespace Gym_Aplication
                             DateOfRegistration = data_from_querry["data_utworzenia"].ToString(),
                             Sex = data_from_querry["płec"].ToString(),
                             Adress = data_from_querry["adres"].ToString(),
-
-
                         };
 
                         listOfMembers.Add(feld);
@@ -326,27 +349,11 @@ namespace Gym_Aplication
                 {
                     MessageBox.Show("Brak uprawnień!");
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Otwieranie zarządzania klientami...");
             }
-
-
-        }
-
-        private void RezerwacjaZajec_Click(object sender, RoutedEventArgs e)
-        {
-            ChangePageVisibility(Content_RezerwacjaZajęć);
-        }
-
-        private void Rezerwacja_Click(object sender, RoutedEventArgs e)
-        {
-            ChangePageVisibility(Content_RezerwacjaSprzetu);
-        }
-
-        private void Ocenianie_Click(object sender, RoutedEventArgs e)
-        {
-            ChangePageVisibility(Content_OcenianieTreningów);
         }
 
         private void Artykuly_Click(object sender, RoutedEventArgs e)
@@ -370,6 +377,7 @@ namespace Gym_Aplication
             ChangePageVisibility(Content_RaportowanieAwarii);
         }
 
+
         private void Informacje_Click(object sender, RoutedEventArgs e)
         {
             ChangePageVisibility(Content_Informacje);
@@ -377,17 +385,21 @@ namespace Gym_Aplication
 
         private void MojProfil_Click(object sender, RoutedEventArgs e)
         {
-            ContentArea.Content = new Page_MojProfil();
+            WindowMojProfil window = new WindowMojProfil();
+            //window.Show(); // Zwykłe.
+            window.ShowDialog(); // Blokowanie okna z czekaniem na rezultat.
         }
 
         private void Ustawienia_Click(object sender, RoutedEventArgs e)
         {
-            ContentArea.Content = new Page_Ustawienia();
+            WindowUstawienia window = new WindowUstawienia();
+            window.ShowDialog();
         }
 
         private void Pomoc_Click(object sender, RoutedEventArgs e)
         {
-            ContentArea.Content = new Page_Pomoc();
+            WindowPomoc window = new WindowPomoc();
+            window.ShowDialog();
         }
 
 
@@ -398,7 +410,25 @@ namespace Gym_Aplication
             UsernameTextBox.Text = "";
             PasswordTextBox.Password = "";
             MessageBox.Show("Wylogowywanie...");
+
+            ChangePageVisibility(Content_Logowanie);
+
+
+            DisableButtons();
         }
+
+        private void BrowseButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter =
+                "Image files (*.png;*.jpeg;*.jpg;*.bmp)|*.png;*.jpeg;*.jpg;*.bmp|All files (*.*)|*.*";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                IssueImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            }
+        }
+
 
         private void AddTrainer_Click(object sender, RoutedEventArgs e)
         {
@@ -410,6 +440,12 @@ namespace Gym_Aplication
         {
             string trainerName = "Trener do usunięcia";
             MessageBox.Show($"Trener {trainerName} został pomyślnie usunięty.");
+        }
+
+        private void EditTrainer_Click(object sender, RoutedEventArgs e)
+        {
+            string trainerName = "Istniejący trener";
+            MessageBox.Show($"Pomyślnie Editiwano trenera {trainerName}.");
         }
 
         private void ReserveClass_Click(object sender, RoutedEventArgs e)
@@ -462,10 +498,88 @@ namespace Gym_Aplication
             }
         }
 
-        /*
-        private void UsernameButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+
+        private void ExportToPDF_Click(object sender, RoutedEventArgs e)
         {
-            UserContextMenu.IsOpen = true;
-        }*/
+            try
+            {
+                // Create a PDF document
+                string pdfFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, "List_of_Trainers.pdf");
+                var writer = new PdfWriter(pdfFilePath);
+                var pdf = new PdfDocument(writer);
+                var document = new iText.Layout.Document(pdf);
+
+                // Create a table and add headers
+                var table = new Table(TrenersData.Columns.Count);
+                foreach (DataGridColumn column in TrenersData.Columns)
+                {
+                    table.AddHeaderCell(new Cell().Add(new Paragraph(column.Header.ToString())));
+                }
+
+                // Add data to the table
+                foreach (var item in TrenersData.ItemsSource)
+                {
+                    foreach (DataGridColumn column in TrenersData.Columns)
+                    {
+                        if (column.GetCellContent(item) is TextBlock)
+                        {
+                            table.AddCell(
+                                new Cell().Add(new Paragraph((column.GetCellContent(item) as TextBlock).Text)));
+                        }
+                        else
+                        {
+                            table.AddCell(new Cell().Add(new Paragraph("")));
+                        }
+                    }
+                }
+
+                // Add the table to the document and close it
+                document.Add(table);
+                document.Close();
+
+                MessageBox.Show("List of trainers exported to PDF successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error exporting the list of trainers to PDF.");
+            }
+        }
     }
 }
+
+/*Rezerwacja.IsEnabled = true;
+Ocenianie.IsEnabled = true;
+RezerwacjaZajec.IsEnabled = true;*/
+
+/*Informacje.IsEnabled = false;
+Rezerwacja.IsEnabled = false;
+Ocenianie.IsEnabled = false;
+RezerwacjaZajec.IsEnabled = false;*/
+
+
+/*Content_RezerwacjaZajęć.Visibility = Visibility.Collapsed;
+Content_RezerwacjaSprzetu.Visibility = Visibility.Collapsed;
+Content_OcenianieTreningów.Visibility = Visibility.Collapsed;*/
+
+/*
+private void RezerwacjaZajec_Click(object sender, RoutedEventArgs e)
+{
+    ChangePageVisibility(Content_RezerwacjaZajęć);
+}
+
+private void Rezerwacja_Click(object sender, RoutedEventArgs e)
+{
+    ChangePageVisibility(Content_RezerwacjaSprzetu);
+}
+
+private void Ocenianie_Click(object sender, RoutedEventArgs e)
+{
+    ChangePageVisibility(Content_OcenianieTreningów);
+}
+*/
+
+/*
+private void UsernameButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+{
+    UserContextMenu.IsOpen = true;
+}*/

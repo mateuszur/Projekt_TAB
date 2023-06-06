@@ -1,4 +1,8 @@
-﻿namespace Gym_Aplication
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Data;
+
+namespace Gym_Aplication
 {
     internal class TrainerManagement
     {
@@ -10,5 +14,6 @@
         public string Address { get; set; }
         public string DateOfEmployment { get; set; }
 
+        public List<TrainerManagement> trainerList = new List<TrainerManagement>();
     }
 }

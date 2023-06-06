@@ -18,8 +18,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MaterialDesignColors" Version="2.1.2" IncludeAssets="all" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.8.0" IncludeAssets="all" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Intersoft.Crosslight" Version="6.0.5000.975" />
+    <PackageReference Include="itext7" Version="8.0.0" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="MaterialDesignColors" Version="2.1.4" IncludeAssets="all" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" IncludeAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="7.0.5" />
+    <PackageReference Include="Microsoft.SharePointOnline.CSOM" Version="16.1.23710.12000" />
     <PackageReference Include="MySql.Data" Version="8.0.33" />
   </ItemGroup>
 
@@ -42,15 +49,6 @@
     <Resource Include="Icons\UserIcon.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Page_Pomoc.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Page_Ustawienia.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
 
 </Project>

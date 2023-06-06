@@ -1,0 +1,51 @@
+﻿<Window x:Class="Gym_Aplication.WindowUstawienia"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Gym_Aplication"
+        mc:Ignorable="d"
+        Title="WindowUstawienia" 
+        Width="650"
+        Height="500">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Ustawienia" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20" FontWeight="Bold"/>
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Tutaj możesz zmieniać ustawienia aplikacji, takie jak język, motyw i inne preferencje."
+                       FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <!-- Language settings -->
+            <Label Content="Język:" Grid.Row="1" Width="70" Height="25" HorizontalAlignment="Left"/>
+            <ComboBox x:Name="LanguageComboBox" SelectedItem="{Binding SelectedLanguage}" ItemsSource="{Binding Languages}" Grid.Row="2" Margin="0,0,0,10" Padding="5" Width="100" Height="25" HorizontalAlignment="Left"/>
+            <!-- Theme settings -->
+            <Label x:Name="ThemeLabel" Content="Theme:" Grid.Row="2" Margin="0,36,0,15" Grid.RowSpan="2" Width="50" Height="25" HorizontalAlignment="Left" />
+            <CheckBox x:Name="DarkModeCheckBox" Content="Dark Mode" IsChecked="{Binding IsDarkMode}" Grid.Row="3" Margin="0,35,0,-25" Width="100" Height="20" HorizontalAlignment="Left" />
+            <CheckBox x:Name="WhiteModeCheckBox" Content="White Mode" IsChecked="{Binding IsDarkMode}" Grid.Row="3" Margin="0,63,0,-53" Width="100" Height="20" HorizontalAlignment="Left" />
+            <!-- Save changes button -->
+            <Button x:Name="SaveButton" Content="Zapisz zmiany" Click="SaveChanges_Click" Grid.Row="3" Margin="460,204,10,-184" Padding="10,5" Background="#0078D7" Foreground="White" BorderThickness="0" Cursor="Hand" Width="90" Height="25">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#005A9E" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

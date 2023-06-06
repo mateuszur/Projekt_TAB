@@ -1,62 +1,169 @@
-﻿<Window x:Class="Gym_Aplication.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:Gym_Aplication"
-        mc:Ignorable="d"
-        Title="Zarządzanie Siłownią" Height="645" Width="959">
+﻿<Window
+    x:Class="Gym_Aplication.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Animation="clr-namespace:System.Windows.Media.Animation;assembly=PresentationCore"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Gym_Aplication"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    x:Name="MainWindow1"
+    Title="Zarządzanie Siłownią"
+    MinWidth="1145"
+    MinHeight="645"
+    Background="White"
+    FontSize="13"
+    IsManipulationEnabled="True"
+    ResizeMode="CanResizeWithGrip"
+    SnapsToDevicePixels="True"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="SingleBorderWindow"
+    mc:Ignorable="d">
+
 
     <Window.Resources>
-        <!-- Styles for buttons and labels -->
+        <Style TargetType="DataGridCell">
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        <SolidColorBrush x:Key="borderBrush" Color="#0078D7" />
+        <!--  Styles for buttons and labels  -->
         <Style x:Key="SidebarButtonStyle" TargetType="RadioButton">
-            <Setter Property="Foreground" Value="#FFFFFF"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Margin" Value="0,10"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="Panel.ZIndex" Value="1"/>
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Margin" Value="0,10" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Panel.ZIndex" Value="1" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
-                        <Border x:Name="border" BorderBrush="#0078D7" BorderThickness="0,0,0,2">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border
+                            x:Name="border"
+                            BorderBrush="{StaticResource borderBrush}"
+                            BorderThickness="0,0,0,2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#0078D7"/>
-                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                                <Setter Property="Background" Value="#0078D7" />
+                                <Setter Property="Foreground" Value="#FFFFFF" />
                             </Trigger>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#005a9e"/>
-                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                                <Setter TargetName="border" Property="Background" Value="#005a9e" />
+                                <Setter Property="Foreground" Value="#FFFFFF" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
+        <Style x:Key="RadioButtonStyleWithAnimation" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="0,10" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Panel.ZIndex" Value="1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border
+                            x:Name="border"
+                            BorderBrush="#0078D7"
+                            BorderThickness="0,0,0,2">
+                            <Border.Background>
+                                <SolidColorBrush x:Name="borderBackgroundBrush" Color="Transparent" />
+                            </Border.Background>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="#FFFFFF" />
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="borderBackgroundBrush"
+                                                Storyboard.TargetProperty="Color"
+                                                To="#0078D7"
+                                                Duration="0:0:0.5" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="borderBackgroundBrush"
+                                                Storyboard.TargetProperty="Color"
+                                                To="#FFFFFF"
+                                                Duration="0:0:0.5" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#005a9e" />
+                                <Setter Property="Foreground" Value="#FFFFFF" />
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="border"
+                                                Storyboard.TargetProperty="Background.Color"
+                                                To="#0078D7"
+                                                Duration="0:0:0.5" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="borderBackgroundBrush"
+                                                Storyboard.TargetProperty="Color"
+                                                To="#005a9e"
+                                                Duration="0:0:0.5" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ExpanderStyle" TargetType="Expander">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+
         <Style x:Key="UserButtonStyle" TargetType="Button">
-            <Setter Property="Foreground" Value="#FFFFFF"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="0,10"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="Panel.ZIndex" Value="1"/>
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="0,10" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Panel.ZIndex" Value="1" />
         </Style>
 
-        <!-- Title/Label/Style -->
+        <!--  Title/Label/Style  -->
         <Style x:Key="TitleLabelStyle" TargetType="Label">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="Black" />
         </Style>
 
-        <!-- Icon resource -->
+        <!--  Icon resource  -->
         <ResourceDictionary x:Key="IconResources">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
@@ -64,409 +171,821 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+
     </Window.Resources>
 
-    <Grid Height="NaN" Margin="0,0,0,3">
+
+    <Grid Margin="0,0,0,3">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="167" />
+            <ColumnDefinition
+                Width="1*"
+                MinWidth="200"
+                MaxWidth="300" />
             <ColumnDefinition />
-            <ColumnDefinition Width="202" />
+            <ColumnDefinition
+                Width="1*"
+                MinWidth="200"
+                MaxWidth="300" />
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" MinHeight="611" />
-            <RowDefinition Height="0*" />
-        </Grid.RowDefinitions>
 
-        <!-- logo top left side -->
-        <Image x:Name="TopLeftLogo" Source="/Icons/LogoGymApp.png" Width="100" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" />
+        <ContentControl x:Name="ContentArea" Grid.Column="1" />
 
-        <!-- Left Sidebar -->
-        <Border x:Name="LeftSidebar" Grid.Column="0" Background="#3F83B5" Margin="0,50,0,0" Width="Auto" Height="Auto" CornerRadius="10">
-            <StackPanel Margin="0,50,0,10" Height="NaN">
-                <RadioButton x:Name="Logowanie" Style="{StaticResource SidebarButtonStyle}" Click="Logowanie_Click" IsEnabled="True" IsChecked="True">
+        <!--  logo top left side  -->
+        <Image
+            x:Name="TopLeftLogo"
+            Width="100"
+            Height="50"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Source="/Icons/LogoGymApp.png" />
+
+        <!--  Left Sidebar  -->
+        <Border
+            x:Name="LeftSidebar"
+            Grid.Column="0"
+            Width="Auto"
+            Height="Auto"
+            Margin="0,50,0,0"
+            Background="#3F83B5"
+            CornerRadius="10">
+            <StackPanel Height="Auto" Margin="0,50,0,0">
+                <!--  Use RadioButtonStyleWithAnimation for all RadioButtons to include animations  -->
+                <RadioButton
+                    x:Name="Logowanie"
+                    Click="Logowanie_Click"
+                    IsChecked="True"
+                    IsEnabled="True"
+                    Style="{StaticResource RadioButtonStyleWithAnimation}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Login" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                        <TextBlock Text="Logowanie" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Kind="Login" />
+                        <TextBlock VerticalAlignment="Center" Text="Logowanie" />
+                    </StackPanel>
+                    <RadioButton.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold">Logowanie</TextBlock>
+                                <TextBlock>Kliknij, aby przejść do strony logowania</TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </RadioButton.ToolTip>
+                </RadioButton>
+                <RadioButton
+                    x:Name="Harmonogram"
+                    Click="Harmonogram_Click"
+                    IsChecked="False"
+                    IsEnabled="False"
+                    Style="{StaticResource RadioButtonStyleWithAnimation}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Kind="Calendar" />
+                        <TextBlock VerticalAlignment="Center" Text="Harmonogram" />
                     </StackPanel>
                 </RadioButton>
-                <RadioButton x:Name="Harmonogram" Style="{StaticResource SidebarButtonStyle}" Click="Harmonogram_Click" IsEnabled="False" IsChecked="False">
+                <RadioButton
+                    x:Name="Zarzadzanie"
+                    Click="Zarzadzanie_Click"
+                    IsChecked="False"
+                    IsEnabled="False"
+                    Style="{StaticResource RadioButtonStyleWithAnimation}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Calendar" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                        <TextBlock Text="Harmonogram" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Kind="Whistle" />
+                        <TextBlock VerticalAlignment="Center" Text="Zarządzanie trenerami" />
                     </StackPanel>
                 </RadioButton>
-                <RadioButton x:Name="Zarzadzanie" Style="{StaticResource SidebarButtonStyle}" Click="Zarzadzanie_Click" IsEnabled="False" IsChecked="False">
+                <RadioButton
+                    x:Name="Czlonek"
+                    Click="Czlonek_Click"
+                    IsChecked="False"
+                    IsEnabled="False"
+                    Style="{StaticResource RadioButtonStyleWithAnimation}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Whistle" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                        <TextBlock Text="Zarządzanie trenerami" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Kind="Account" />
+                        <TextBlock VerticalAlignment="Center" Text="Zarządzanie członkami" />
                     </StackPanel>
                 </RadioButton>
-                <RadioButton x:Name="Czlonek" Style="{StaticResource SidebarButtonStyle}" Click="Czlonek_Click" IsEnabled="False" IsChecked="False">
+                <RadioButton
+                    x:Name="Artykuly"
+                    Click="Artykuly_Click"
+                    IsChecked="False"
+                    IsEnabled="False"
+                    Style="{StaticResource RadioButtonStyleWithAnimation}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="AccountGroup" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                        <TextBlock Text="Zarządzanie członkami" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Kind="FileDocument" />
+                        <TextBlock VerticalAlignment="Center" Text="Artykuły i porady" />
                     </StackPanel>
                 </RadioButton>
-                <RadioButton x:Name="RezerwacjaZajec" Style="{StaticResource SidebarButtonStyle}" Click="RezerwacjaZajec_Click" IsEnabled="False" IsChecked="False">
+                <RadioButton
+                    x:Name="Statystyki"
+                    Click="Statystyki_Click"
+                    IsChecked="False"
+                    IsEnabled="False"
+                    Style="{StaticResource RadioButtonStyleWithAnimation}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="CalendarPlus" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                        <TextBlock Text="Rezerwacja zajęć" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Kind="ChartLine" />
+                        <TextBlock VerticalAlignment="Center" Text="Statystyki i analizy" />
                     </StackPanel>
                 </RadioButton>
-                <RadioButton x:Name="Rezerwacja" Style="{StaticResource SidebarButtonStyle}" Click="Rezerwacja_Click" IsEnabled="False" IsChecked="False">
+                <RadioButton
+                    x:Name="ObslugaKlienta"
+                    Click="ObslugaKlienta_Click"
+                    IsChecked="False"
+                    IsEnabled="False"
+                    Style="{StaticResource RadioButtonStyleWithAnimation}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Dumbbell" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                        <TextBlock Text="Rezerwacja sprzętu" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Kind="Headset" />
+                        <TextBlock VerticalAlignment="Center" Text="Obsługa klienta" />
                     </StackPanel>
                 </RadioButton>
-                <RadioButton x:Name="Ocenianie" Style="{StaticResource SidebarButtonStyle}" Click="Ocenianie_Click" IsEnabled="False" IsChecked="False">
+                <RadioButton
+                    x:Name="Raportowanie"
+                    Click="Raportowanie_Click"
+                    IsChecked="False"
+                    IsEnabled="False"
+                    Style="{StaticResource RadioButtonStyleWithAnimation}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Star" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                        <TextBlock Text="Ocenianie treningów" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Kind="Alert" />
+                        <TextBlock VerticalAlignment="Center" Text="Raportowanie awarii" />
                     </StackPanel>
                 </RadioButton>
-                <RadioButton x:Name="Artykuly" Style="{StaticResource SidebarButtonStyle}" Click="Artykuly_Click" IsEnabled="False" IsChecked="False">
+                <RadioButton
+                    x:Name="Informacje"
+                    Click="Informacje_Click"
+                    IsChecked="False"
+                    IsEnabled="True"
+                    Style="{StaticResource RadioButtonStyleWithAnimation}">
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="FileDocument" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                        <TextBlock Text="Artykuły i porady" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </RadioButton>
-                <RadioButton x:Name="Statystyki" Style="{StaticResource SidebarButtonStyle}" Click="Statystyki_Click" IsEnabled="False" IsChecked="False">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="ChartLine" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                        <TextBlock Text="Statystyki i analizy" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </RadioButton>
-                <RadioButton x:Name="ObslugaKlienta" Style="{StaticResource SidebarButtonStyle}" Click="ObslugaKlienta_Click" IsEnabled="False" IsChecked="False">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Headset" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                        <TextBlock Text="Obsługa klienta" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </RadioButton>
-                <RadioButton x:Name="Raportowanie" Style="{StaticResource SidebarButtonStyle}" Click="Raportowanie_Click" IsEnabled="False" IsChecked="False">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Alert" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                        <TextBlock Text="Raportowanie awarii" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </RadioButton>
-                <RadioButton x:Name="Informacje" Style="{StaticResource SidebarButtonStyle}" Click="Informacje_Click" IsEnabled="True" IsChecked="False">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="Information" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                        <TextBlock Text="Informacje" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Kind="Information" />
+                        <TextBlock VerticalAlignment="Center" Text="Informacje" />
                     </StackPanel>
                 </RadioButton>
             </StackPanel>
         </Border>
 
-        <!-- Main -->
-        <Grid x:Name="MainGrid" Grid.Column="1" Background="#F7F7F7" Height="NaN" Width="NaN">
+        <!--  Main  -->
+        <Grid
+            x:Name="MainGrid"
+            Grid.Column="1"
+            Margin="8,8,0,8"
+            Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" MinHeight="588" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Border Grid.Column="1" Grid.ColumnSpan="3" Background="#3F83B5" Height="30">
-                <Label x:Name="WelcomeLabel" Content="Witaj w aplikacji zarządzania siłownią!" Style="{StaticResource TitleLabelStyle}" />
+            <Border Margin="0,0,0,8" Background="#3F83B5">
+                <Label
+                    x:Name="WelcomeLabel"
+                    HorizontalAlignment="Center"
+                    Content="Witaj w aplikacji zarządzania siłownią!"
+                    RenderTransformOrigin="0.232,0.529"
+                    Style="{StaticResource TitleLabelStyle}" />
             </Border>
-            <Grid x:Name="Content_Logowanie" Grid.Row="1" Grid.Column="1" Visibility="Visible">
-                <!-- Logowanie content -->
-                <Grid Height="NaN">
+
+            <Grid
+                x:Name="Content_Logowanie"
+                Grid.Row="1"
+                Margin="0,10,0,0"
+                Visibility="Visible">
+                <!--  Logowanie content  -->
+                <Image
+                    x:Name="LoginLogo"
+                    Height="249"
+                    Margin="0,10,0,0"
+                    VerticalAlignment="Top"
+                    Source="/Icons/LogoGymApp.png" />
+                <Grid
+                    Height="300"
+                    Margin="0,300,0,0"
+                    VerticalAlignment="Top">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <!-- Login page logo  -->
-                    <Image x:Name="LoginLogo" Source="/Icons/LogoGymApp.png" Width="330" Margin="0,68,0,17" HorizontalAlignment="Center" Grid.Row="0" />
+                    <!--  Login page logo  -->
+                    <Label
+                        Grid.Row="0"
+                        Width="200"
+                        Height="25"
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Left"
+                        Content="Nazwa użytkownika:" />
 
-                    <Label Content="Nazwa użytkownika:" Grid.Row="1" Margin="0,10,0,10" HorizontalAlignment="Left"/>
-                    <TextBox x:Name="UsernameTextBox" Grid.Row="1" Margin="0,0,0,10" Width="200" VerticalAlignment="Bottom"/>
+                    <TextBox
+                        x:Name="UsernameTextBox"
+                        Grid.Row="1"
+                        Width="200"
+                        Height="20"
+                        HorizontalAlignment="Center"
+                        TextAlignment="Left" />
 
-                    <Label Content="Hasło:" Grid.Row="2" Margin="0,10,0,10" HorizontalAlignment="Left"/>
-                    <PasswordBox x:Name="PasswordTextBox" Grid.Row="2" Margin="0,0,0,10" Width="200" VerticalAlignment="Bottom"/>
+                    <Label
+                        Grid.Row="2"
+                        Width="200"
+                        Height="25"
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Left"
+                        Content="Hasło:" />
 
-                    <Button Content="Zaloguj" Grid.Row="4" Click="LoginButton_Click" Width="100" Margin="0,10,0,0"/>
+                    <PasswordBox
+                        x:Name="PasswordBox"
+                        Grid.Row="3"
+                        Width="200"
+                        Height="20"
+                        HorizontalAlignment="Center" />
+
+                    <PasswordBox
+                        x:Name="PasswordTextBox"
+                        Grid.Row="3"
+                        Width="200"
+                        Height="20"
+                        HorizontalAlignment="Center"
+                        Visibility="Collapsed" />
+
+                    <CheckBox
+                        x:Name="ShowPasswordCheckBox"
+                        Content="Show Password"
+                        Grid.Row="4"
+                        HorizontalAlignment="Center"
+                        Checked="ShowPasswordCheckBox_Checked"
+                        Unchecked="ShowPasswordCheckBox_Unchecked"
+                        Width="150"
+                        Height="20" />
+
+                    <Button
+                        Grid.Row="4"
+                        Width="100"
+                        Height="25"
+                        HorizontalAlignment="Center"
+                        Click="LoginButton_Click"
+                        Content="Zaloguj"
+                        RenderTransformOrigin="0.4,0.388"
+                        Margin="0,28,0,-27" />
                 </Grid>
+
+
             </Grid>
 
-            <Grid x:Name="Content_Harmonogram" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
-                <!-- Harmonogram content -->
+            <Grid
+                x:Name="Content_Harmonogram"
+                Grid.Row="1"
+                Margin="0,1,0,0"
+                Visibility="Collapsed">
+                <!--  Harmonogram content  -->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Label Content="Harmonogram zajęć" Grid.Row="0" Style="{StaticResource TitleLabelStyle}" />
-                    <DataGrid x:Name="ScheduleDataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Width="474" HorizontalAlignment="Left">
+                    <Label
+                        Grid.Row="0"
+                        Content="Harmonogram zajęć"
+                        Style="{StaticResource TitleLabelStyle}" />
+                    <DataGrid
+                        x:Name="ScheduleDataGrid"
+                        Grid.Row="1"
+                        Margin="0,0,10,10"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
-                            <DataGridTextColumn Header="Imię" Binding="{Binding Name}" />
-                            <DataGridTextColumn Header="Nazwisko" Binding="{Binding Surname}" />
-                            <DataGridTextColumn Header="Telefon" Binding="{Binding Phone}" />
-                            <DataGridTextColumn Header="Temat" Binding="{Binding Activity }" />
-                            <DataGridTextColumn Header="Sala" Binding="{Binding Room}" />
-                            <DataGridTextColumn Header="Data" Binding="{Binding Date }" />
+                            <DataGridTextColumn Binding="{Binding ID}" Header="ID" />
+                            <DataGridTextColumn Binding="{Binding Name}" Header="Imię" />
+                            <DataGridTextColumn Binding="{Binding Surname}" Header="Nazwisko" />
+                            <DataGridTextColumn Binding="{Binding Phone}" Header="Telefon" />
+                            <DataGridTextColumn Binding="{Binding Activity}" Header="Temat" />
+                            <DataGridTextColumn Binding="{Binding Room}" Header="Sala" />
+                            <DataGridTextColumn Binding="{Binding Date}" Header="Data" />
 
-                            <DataGridTextColumn Header="Godzina rozpoczęcia" Binding="{Binding Start_time}" />
-                            <DataGridTextColumn Header="Godzina zakończenia" Binding="{Binding End_time}" />
-                            
-                            
-                            
+                            <DataGridTextColumn Binding="{Binding Start_time}" Header="Godzina rozpoczęcia" />
+                            <DataGridTextColumn Binding="{Binding End_time}" Header="Godzina zakończenia" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </Grid>
-      
-            
-            
-            <Grid x:Name="Content_ZarządzanieTrenerami" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
-                <!-- Zarządzanie trenerami content -->
+
+            <Grid
+                x:Name="Content_ZarządzanieTrenerami"
+                Grid.Row="1"
+                Margin="0,1,0,0"
+                Visibility="Collapsed">
+                <!--  Zarządzanie trenerami content  -->
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Label Content="Lista trenerów:" Grid.Row="0"/>
+                    <Label
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Margin="0,0,0,26"
+                        Content="Lista trenerów:" />
 
-                    <DataGrid x:Name="TrenersData" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Width="474" HorizontalAlignment="Left">
+                    <DataGrid
+                        x:Name="TrenersData"
+                        Grid.Row="1"
+                        Margin="0,21,10,10"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Imię" Binding="{Binding Name}" />
-                            <DataGridTextColumn Header="Nazwisko" Binding="{Binding Surname}" />
-                            <DataGridTextColumn Header="Telefon" Binding="{Binding Phone}" />
-                            <DataGridTextColumn Header="E-mail" Binding="{Binding E_Mail}" />
-                            <DataGridTextColumn Header="Data urodzenia" Binding="{Binding DateOfBirth}" />
-                            <DataGridTextColumn Header="Adres" Binding="{Binding Address}" />
-                            <DataGridTextColumn Header="Data zatrudnienia" Binding="{Binding DateOfEmployment}" />
+                            <DataGridTextColumn Binding="{Binding Name}" Header="Imię" />
+                            <DataGridTextColumn Binding="{Binding Surname}" Header="Nazwisko" />
+                            <DataGridTextColumn Binding="{Binding Phone}" Header="Telefon" />
+                            <DataGridTextColumn Binding="{Binding E_Mail}" Header="E-mail" />
+                            <DataGridTextColumn Binding="{Binding DateOfBirth}" Header="Data urodzenia" />
+                            <DataGridTextColumn Binding="{Binding Address}" Header="Adres" />
+                            <DataGridTextColumn Binding="{Binding DateOfEmployment}" Header="Data zatrudnienia" />
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <!--<ListBox x:Name="TrainersListBox" Grid.Row="1">
-                        <ListBoxItem>Jan Kowalski</ListBoxItem>
-                        <ListBoxItem>Anna Nowak</ListBoxItem>
-                        <ListBoxItem>Piotr Wiśniewski</ListBoxItem>
-                    </ListBox>-->
-                    
-                    
-                    <Grid Grid.Row="2">
+                    <Grid
+                        Grid.Row="2"
+                        Margin="10,0,0,0" Height="25" VerticalAlignment="Center" HorizontalAlignment="Left" Width="445">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Button Content="Dodaj trenera" Grid.Column="0" Click="AddTrainer_Click" Margin="0,20,10,0" Height="30" Width="100"/>
-                        <Button Content="Usuń trenera" Grid.Column="1" Click="RemoveTrainer_Click" Margin="10,20,0,0" Height="30" Width="100"/>
+                        <Button x:Name="DodajTrenera"
+                            Grid.Column="1"
+                            Height="25"
+                            Click="AddTrainer_Click"
+                            Content="Dodaj trenera" Width="85" 
+                            HorizontalAlignment="Left" Margin="90,0,0,0" />
+                        <Button x:Name="UsunTrenera"
+                            Grid.Column="1"
+                            Width="85"
+                            Height="25"
+                            HorizontalAlignment="Center"
+                            Click="RemoveTrainer_Click"
+                            Content="Usuń trenera" />
+                        <Button x:Name="PobierzPDF"
+                            Grid.Column="1"
+                            Width="85"
+                            Height="25"
+                            HorizontalAlignment="Left"
+                            Click="ExportToPDF_Click"
+                            Content="Pobierz PDF" Margin="360,0,0,0" />
+                        <Button x:Name="EditujTrenera"
+                            Grid.Column="1"
+                            Height="25"
+                            Click="EditTrainer_Click"
+                            Content="Edituj trenera" Width="85" 
+                            HorizontalAlignment="Left" />
                     </Grid>
+
                 </Grid>
             </Grid>
 
-            <Grid x:Name="Content_ZarzadzanieCzlonkami" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
-                <!-- Zarzadzanie Czlonkami content -->
+            <Grid
+                x:Name="Content_ZarzadzanieCzlonkami"
+                Grid.Row="1"
+                Margin="0,1,0,0"
+                Visibility="Collapsed">
+                <!--  Zarzadzanie Czlonkami content  -->
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Label Content="Lista członków:" Grid.Row="0"/>
-                    <DataGrid x:Name="MembersDataGrid" Grid.Row="1" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" IsReadOnly="False">
+                    <Label Grid.Row="0" Content="Lista członków:" />
+                    <DataGrid
+                        x:Name="MembersDataGrid"
+                        Grid.Row="1"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="True"
+                        CanUserDeleteRows="True"
+                        IsReadOnly="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
-                            <DataGridTextColumn Header="Imię" Binding="{Binding FristName}"/>
-                            <DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}"/>
-                            <DataGridTextColumn Header="Email" Binding="{Binding E_Mail}"/>
-                            <DataGridTextColumn Header="Telefon" Binding="{Binding Phone}"/>
-                            <DataGridTextColumn Header="Data rejestracji" Binding="{Binding DateOfRegistration}"/>
-                            <DataGridTextColumn Header="Płeć" Binding="{Binding Sex}"/>
-                            <DataGridTextColumn Header="Adres" Binding="{Binding Adress}"/>
-                            
-                            
+                            <DataGridTextColumn Binding="{Binding ID}" Header="ID" />
+                            <DataGridTextColumn Binding="{Binding FristName}" Header="Imię" />
+                            <DataGridTextColumn Binding="{Binding LastName}" Header="Nazwisko" />
+                            <DataGridTextColumn Binding="{Binding E_Mail}" Header="Email" />
+                            <DataGridTextColumn Binding="{Binding Phone}" Header="Telefon" />
+                            <DataGridTextColumn Binding="{Binding DateOfRegistration}" Header="Data rejestracji" />
+                            <DataGridTextColumn Binding="{Binding Sex}" Header="Płeć" />
+                            <DataGridTextColumn Binding="{Binding Adress}" Header="Adres" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </Grid>
-
-            <Grid x:Name="Content_RezerwacjaZajęć" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
-                <!-- Rezerwacja zajęć content -->
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Label Content="Wybierz zajęcia do rezerwacji:" Grid.Row="0"/>
-                    <ComboBox x:Name="ClassesComboBox" Grid.Row="1">
-                        <ComboBoxItem>Yoga</ComboBoxItem>
-                        <ComboBoxItem>Zumba</ComboBoxItem>
-                        <ComboBoxItem>Kickboxing</ComboBoxItem>
-                        <ComboBoxItem>Spinning</ComboBoxItem>
-                    </ComboBox>
-                    <Button Content="Rezerwuj" Grid.Row="2" Click="ReserveClass_Click" Margin="0,10,0,0"/>
-                </Grid>
-            </Grid>
-
-            <Grid x:Name="Content_RezerwacjaSprzetu" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
-                <!-- Rezerwacja sprzętu content -->
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Label Content="Wybierz sprzęt do rezerwacji:" Grid.Row="0"/>
-                    <ComboBox x:Name="EquipmentComboBox" Grid.Row="1">
-                        <ComboBoxItem>Rowerek stacjonarny</ComboBoxItem>
-                        <ComboBoxItem>Orbitrek</ComboBoxItem>
-                        <ComboBoxItem>Ławka do ćwiczeń</ComboBoxItem>
-                    </ComboBox>
-                    <Button Content="Rezerwuj" Grid.Row="2" Click="ReserveEquipment_Click" Margin="0,10,0,0"/>
-                </Grid>
-            </Grid>
-
-            <Grid x:Name="Content_OcenianieTreningów" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
-                <!-- Ocenianie treningów content -->
+            <Grid
+                x:Name="Content_ObslugaKlienta"
+                Grid.Row="1"
+                Margin="0,1,0,0"
+                Visibility="Collapsed">
+                <!--  Obsluga Klienta content  -->
                 <StackPanel>
-                    <Label Content="Oceń swój ostatni trening:" />
-                    <Slider x:Name="TrainingRatingSlider" Minimum="1" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True"/>
-                    <Button Content="Oceń" Click="RateTraining_Click" Margin="0,10,0,0"/>
+                    <Label Content="Wyszukaj klienta:" Width="110" HorizontalAlignment="Center" Height="30" />
+                    <TextBox
+                        x:Name="WyszukajKlientaTextBox"
+                        Foreground="Gray"
+                        GotFocus="WyszukajKlientaTextBox_GotFocus"
+                        LostFocus="WyszukajKlientaTextBox_LostFocus"
+                        Text="Wpisz imię, nazwisko lub email klienta" Height="25" Width="300" />
+                    <Button
+                        Margin="0,10,0,0"
+                        Content="Wyszukaj"
+                        GotFocus="WyszukajKlientaTextBox_GotFocus"
+                        LostFocus="WyszukajKlientaTextBox_LostFocus" Width="100" HorizontalAlignment="Center" />
+                    <Label Content="Informacje o kliencie:" Width="130" HorizontalAlignment="Center" Height="30" />
+                    <TextBlock
+                        x:Name="CustomerInfo"
+                        Text="{Binding CustomerDetails}" Width="300" Height="25" Margin="10,0,0,0" />
                 </StackPanel>
             </Grid>
 
-            <Grid x:Name="Content_ObslugaKlienta" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
-                <!-- Obsluga Klienta content -->
+            <Grid
+                x:Name="Content_RaportowanieAwarii"
+                Grid.Row="1"
+                Margin="0,1,0,0"
+                Visibility="Collapsed">
+                <!--  Raportowanie awarii content  -->
                 <StackPanel>
-                    <Label Content="Wyszukaj klienta"/>
-                    <TextBox x:Name="WyszukajKlientaTextBox" Text="Wpisz imię, nazwisko lub email klienta" Foreground="Gray" GotFocus="WyszukajKlientaTextBox_GotFocus" LostFocus="WyszukajKlientaTextBox_LostFocus"/>
-                    <Button Content="Wyszukaj" GotFocus="WyszukajKlientaTextBox_GotFocus" LostFocus="WyszukajKlientaTextBox_LostFocus" Margin="0,10,0,0"/>
-                    <Label Content="Informacje o kliencie"/>
-                    <TextBlock x:Name="CustomerInfo" Text="Brak danych o kliencie" Margin="0,10,0,0"/>
-                </StackPanel>
-            </Grid>
-
-            <Grid x:Name="Content_RaportowanieAwarii" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
-                <!-- Raportowanie awarii content -->
-                <StackPanel>
-                    <Label Content="Zgłoś awarię sprzętu:"/>
-                    <ComboBox x:Name="BrokenEquipmentComboBox">
-                        <ComboBoxItem>Rowerek stacjonarny</ComboBoxItem>
-                        <ComboBoxItem>Orbitrek</ComboBoxItem>
-                        <ComboBoxItem>Ławka do ćwiczeń</ComboBoxItem>
+                    <Label Content="Zgłoś awarię sprzętu:" Width="130" HorizontalAlignment="Center" Height="30" />
+                    <ComboBox x:Name="BrokenEquipmentComboBox" Width="500" HorizontalAlignment="Center">
+                        <ComboBoxItem Content="Rowerek stacjonarny" />
+                        <ComboBoxItem Content="Orbitrek" />
+                        <ComboBoxItem Content="Ławka do ćwiczeń" />
                     </ComboBox>
-                    <Label Content="Opis problemu:"/>
-                    <TextBox x:Name="ProblemDescriptionTextBox" AcceptsReturn="True" TextWrapping="Wrap" Height="100"/>
-                    <Button Content="Zgłoś" Click="ReportIssue_Click" Margin="0,10,0,0"/>
+                    <Label Content="Opis problemu:" Width="110" HorizontalAlignment="Center" Height="30" />
+                    <TextBox
+                        x:Name="ProblemDescriptionTextBox"
+                        Height="100"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap" Width="400" HorizontalAlignment="Center" />
+                    <Label Content="Załącz zdjęcie:" Width="110" Height="30" HorizontalAlignment="Center" />
+                    <Button
+                        Margin="0,10,0,0"
+                        Click="BrowseButton_Click"
+                        Content="Przeglądaj..." Width="100" Height="25" />
+                    <Image x:Name="IssueImage" Margin="0,10,0,0" />
+                    <Button
+                        Margin="0,10,0,0"
+                        Click="ReportIssue_Click"
+                        Content="Zgłoś" Width="100" Height="25" />
                 </StackPanel>
             </Grid>
 
-            <Grid x:Name="Content_Informacje" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
-                <!-- Informacje content -->
+            <Grid
+                x:Name="Content_Informacje"
+                Grid.Row="1"
+                Margin="0,1,0,0"
+                Visibility="Collapsed">
+                <!--  Informacje content  -->
                 <StackPanel>
                     <Label Content="O siłowni" Style="{StaticResource TitleLabelStyle}" />
-                    <TextBlock TextWrapping="Wrap" Margin="10">
-                    Nasza siłownia oferuje szeroką gamę urządzeń i zajęć dla osób na każdym poziomie zaawansowania. Znajdziesz tu miłą atmosferę, profesjonalnych trenerów i nowoczesny sprzęt.
-                    </TextBlock>
+                    <TextBlock Margin="10" TextWrapping="Wrap"><Run Text="Nasza siłownia oferuje szeroką gamę urządzeń i zajęć dla osób na każdym poziomie zaawansowania. Znajdziesz tu miłą atmosferę, profesjonalnych trenerów i nowoczesny sprzęt." /></TextBlock>
                 </StackPanel>
-                <!-- Linki do social media -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                    <Image x:Name="FacebookIcon" Source="/Icons/FacebookIcon.png" Width="32" Height="32"/>
-                    <Image x:Name="InstagramIcon" Source="/Icons/InstagramIcon.png" Width="32" Height="32" Margin="10,0,0,0"/>
-                    <Image x:Name="TwitterIcon" Source="/Icons/TwitterIcon.png" Width="32" Height="32" Margin="10,0,0,0"/>
+                <!--  Linki do social media  -->
+                <StackPanel
+                    Margin="0,10,0,0"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Image
+                        x:Name="FacebookIcon"
+                        Width="32"
+                        Height="32"
+                        Source="/Icons/FacebookIcon.png" />
+                    <Image
+                        x:Name="InstagramIcon"
+                        Width="32"
+                        Height="32"
+                        Margin="10,0,0,0"
+                        Source="/Icons/InstagramIcon.png" />
+                    <Image
+                        x:Name="TwitterIcon"
+                        Width="32"
+                        Height="32"
+                        Margin="10,0,0,0"
+                        Source="/Icons/TwitterIcon.png" />
                 </StackPanel>
             </Grid>
 
-            <Grid x:Name="Content_StatystykiAnalizy" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
-                <!-- statystyk i Analizy content -->
+            <Grid
+                x:Name="Content_StatystykiAnalizy"
+                Grid.Row="1"
+                Margin="0,1,0,0"
+                Visibility="Collapsed">
+                <!--  statystyk i Analizy content  -->
                 <StackPanel>
-                    <Label Content="Statystyki sprzedaży"/>
-                    <TextBlock Text="Całkowita liczba sprzedanych karnetów:"/>
-                    <TextBlock x:Name="TotalSoldMemberships" Text="0" FontWeight="Bold" Margin="0,0,0,10"/>
-                    <TextBlock Text="Przychód z ostatniego miesiąca:"/>
-                    <TextBlock x:Name="LastMonthRevenue" Text="0" FontWeight="Bold" Margin="0,0,0,10"/>
-                    <Label Content="Analiza frekwencji"/>
-                    <TextBlock Text="Średnia frekwencja w ostatnim tygodniu:"/>
-                    <TextBlock x:Name="AvgAttendanceLastWeek" Text="0" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <Label Content="Statystyki sprzedaży" Width="200" HorizontalAlignment="Left" Height="30" />
+                    <TextBlock Text="Całkowita liczba sprzedanych karnetów:" Width="300" Height="25" HorizontalAlignment="Left" />
+                    <TextBlock
+                        x:Name="TotalSoldMemberships"
+                        Margin="0,0,0,10"
+                        FontWeight="Bold"
+                        Text="{Binding TotalSoldMemberships, StringFormat=\{0:N0\}}" Height="25" Width="300" HorizontalAlignment="Left" />
+                    <TextBlock Text="Przychód z ostatniego miesiąca:" Height="25" Width="250" HorizontalAlignment="Left" />
+                    <TextBlock
+                        x:Name="LastMonthRevenue"
+                        Margin="0,0,0,10"
+                        FontWeight="Bold"
+                        Text="{Binding LastMonthRevenue, StringFormat=C}" Height="25" Width="300" HorizontalAlignment="Left" />
+                    <Label Content="Analiza frekwencji" Height="30" Width="130" HorizontalAlignment="Left" />
+                    <TextBlock Text="Średnia frekwencja w ostatnim tygodniu:" Height="20" Width="250" HorizontalAlignment="Left" />
+                    <TextBlock
+                        x:Name="AvgAttendanceLastWeek"
+                        Margin="0,0,0,10"
+                        FontWeight="Bold"
+                        Text="{Binding AvgAttendanceLastWeek, StringFormat=\{0:N0\}}" Width="300" Height="25" />
+                    <!--  Dodaj wykresy tutaj  -->
+                    <Label Content="Wykres sprzedaży" Width="120" HorizontalAlignment="Left" />
+                    <wpf:CartesianChart Height="368">
+                        <wpf:CartesianChart.Series>
+                            <wpf:LineSeries
+                                PointGeometrySize="18"
+                                Stroke="#FF4281F4"
+                                Values="{Binding SalesValues}" />
+                        </wpf:CartesianChart.Series>
+                    </wpf:CartesianChart>
                 </StackPanel>
             </Grid>
 
-            <Grid x:Name="Content_ArtykułyIPorady" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
-                <!-- Artykuły i porady content -->
+            <Grid
+                x:Name="Content_ArtykułyIPorady"
+                Grid.Row="1"
+                Margin="0,1,0,0"
+                Visibility="Collapsed">
+                <!--  Artykuły i porady content  -->
                 <StackPanel>
-                    <Label Content="Najnowsze artykuły i porady" Style="{StaticResource TitleLabelStyle}" />
-                    <ListBox>
-                        <ListBoxItem>Jak poprawić technikę w trakcie treningu siłowego?</ListBoxItem>
-                        <ListBoxItem>10 prostych ćwiczeń na rozgrzewkę przed treningiem</ListBoxItem>
-                        <ListBoxItem>Dieta dla sportowców - jak się odżywiać, aby osiągnąć lepsze wyniki?</ListBoxItem>
+                    <Label Content="Najnowsze artykuły i porady" Style="{StaticResource TitleLabelStyle}" Width="300" HorizontalAlignment="Left" />
+                    <ListBox Width="500" HorizontalAlignment="Center">
+                        <ListBoxItem Content="Jak poprawić technikę w trakcie treningu siłowego?" />
+                        <ListBoxItem Content="10 prostych ćwiczeń na rozgrzewkę przed treningiem" />
+                        <ListBoxItem Content="Dieta dla sportowców - jak się odżywiać, aby osiągnąć lepsze wyniki?" />
                     </ListBox>
-                    <!-- Cytat motywacyjny -->
-                    <Label Content="Cytat dnia" Style="{StaticResource TitleLabelStyle}" Margin="0,10,0,0"/>
-                    <TextBlock Text="Nie liczy się to, jak mocno uderzasz, tylko jak mocne uderzenia potrafisz przyjąć i iść dalej. - Rocky Balboa" Margin="5,10,5,0" TextWrapping="Wrap" FontSize="12" Foreground="Black"/>
+                    <!--  Cytat motywacyjny  -->
+                    <Label
+                        Margin="0,10,0,0"
+                        Content="Cytat dnia"
+                        Style="{StaticResource TitleLabelStyle}" Width="100" HorizontalAlignment="Left" />
+                    <TextBlock
+                        Margin="5,10,5,0"
+                        FontSize="12"
+                        Foreground="Black"
+                        Text="Nie liczy się to, jak mocno uderzasz, tylko jak mocne uderzenia potrafisz przyjąć i iść dalej. - Rocky Balboa"
+                        TextWrapping="Wrap" Width="500" HorizontalAlignment="Center" />
                 </StackPanel>
             </Grid>
         </Grid>
 
 
-        <!-- Right Sidebar -->
-        <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Width="160" Height="35">
-            <Button x:Name="UsernameButton" Background="Transparent" BorderThickness="0" Foreground="White" Padding="0" VerticalAlignment="Center" Click="UsernameButton_Click" Height="35" Margin="0,0,-8,0" Width="NaN">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal" Width="134">
-                        <!-- Add user icon -->
-                        <Image Source="/Icons/UserIcon.png" Width="20" Height="20" RenderTransformOrigin="-0.047,0.386" />
-                        <Label x:Name="NazwaUżytkownika" Content="Użytkownik" Style="{StaticResource TitleLabelStyle}" Foreground="Purple" FontSize="12" Width="91" Height="31" />
+        <!--  Right Sidebar  -->
+        <ScrollViewer
+            Grid.Column="2"
+            Margin="0,10,0,10"
+            HorizontalScrollBarVisibility="Auto">
+            <Border
+                x:Name="RightSidebar"
+                Width="272"
+                Background="#3F83B5"
+                CornerRadius="10">
+                <StackPanel Height="Auto" Margin="0,50,0,10">
 
-                    </StackPanel>
-                </Button.Content>
+                    <!--  Mini pogoda  -->
+                    <Expander
+                        Header="Pogoda"
+                        IsExpanded="True"
+                        Style="{StaticResource ExpanderStyle}">
+                        <StackPanel>
+                            <StackPanel Margin="5,10,0,0" Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Margin="0,0,5,0"
+                                    VerticalAlignment="Center"
+                                    Kind="WeatherPartlyCloudy" />
+                                <TextBlock
+                                    FontSize="14"
+                                    Foreground="White"
+                                    Text="Aktualna temperatura: " />
+                                <TextBlock
+                                    FontSize="14"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="{Binding CurrentTemperature}" />
+                            </StackPanel>
+                            <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Margin="0,0,5,0"
+                                    VerticalAlignment="Center"
+                                    Kind="{Binding TomorrowWeatherIcon}" />
+                                <TextBlock
+                                    FontSize="14"
+                                    Foreground="White"
+                                    Text="Prognoza na jutro: " />
+                                <TextBlock
+                                    FontSize="14"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="{Binding TomorrowTemperature}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Expander>
+
+                    <!--  Harmonogram zajęć  -->
+                    <Expander
+                        Header="Harmonogram zajęć"
+                        IsExpanded="True"
+                        Style="{StaticResource ExpanderStyle}">
+                        <StackPanel
+                            Width="188"
+                            Margin="0,10,0,0"
+                            Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                                Width="20"
+                                Height="20"
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Center"
+                                Kind="Calendar" />
+                            <Calendar />
+                        </StackPanel>
+                    </Expander>
+
+                    <!--  Aktualności  -->
+                    <Expander
+                        Header="Aktualności"
+                        IsExpanded="True"
+                        Style="{StaticResource ExpanderStyle}">
+                        <StackPanel>
+                            <StackPanel Margin="0,10,0,0">
+                                <materialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Margin="0,0,5,0"
+                                    VerticalAlignment="Center"
+                                    Kind="NewReleases" />
+                                <TextBlock
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="{Binding LatestNews.Title}" />
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="White"
+                                    Text="{Binding LatestNews.Description}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Margin="0,10,0,0">
+                                <materialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Margin="0,0,5,0"
+                                    VerticalAlignment="Center"
+                                    Kind="Clock" />
+                                <TextBlock
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="{Binding LatestScheduleChange.Title}" />
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="White"
+                                    Text="{Binding LatestScheduleChange.Description}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+        <Grid
+            Grid.Column="2"
+            Width="156"
+            Height="35"
+            Margin="0,20,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top">
+            <Button
+                x:Name="UsernameButton"
+                Width="Auto"
+                Height="35"
+                Margin="0,0,8,0"
+                Padding="0"
+                VerticalAlignment="Center"
+                Background="Transparent"
+                BorderThickness="0"
+                Click="UsernameButton_Click"
+                Foreground="White">
                 <Button.ContextMenu>
                     <ContextMenu x:Name="UserContextMenu" IsEnabled="False">
-                        <MenuItem Header="Moj Profil" Click="MojProfil_Click"/>
-                        <MenuItem Header="Ustawienia" Click="Ustawienia_Click"/>
-                        <MenuItem Header="Pomoc" Click="Pomoc_Click"/>
-                        <Separator/>
-                        <MenuItem Header="Wyloguj" Click="Wyloguj_Click"/>
+                        <MenuItem Click="MojProfil_Click" Header="Moj Profil" />
+                        <MenuItem Click="Ustawienia_Click" Header="Ustawienia" />
+                        <MenuItem Click="Pomoc_Click" Header="Pomoc" />
+                        <Separator />
+                        <MenuItem Click="Wyloguj_Click" Header="Wyloguj" />
                     </ContextMenu>
                 </Button.ContextMenu>
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="Width"
+                                    From="160"
+                                    To="170"
+                                    Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="Width"
+                                    From="170"
+                                    To="160"
+                                    Duration="0:0:0.3" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold"><Run Text="Użytkownik" /></TextBlock>
+                            <TextBlock><Run Text="Kliknij, aby zobaczyć profil użytkownika" /></TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
+                <StackPanel Width="134" Orientation="Horizontal">
+                    <!--  Add user icon  -->
+                    <Image
+                        Width="20"
+                        Height="20"
+                        RenderTransformOrigin="-0.047,0.386"
+                        Source="{Binding UserIcon}" />
+                    <Label
+                        x:Name="NazwaUżytkownika"
+                        Width="91"
+                        Height="31"
+                        Content="{Binding UserName}"
+                        FontSize="12"
+                        Foreground="Purple"
+                        Style="{StaticResource TitleLabelStyle}" />
+                    <materialDesign:PackIcon
+                        Width="20"
+                        Height="20"
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Kind="ChevronDown" />
+                </StackPanel>
             </Button>
         </Grid>
-
-        <ContentControl x:Name="ContentArea" Grid.Column="1" />
-
-
-        <Border x:Name="RightSidebar" Grid.Column="2" Background="#3F83B5" Margin="0,50,0,0" Width="NaN" Height="NaN" CornerRadius="10">
-            <StackPanel Height="NaN" Margin="0,0,0,-11">
-                <!-- Mini pogoda -->
-                <Label Content="Pogoda" Style="{StaticResource TitleLabelStyle}" Margin="0,10,0,0" Foreground="White"/>
-                <StackPanel Orientation="Horizontal" Margin="5,10,0,0">
-                    <materialDesign:PackIcon Kind="WeatherPartlyCloudy" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <TextBlock Text="Aktualna temperatura: " FontSize="12" Foreground="White"/>
-                    <TextBlock Text="22°C" FontSize="14" FontWeight="Bold" Foreground="White"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-                    <materialDesign:PackIcon Kind="WeatherSunny" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <TextBlock Text="Prognoza na jutro: " FontSize="12" Foreground="White"/>
-                    <TextBlock Text="24°C" FontSize="14" FontWeight="Bold" Foreground="White"/>
-                </StackPanel>
-
-                <!-- Harmonogram zajęć -->
-                <Label Content="Harmonogram zajęć" Style="{StaticResource TitleLabelStyle}" Margin="0,20,0,0" Foreground="White"/>
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Width="188">
-                    <materialDesign:PackIcon Kind="Calendar" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <Calendar/>
-                </StackPanel>
-
-                <!-- Aktualności -->
-                <Label Content="Aktualności" Style="{StaticResource TitleLabelStyle}" Margin="0,20,0,0" Foreground="White"/>
-                <StackPanel Margin="0,10,0,0">
-                    <materialDesign:PackIcon Kind="NewReleases" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <TextBlock Text="Nowy trener personalny!" FontWeight="Bold" Foreground="White"/>
-                    <TextBlock Text="Zapraszamy na zajęcia z naszym nowym trenerem personalnym Markiem!" FontSize="12" Foreground="White" TextWrapping="Wrap"/>
-                </StackPanel>
-                <StackPanel Margin="0,10,0,0">
-                    <materialDesign:PackIcon Kind="Clock" Height="20" Width="20" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <TextBlock Text="Zmiana godzin zajęć!" FontWeight="Bold" Foreground="White"/>
-                    <TextBlock Text="Uwaga! W najbliższą sobotę, zajęcia Pilates odbędą się o godzinie 14:00 zamiast 12:00." FontSize="12" Foreground="White" TextWrapping="Wrap"/>
-                </StackPanel>
-            </StackPanel>
-        </Border>
-
     </Grid>
 </Window>
 
