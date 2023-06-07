@@ -1,7 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
@@ -12,6 +14,9 @@ using iText.Kernel.Pdf;
 using iText.Layout.Element;
 using Microsoft.Win32;
 using System.Windows.Media.Imaging;
+using Microsoft.ProjectServer.Client;
+using Newtonsoft.Json;
+using LiveCharts.Wpf.Charts.Base;
 
 
 namespace Gym_Aplication
@@ -23,10 +28,16 @@ namespace Gym_Aplication
         private int user_id = 0;
         private int user_privilege = 0;
 
+        private ICollectionView _trainersView;
+        private ICollectionView _membersView;
+
         private string connection_string =
             "Server=polsl.online;Uid=test;Pwd=Pa$$w0rd;Database=Baza_projekt;";
 
         MySqlConnection connection_name = new MySqlConnection();
+
+        public double CurrentTemperature { get; set; }
+        public double TomorrowTemperature { get; set; }
 
         public MainWindow()
         {
@@ -105,11 +116,8 @@ namespace Gym_Aplication
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             username = UsernameTextBox.Text;
-            password = PasswordTextBox.Password;
+            password = PasswordBox.Visibility == Visibility.Visible ? PasswordBox.Password : PasswordTextBox.Text;
             NazwaUżytkownika.Content = username;
-
-            Content_Logowanie.Visibility = Visibility.Visible;
-            DisableButtons();
 
             using (SHA1 sha1 = SHA1.Create())
             {
@@ -141,6 +149,9 @@ namespace Gym_Aplication
                                         " Twoje uprawnienia to: " + user_privilege);
                         EnableButtons();
                         connection_name.Close();
+
+                        Content_Harmonogram.Visibility = Visibility.Visible;
+                        Content_Logowanie.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
@@ -155,11 +166,11 @@ namespace Gym_Aplication
             }
         }
 
+
         private void ShowPasswordCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             // Show the password
-            PasswordBox.PasswordChar = '\0'; // Show the password characters
-            PasswordTextBox.Password = PasswordBox.Password;
+            PasswordTextBox.Text = PasswordBox.Password;
             PasswordTextBox.Visibility = Visibility.Visible;
             PasswordBox.Visibility = Visibility.Collapsed;
         }
@@ -167,10 +178,24 @@ namespace Gym_Aplication
         private void ShowPasswordCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             // Hide the password
-            PasswordBox.PasswordChar = '*'; // Hide the password characters
-            PasswordBox.Password = PasswordTextBox.Password;
+            PasswordBox.Password = PasswordTextBox.Text;
             PasswordBox.Visibility = Visibility.Visible;
             PasswordTextBox.Visibility = Visibility.Collapsed;
+        }
+
+
+        private void Wyloguj_Click(object sender, RoutedEventArgs e)
+        {
+            user_privilege = 0;
+            user_id = 0;
+            UsernameTextBox.Text = "";
+            PasswordTextBox.Text = "";
+            MessageBox.Show("Wylogowano.");
+
+            ChangePageVisibility(Content_Logowanie);
+
+
+            DisableButtons();
         }
 
 
@@ -254,7 +279,6 @@ namespace Gym_Aplication
                     var listOfTrainers = new List<TrainerManagement>();
 
                     string name = "";
-
                     string surname = "";
                     string phone = "";
                     string e_mail = "";
@@ -265,7 +289,6 @@ namespace Gym_Aplication
                     while (data_from_querry2.Read())
                     {
                         name = (data_from_querry2["imie"]).ToString();
-
                         surname = (data_from_querry2["nazwisko"]).ToString();
                         phone = data_from_querry2["telefon"].ToString();
                         e_mail = data_from_querry2["e-mail"].ToString();
@@ -287,8 +310,15 @@ namespace Gym_Aplication
                         listOfTrainers.Add(feld);
                     }
 
+                    _trainersView = CollectionViewSource.GetDefaultView(listOfTrainers);
+                    _trainersView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+                    _trainersView.Filter = obj =>
+                    {
+                        TrainerManagement trainer = obj as TrainerManagement;
+                        return trainer != null && trainer.Name.StartsWith("A");
+                    };
 
-                    TrenersData.ItemsSource = listOfTrainers;
+                    TrenersData.ItemsSource = _trainersView;
                     connection_name.Close();
                 }
                 else
@@ -300,10 +330,6 @@ namespace Gym_Aplication
             {
                 MessageBox.Show("Otwieranie zarządzania trenerami...");
             }
-
-
-            //TrainerManagementWindow trainerManagementWindow = new TrainerManagementWindow();
-            //trainerManagementWindow.ShowDialog();
         }
 
         private void Czlonek_Click(object sender, RoutedEventArgs e)
@@ -323,7 +349,6 @@ namespace Gym_Aplication
 
                     var listOfMembers = new List<MembersManagement>();
 
-
                     while (data_from_querry.Read())
                     {
                         MembersManagement feld = new MembersManagement()
@@ -341,8 +366,15 @@ namespace Gym_Aplication
                         listOfMembers.Add(feld);
                     }
 
+                    _membersView = CollectionViewSource.GetDefaultView(listOfMembers);
+                    _membersView.SortDescriptions.Add(new SortDescription("FristName", ListSortDirection.Ascending));
+                    _membersView.Filter = obj =>
+                    {
+                        MembersManagement member = obj as MembersManagement;
+                        return member != null && member.FristName.StartsWith("A");
+                    };
 
-                    MembersDataGrid.ItemsSource = listOfMembers;
+                    MembersDataGrid.ItemsSource = _membersView;
                     connection_name.Close();
                 }
                 else
@@ -355,6 +387,26 @@ namespace Gym_Aplication
                 MessageBox.Show("Otwieranie zarządzania klientami...");
             }
         }
+
+        private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _trainersView.Filter = obj =>
+            {
+                TrainerManagement trainer = obj as TrainerManagement;
+                return trainer != null && trainer.Name.StartsWith(FilterTextBox.Text);
+            };
+        }
+
+        private void SortComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _trainersView.SortDescriptions.Clear();
+            if (SortComboBox.SelectedItem is ComboBoxItem selectedItem)
+            {
+                _trainersView.SortDescriptions.Add(new SortDescription(selectedItem.Content.ToString(),
+                    ListSortDirection.Ascending));
+            }
+        }
+
 
         private void Artykuly_Click(object sender, RoutedEventArgs e)
         {
@@ -403,20 +455,6 @@ namespace Gym_Aplication
         }
 
 
-        private void Wyloguj_Click(object sender, RoutedEventArgs e)
-        {
-            user_privilege = 0;
-            user_id = 0;
-            UsernameTextBox.Text = "";
-            PasswordTextBox.Password = "";
-            MessageBox.Show("Wylogowywanie...");
-
-            ChangePageVisibility(Content_Logowanie);
-
-
-            DisableButtons();
-        }
-
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -432,21 +470,79 @@ namespace Gym_Aplication
 
         private void AddTrainer_Click(object sender, RoutedEventArgs e)
         {
-            string trainerName = "Nowy trener";
-            MessageBox.Show($"Pomyślnie dodano trenera {trainerName}.");
+            string trainerName = "New Trainer";
+            string trainerSurname = "Surname";
+            string trainerPhone = "Phone";
+            string trainerEmail = "Email";
+            string trainerDateOfBirth = "DateOfBirth";
+            string trainerAddress = "Address";
+            string trainerDateOfEmployment = "DateOfEmployment";
+
+            connection_name.Open();
+
+            string sql =
+                $"INSERT INTO Trenerzy (imie, nazwisko, telefon, `e-mail`, data_urodzenia, adres, data_zatrudnienia) VALUES ('{trainerName}', '{trainerSurname}', '{trainerPhone}', '{trainerEmail}', '{trainerDateOfBirth}', '{trainerAddress}', '{trainerDateOfEmployment}')";
+
+            MySqlCommand command = new MySqlCommand(sql, connection_name);
+            command.ExecuteNonQuery();
+
+            connection_name.Close();
+
+            Zarzadzanie_Click(sender, e);
+
+            MessageBox.Show($"Successfully added trainer {trainerName}.");
         }
 
         private void RemoveTrainer_Click(object sender, RoutedEventArgs e)
         {
-            string trainerName = "Trener do usunięcia";
-            MessageBox.Show($"Trener {trainerName} został pomyślnie usunięty.");
+            string trainerId = "1";
+
+            connection_name.Open();
+
+            string sql = $"DELETE FROM Trenerzy WHERE id_trenera = {trainerId}";
+
+            MySqlCommand command = new MySqlCommand(sql, connection_name);
+            command.ExecuteNonQuery();
+
+            connection_name.Close();
+
+            Zarzadzanie_Click(sender, e);
+
+            MessageBox.Show($"Successfully removed trainer with ID {trainerId}.");
         }
 
         private void EditTrainer_Click(object sender, RoutedEventArgs e)
         {
-            string trainerName = "Istniejący trener";
-            MessageBox.Show($"Pomyślnie Editiwano trenera {trainerName}.");
+            string trainerId = "1";
+            string newTrainerName = "New Name";
+
+            connection_name.Open();
+
+            string sql = $"UPDATE Trenerzy SET imie = '{newTrainerName}' WHERE id_trenera = {trainerId}";
+
+            MySqlCommand command = new MySqlCommand(sql, connection_name);
+            command.ExecuteNonQuery();
+
+            connection_name.Close();
+
+            Zarzadzanie_Click(sender, e);
+
+            MessageBox.Show($"Successfully edited trainer with ID {trainerId}.");
+
+            var selectedTrainer = TrenersData.SelectedItem as TrainerManagement;
+            if (selectedTrainer != null)
+            {
+                // Create a new Trainer_Details
+                var trainerDetailsWindow = new Trainer_Details();
+
+                // Update the fields in the Trainer_Details
+                trainerDetailsWindow.UpdateFields(selectedTrainer);
+
+                // Show the Trainer_Details
+                trainerDetailsWindow.Show();
+            }
         }
+
 
         private void ReserveClass_Click(object sender, RoutedEventArgs e)
         {
@@ -544,8 +640,86 @@ namespace Gym_Aplication
                 MessageBox.Show("Error exporting the list of trainers to PDF.");
             }
         }
+
+        private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateTime selectedDate = ((System.Windows.Controls.Calendar)sender).SelectedDate.Value;
+            // Get the information for the selected date
+            string info = GetInfoForDate(selectedDate);
+            MessageBox.Show(info, "Informacje dla " + selectedDate.ToShortDateString());
+        }
+
+        private string GetInfoForDate(DateTime date)
+        {
+            // TODO: Implement this method to return the information for the specified date
+            return "Informacje dla " + date.ToShortDateString();
+        }
+
+        private void SaveNewsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ReminderDatePicker.SelectedDate.HasValue)
+            {
+                DateTime date = ReminderDatePicker.SelectedDate.Value;
+
+                // If you don't have a time, you can default to the start of the day
+                TimeSpan time = TimeSpan.Zero;
+
+                DateTime reminderDateTime = date.Date + time;
+
+                string note = NewsTextBox.Text;
+
+                SaveReminder(reminderDateTime, note);
+
+                NewsTextBox.Clear();
+                ReminderDatePicker.SelectedDate = null;
+
+                RefreshCalendar();
+            }
+            else
+            {
+                MessageBox.Show("Please select a date for the reminder.");
+            }
+        }
+
+
+        private void SaveReminder(DateTime reminderDateTime, string note)
+        {
+        }
+
+        private void RefreshCalendar()
+        {
+        }
+
+
+        /*public async Task UpdateWeatherAsync()
+        {
+            string apiKey = "your_openweathermap_api_key";
+            string city = "your_city_name";
+
+            using (HttpClient client = new HttpClient())
+            {
+                // Get current weather
+                string currentWeatherResponse =
+                    await client.GetStringAsync(
+                        $"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={apiKey}&units=metric");
+                dynamic currentWeather = JsonConvert.DeserializeObject(currentWeatherResponse);
+                CurrentTemperature = currentWeather.main.temp;
+
+                // Get weather forecast
+                string forecastResponse =
+                    await client.GetStringAsync(
+                        $"http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={apiKey}&units=metric");
+                dynamic forecast = JsonConvert.DeserializeObject(forecastResponse);
+                TomorrowTemperature =
+                    forecast.list[8].main
+                        .temp; // This is a simplified way to get tomorrow's temperature, it might not be accurate
+            }
+
+            return Task.CompletedTask;
+        }*/
     }
 }
+
 
 /*Rezerwacja.IsEnabled = true;
 Ocenianie.IsEnabled = true;

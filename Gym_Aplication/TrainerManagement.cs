@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace Gym_Aplication
 {
-    internal class TrainerManagement
+    public class TrainerManagement
     {
         public string Name { get; set; }
         public string Surname { get; set; }

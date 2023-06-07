@@ -8,6 +8,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
     x:Name="MainWindow1"
     Title="Zarządzanie Siłownią"
     MinWidth="1145"
@@ -187,6 +188,8 @@
                 MinWidth="200"
                 MaxWidth="300" />
         </Grid.ColumnDefinitions>
+
+        <extToolkit:WatermarkTextBox Watermark="Filter by name..." />
 
         <ContentControl x:Name="ContentArea" Grid.Column="1" />
 
@@ -444,7 +447,7 @@
                         Height="20"
                         HorizontalAlignment="Center" />
 
-                    <PasswordBox
+                    <TextBox
                         x:Name="PasswordTextBox"
                         Grid.Row="3"
                         Width="200"
@@ -454,12 +457,12 @@
 
                     <CheckBox
                         x:Name="ShowPasswordCheckBox"
-                        Content="Show Password"
+                        Content="Pokaż hasło"
                         Grid.Row="4"
                         HorizontalAlignment="Center"
                         Checked="ShowPasswordCheckBox_Checked"
                         Unchecked="ShowPasswordCheckBox_Unchecked"
-                        Width="150"
+                        Width="120"
                         Height="20" />
 
                     <Button
@@ -526,17 +529,42 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Label
                         Grid.Row="0"
                         Grid.RowSpan="2"
                         Margin="0,0,0,26"
-                        Content="Lista trenerów:" />
+                        Content="Lista trenerów:" Width="100" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" />
+                    <extToolkit:WatermarkTextBox 
+                        x:Name="FilterTextBox"
+                        Grid.Row="1"
+                        Width="150"
+                        Height="25"
+                        Margin="188,0,199,33"
+                        TextChanged="FilterTextBox_TextChanged"
+                        Watermark="Filter by name..." VerticalAlignment="Top" HorizontalAlignment="Right" />
+
+                    <ComboBox
+                        x:Name="SortComboBox"
+                        Grid.Row="1"
+                        Width="150"
+                        Height="25"
+                        Margin="343,1,44,32"
+                        SelectionChanged="SortComboBox_SelectionChanged" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <ComboBoxItem Content="Imię" />
+                        <ComboBoxItem Content="Nazwisko" />
+                        <ComboBoxItem Content="Telefon" />
+                        <ComboBoxItem Content="E-mail" />
+                        <ComboBoxItem Content="Data urodzenia" />
+                        <ComboBoxItem Content="Adres" />
+                        <ComboBoxItem Content="Data zatrudnienia" />
+                    </ComboBox>
 
                     <DataGrid
                         x:Name="TrenersData"
                         Grid.Row="1"
-                        Margin="0,21,10,10"
+                        Margin="0,26,10,5"
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
                         CanUserDeleteRows="False"
@@ -554,7 +582,7 @@
 
                     <Grid
                         Grid.Row="2"
-                        Margin="10,0,0,0" Height="25" VerticalAlignment="Center" HorizontalAlignment="Left" Width="445">
+                        Margin="10,7,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="445" Grid.RowSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
@@ -854,52 +882,71 @@
                                 Margin="0,0,5,0"
                                 VerticalAlignment="Center"
                                 Kind="Calendar" />
-                            <Calendar />
+                            <Calendar SelectedDatesChanged="Calendar_SelectedDatesChanged" />
                         </StackPanel>
                     </Expander>
 
                     <!--  Aktualności  -->
                     <Expander
-                        Header="Aktualności"
-                        IsExpanded="True"
-                        Style="{StaticResource ExpanderStyle}">
+                Header="Aktualności"
+                IsExpanded="True"
+                Style="{StaticResource ExpanderStyle}">
                         <StackPanel>
                             <StackPanel Margin="0,10,0,0">
                                 <materialDesign:PackIcon
-                                    Width="20"
-                                    Height="20"
-                                    Margin="0,0,5,0"
-                                    VerticalAlignment="Center"
-                                    Kind="NewReleases" />
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Kind="NewReleases" />
                                 <TextBlock
-                                    FontWeight="Bold"
-                                    Foreground="White"
-                                    Text="{Binding LatestNews.Title}" />
-                                <TextBlock
-                                    FontSize="12"
-                                    Foreground="White"
-                                    Text="{Binding LatestNews.Description}"
-                                    TextWrapping="Wrap" />
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="Dodaj notatkę:" />
+                                <TextBox
+                            x:Name="NewsTextBox"
+                            Width="200"
+                            Height="100"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True"
+                            Foreground="Black"
+                            Background="White" />
                             </StackPanel>
                             <StackPanel Margin="0,10,0,0">
                                 <materialDesign:PackIcon
-                                    Width="20"
-                                    Height="20"
-                                    Margin="0,0,5,0"
-                                    VerticalAlignment="Center"
-                                    Kind="Clock" />
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Kind="Clock" />
                                 <TextBlock
                                     FontWeight="Bold"
                                     Foreground="White"
-                                    Text="{Binding LatestScheduleChange.Title}" />
-                                <TextBlock
-                                    FontSize="12"
-                                    Foreground="White"
-                                    Text="{Binding LatestScheduleChange.Description}"
-                                    TextWrapping="Wrap" />
+                                    Text="Ustaw przypomnienie:" />
+                                <DatePicker
+                            x:Name="ReminderDatePicker"
+                            Width="200"
+                            Foreground="Black"
+                            Background="White" />
+                                <materialDesign:TimePicker
+                            x:Name="ReminderTimePicker"
+                            Width="200"
+                            Foreground="Black"
+                            Background="White" />
                             </StackPanel>
+                            <Button
+                        Width="100"
+                        Height="25"
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Center"
+                        Click="SaveNewsButton_Click"
+                        Content="Zapisz"
+                        Background="#0078D7"
+                        Foreground="White" 
+                        />
                         </StackPanel>
                     </Expander>
+
                 </StackPanel>
             </Border>
         </ScrollViewer>
