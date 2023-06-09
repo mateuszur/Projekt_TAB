@@ -14,6 +14,7 @@ using iText.Kernel.Pdf;
 using iText.Layout.Element;
 using Microsoft.Win32;
 using System.Windows.Media.Imaging;
+using Gym_Aplication.Windows;
 using Microsoft.ProjectServer.Client;
 using Newtonsoft.Json;
 using LiveCharts.Wpf.Charts.Base;
@@ -454,6 +455,54 @@ namespace Gym_Aplication
             window.ShowDialog();
         }
 
+        private void Dodaj_Click(object sender, RoutedEventArgs e)
+        {
+            WindowDodaj window = new WindowDodaj();
+            window.Show();
+        }
+
+        private void Usun_Click(object sender, RoutedEventArgs e)
+        {
+            WindowUsun window = new WindowUsun();
+            window.Show();
+        }
+
+        private void Pobierz1_Click(object sender, RoutedEventArgs e)
+        {
+            WindowPobierz1 window = new WindowPobierz1();
+            window.Show();
+        }
+
+        private void Edituj_Click(object sender, RoutedEventArgs e)
+        {
+            WindowEdituj window = new WindowEdituj();
+            window.Show();
+        }
+
+        private void Dodajczlonka_Click(object sender, RoutedEventArgs e)
+        {
+            WindowDodajczlonka window = new WindowDodajczlonka();
+            window.Show();
+        }
+
+        private void Usunczlonka_Click(object sender, RoutedEventArgs e)
+        {
+            WindowUsunczlonka window = new WindowUsunczlonka();
+            window.Show();
+        }
+
+        private void Pobierzraport3_Click(object sender, RoutedEventArgs e)
+        {
+            WindowPobierzraport3 window = new WindowPobierzraport3();
+            window.Show();
+        }
+
+        private void Editujczlonka_Click(object sender, RoutedEventArgs e)
+        {
+            WindowEditujczlonka window = new WindowEditujczlonka();
+            window.Show();
+        }
+
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -470,6 +519,9 @@ namespace Gym_Aplication
 
         private void AddTrainer_Click(object sender, RoutedEventArgs e)
         {
+            WindowDodajTrenera window = new WindowDodajTrenera();
+            window.Show();
+
             string trainerName = "New Trainer";
             string trainerSurname = "Surname";
             string trainerPhone = "Phone";
@@ -495,6 +547,9 @@ namespace Gym_Aplication
 
         private void RemoveTrainer_Click(object sender, RoutedEventArgs e)
         {
+            WindowUsunTrenera window = new WindowUsunTrenera();
+            window.Show();
+
             string trainerId = "1";
 
             connection_name.Open();
@@ -513,6 +568,9 @@ namespace Gym_Aplication
 
         private void EditTrainer_Click(object sender, RoutedEventArgs e)
         {
+            WindowEditujTrenera window = new WindowEditujTrenera();
+            window.Show();
+
             string trainerId = "1";
             string newTrainerName = "New Name";
 
@@ -561,6 +619,7 @@ namespace Gym_Aplication
             int rating = 4;
             MessageBox.Show($"Szkolenie oceniono na {rating} na 5.");
         }
+
 
         //Rezerwuj
         private void ReserveEquipment_Click(object sender, RoutedEventArgs e)
