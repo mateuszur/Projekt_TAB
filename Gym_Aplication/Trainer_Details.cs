@@ -1,9 +1,12 @@
 ﻿using Gym_Aplication.Windows;
+using iText.Layout.Element;
+using Microsoft.Win32;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace Gym_Aplication
@@ -133,12 +136,67 @@ namespace Gym_Aplication
             {
                 MessageBox.Show("Błąd podczas otwierania okna  usuwania trenera!");
             }
-            
+
         }
+
+        private void Export_to_CSV_Trainer(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+
+
+        }
+
+        //private void ExportToPDF_Click(object sender, RoutedEventArgs e)
+       // {
+            //    try
+            //    {
+            //        // Create a PDF document
+            //        string pdfFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, "List_of_Trainers.pdf");
+            //       // var writer = new PdfWriter(pdfFilePath);
+            //        //var pdf = new PdfDocument(writer);
+            //        var document = new iText.Layout.Document(pdf);
+
+            //        // Create a table and add headers
+            //        var table = new Table(TrenersData.Columns.Count);
+            //        foreach (DataGridColumn column in TrenersData.Columns)
+            //        {
+            //            table.AddHeaderCell(new Cell().Add(new Paragraph(column.Header.ToString())));
+            //        }
+
+            //        // Add data to the table
+            //        foreach (var item in TrenersData.ItemsSource)
+            //        {
+            //            foreach (DataGridColumn column in TrenersData.Columns)
+            //            {
+            //                if (column.GetCellContent(item) is TextBlock)
+            //                {
+            //                    table.AddCell(
+            //                        new Cell().Add(new Paragraph((column.GetCellContent(item) as TextBlock).Text)));
+            //                }
+            //                else
+            //                {
+            //                    table.AddCell(new Cell().Add(new Paragraph("")));
+            //                }
+            //            }
+            //        }
+
+            //        // Add the table to the document and close it
+            //        document.Add(table);
+            //        document.Close();
+
+            //        MessageBox.Show("List of trainers exported to PDF successfully.");
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("Error exporting the list of trainers to PDF.");
+            //    }
+      //  }
 
 
     }
-}
+    }
+
 
 
     

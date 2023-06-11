@@ -69,5 +69,54 @@ namespace Gym_Aplication
             }
         }
 
+
+        private void Dodajczlonka_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                WindowDodajczlonka window = new WindowDodajczlonka();
+                window.Show();
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Błąd podczas otwierania okna  dodawania członka!");
+            }
+
+        }
+
+        private void Editujczlonka_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                WindowEditujczlonka window = new WindowEditujczlonka();
+            window.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Błąd podczas otwierania okna  edycji członka!");
+            }
+
+        }
+
+        private void Usunczlonka_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                WindowUsunczlonka window = new WindowUsunczlonka();
+            window.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Błąd podczas otwierania okna  usuwania członka!");
+            }
+        }
+        private void Pobierzraport3_Click(object sender, RoutedEventArgs e)
+        {
+            WindowPobierzraport3 window = new WindowPobierzraport3();
+            window.Show();
+        }
     }
+
+
+
+
 }

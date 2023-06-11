@@ -354,29 +354,6 @@ namespace Gym_Aplication
             window.Show();
         }
 
-        private void Dodajczlonka_Click(object sender, RoutedEventArgs e)
-        {
-            WindowDodajczlonka window = new WindowDodajczlonka();
-            window.Show();
-        }
-
-        private void Usunczlonka_Click(object sender, RoutedEventArgs e)
-        {
-            WindowUsunczlonka window = new WindowUsunczlonka();
-            window.Show();
-        }
-
-        private void Pobierzraport3_Click(object sender, RoutedEventArgs e)
-        {
-            WindowPobierzraport3 window = new WindowPobierzraport3();
-            window.Show();
-        }
-
-        private void Editujczlonka_Click(object sender, RoutedEventArgs e)
-        {
-            WindowEditujczlonka window = new WindowEditujczlonka();
-            window.Show();
-        }
 
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -447,51 +424,7 @@ namespace Gym_Aplication
         }
 
 
-        private void ExportToPDF_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                // Create a PDF document
-                string pdfFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, "List_of_Trainers.pdf");
-                var writer = new PdfWriter(pdfFilePath);
-                var pdf = new PdfDocument(writer);
-                var document = new iText.Layout.Document(pdf);
 
-                // Create a table and add headers
-                var table = new Table(TrenersData.Columns.Count);
-                foreach (DataGridColumn column in TrenersData.Columns)
-                {
-                    table.AddHeaderCell(new Cell().Add(new Paragraph(column.Header.ToString())));
-                }
-
-                // Add data to the table
-                foreach (var item in TrenersData.ItemsSource)
-                {
-                    foreach (DataGridColumn column in TrenersData.Columns)
-                    {
-                        if (column.GetCellContent(item) is TextBlock)
-                        {
-                            table.AddCell(
-                                new Cell().Add(new Paragraph((column.GetCellContent(item) as TextBlock).Text)));
-                        }
-                        else
-                        {
-                            table.AddCell(new Cell().Add(new Paragraph("")));
-                        }
-                    }
-                }
-
-                // Add the table to the document and close it
-                document.Add(table);
-                document.Close();
-
-                MessageBox.Show("List of trainers exported to PDF successfully.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error exporting the list of trainers to PDF.");
-            }
-        }
 
         private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {

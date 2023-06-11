@@ -640,7 +640,7 @@
                             Width="111"
                             Height="25"
                             HorizontalAlignment="Left"
-                            Click="ExportToPDF_Click"
+                            Click="Export_to_CSV_Trainer"
                             Content="Pobierz Raport" Margin="334,0,0,0" />
                         <Button x:Name="EditujTrenera"
                             Grid.Column="1"
