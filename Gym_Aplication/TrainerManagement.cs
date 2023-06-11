@@ -6,6 +6,7 @@ namespace Gym_Aplication
 {
     public class TrainerManagement
     {
+       public string ID { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Phone { get; set; }

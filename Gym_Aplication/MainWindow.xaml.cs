@@ -33,7 +33,7 @@ namespace Gym_Aplication
         private ICollectionView _membersView;
 
         private string connection_string =
-            "Server=polsl.online;Uid=test;Pwd=Pa$$w0rd;Database=Baza_projekt;";
+        "Server=polsl.online;Uid=test;Pwd=Pa$$w0rd;Database=Baza_projekt;";
 
         MySqlConnection connection_name = new MySqlConnection();
 
@@ -262,132 +262,8 @@ namespace Gym_Aplication
         }
 
 
-        private void Zarzadzanie_Click(object sender, RoutedEventArgs e)
-        {
-            ChangePageVisibility(Content_ZarządzanieTrenerami);
 
-            try
-            {
-                if (user_privilege == 1)
-                {
-                    connection_name.Open();
 
-                    string querry2 = "SELECT * FROM `Trenerzy`;";
-
-                    MySqlCommand commend2 = new MySqlCommand(querry2, connection_name);
-                    MySqlDataReader data_from_querry2 = commend2.ExecuteReader();
-
-                    var listOfTrainers = new List<TrainerManagement>();
-
-                    string name = "";
-                    string surname = "";
-                    string phone = "";
-                    string e_mail = "";
-                    string dateOfBirth = "";
-                    string address = "";
-                    string dateOfEmployment = "";
-
-                    while (data_from_querry2.Read())
-                    {
-                        name = (data_from_querry2["imie"]).ToString();
-                        surname = (data_from_querry2["nazwisko"]).ToString();
-                        phone = data_from_querry2["telefon"].ToString();
-                        e_mail = data_from_querry2["e-mail"].ToString();
-                        dateOfBirth = data_from_querry2["data_urodzenia"].ToString();
-                        address = data_from_querry2["adres"].ToString();
-                        dateOfEmployment = data_from_querry2["data_zatrudenienia"].ToString();
-
-                        TrainerManagement feld = new TrainerManagement
-                        {
-                            Name = name,
-                            Surname = surname,
-                            Phone = phone,
-                            E_Mail = e_mail,
-                            DateOfBirth = dateOfBirth,
-                            Address = address,
-                            DateOfEmployment = dateOfEmployment
-                        };
-
-                        listOfTrainers.Add(feld);
-                    }
-
-                    _trainersView = CollectionViewSource.GetDefaultView(listOfTrainers);
-                    _trainersView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-                    _trainersView.Filter = obj =>
-                    {
-                        TrainerManagement trainer = obj as TrainerManagement;
-                        return trainer != null && trainer.Name.StartsWith("A");
-                    };
-
-                    TrenersData.ItemsSource = _trainersView;
-                    connection_name.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Brak uprawnień!");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Otwieranie zarządzania trenerami...");
-            }
-        }
-
-        private void Czlonek_Click(object sender, RoutedEventArgs e)
-        {
-            ChangePageVisibility(Content_ZarzadzanieCzlonkami);
-
-            try
-            {
-                if (user_privilege == 1)
-                {
-                    connection_name.Open();
-
-                    string querry = "SELECT * FROM `Klienci`;";
-
-                    MySqlCommand commend = new MySqlCommand(querry, connection_name);
-                    MySqlDataReader data_from_querry = commend.ExecuteReader();
-
-                    var listOfMembers = new List<MembersManagement>();
-
-                    while (data_from_querry.Read())
-                    {
-                        MembersManagement feld = new MembersManagement()
-                        {
-                            ID = (data_from_querry["id_klienta"]).ToString(),
-                            FristName = (data_from_querry["imie"]).ToString(),
-                            LastName = (data_from_querry["nazwisko"]).ToString(),
-                            E_Mail = data_from_querry["e-mail"].ToString(),
-                            Phone = data_from_querry["telefon"].ToString(),
-                            DateOfRegistration = data_from_querry["data_utworzenia"].ToString(),
-                            Sex = data_from_querry["płec"].ToString(),
-                            Adress = data_from_querry["adres"].ToString(),
-                        };
-
-                        listOfMembers.Add(feld);
-                    }
-
-                    _membersView = CollectionViewSource.GetDefaultView(listOfMembers);
-                    _membersView.SortDescriptions.Add(new SortDescription("FristName", ListSortDirection.Ascending));
-                    _membersView.Filter = obj =>
-                    {
-                        MembersManagement member = obj as MembersManagement;
-                        return member != null && member.FristName.StartsWith("A");
-                    };
-
-                    MembersDataGrid.ItemsSource = _membersView;
-                    connection_name.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Brak uprawnień!");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Otwieranie zarządzania klientami...");
-            }
-        }
 
         private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -407,7 +283,6 @@ namespace Gym_Aplication
                     ListSortDirection.Ascending));
             }
         }
-
 
         private void Artykuly_Click(object sender, RoutedEventArgs e)
         {
@@ -517,89 +392,7 @@ namespace Gym_Aplication
         }
 
 
-        private void AddTrainer_Click(object sender, RoutedEventArgs e)
-        {
-            WindowDodajTrenera window = new WindowDodajTrenera();
-            window.Show();
-
-            string trainerName = "New Trainer";
-            string trainerSurname = "Surname";
-            string trainerPhone = "Phone";
-            string trainerEmail = "Email";
-            string trainerDateOfBirth = "DateOfBirth";
-            string trainerAddress = "Address";
-            string trainerDateOfEmployment = "DateOfEmployment";
-
-            connection_name.Open();
-
-            string sql =
-                $"INSERT INTO Trenerzy (imie, nazwisko, telefon, `e-mail`, data_urodzenia, adres, data_zatrudnienia) VALUES ('{trainerName}', '{trainerSurname}', '{trainerPhone}', '{trainerEmail}', '{trainerDateOfBirth}', '{trainerAddress}', '{trainerDateOfEmployment}')";
-
-            MySqlCommand command = new MySqlCommand(sql, connection_name);
-            command.ExecuteNonQuery();
-
-            connection_name.Close();
-
-            Zarzadzanie_Click(sender, e);
-
-            MessageBox.Show($"Successfully added trainer {trainerName}.");
-        }
-
-        private void RemoveTrainer_Click(object sender, RoutedEventArgs e)
-        {
-            WindowUsunTrenera window = new WindowUsunTrenera();
-            window.Show();
-
-            string trainerId = "1";
-
-            connection_name.Open();
-
-            string sql = $"DELETE FROM Trenerzy WHERE id_trenera = {trainerId}";
-
-            MySqlCommand command = new MySqlCommand(sql, connection_name);
-            command.ExecuteNonQuery();
-
-            connection_name.Close();
-
-            Zarzadzanie_Click(sender, e);
-
-            MessageBox.Show($"Successfully removed trainer with ID {trainerId}.");
-        }
-
-        private void EditTrainer_Click(object sender, RoutedEventArgs e)
-        {
-            WindowEditujTrenera window = new WindowEditujTrenera();
-            window.Show();
-
-            string trainerId = "1";
-            string newTrainerName = "New Name";
-
-            connection_name.Open();
-
-            string sql = $"UPDATE Trenerzy SET imie = '{newTrainerName}' WHERE id_trenera = {trainerId}";
-
-            MySqlCommand command = new MySqlCommand(sql, connection_name);
-            command.ExecuteNonQuery();
-
-            connection_name.Close();
-
-            Zarzadzanie_Click(sender, e);
-
-            MessageBox.Show($"Successfully edited trainer with ID {trainerId}.");
-
-            var selectedTrainer = TrenersData.SelectedItem as TrainerManagement;
-            if (selectedTrainer != null)
-            {
-                // Create a new Trainer_Details
-                var trainerDetailsWindow = new Trainer_Details();
-
-                // Update the fields in the Trainer_Details
-                trainerDetailsWindow.UpdateFields(selectedTrainer);
-
-                // Show the Trainer_Details
-                trainerDetailsWindow.Show();
-            }
-        }
+       
 
 
         private void ReserveClass_Click(object sender, RoutedEventArgs e)

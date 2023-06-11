@@ -584,6 +584,7 @@
                         Height="25"
                         Margin="343,1,44,32"
                         SelectionChanged="SortComboBox_SelectionChanged" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <ComboBoxItem Content="ID" />
                         <ComboBoxItem Content="Imię" />
                         <ComboBoxItem Content="Nazwisko" />
                         <ComboBoxItem Content="Telefon" />
@@ -600,8 +601,10 @@
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
                         CanUserDeleteRows="False"
-                        IsReadOnly="True" Grid.RowSpan="3">
+                        IsReadOnly="True" Grid.RowSpan="3"
+                       >
                         <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding ID}" Header="ID"  />
                             <DataGridTextColumn Binding="{Binding Name}" Header="Imię" />
                             <DataGridTextColumn Binding="{Binding Surname}" Header="Nazwisko" />
                             <DataGridTextColumn Binding="{Binding Phone}" Header="Telefon" />
