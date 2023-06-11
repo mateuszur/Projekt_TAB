@@ -367,12 +367,15 @@ namespace Gym_Aplication
                     }
 
                     _membersView = CollectionViewSource.GetDefaultView(listOfMembers);
-                    _membersView.SortDescriptions.Add(new SortDescription("FristName", ListSortDirection.Ascending));
-                    _membersView.Filter = obj =>
-                    {
-                        MembersManagement member = obj as MembersManagement;
-                        return member != null && member.FristName.StartsWith("A");
-                    };
+                    
+
+                    // Po co ?
+                    //_membersView.SortDescriptions.Add(new SortDescription("FristName", ListSortDirection.Ascending));
+                    //_membersView.Filter = obj =>
+                    //{
+                    //    MembersManagement member = obj as MembersManagement;
+                    //    return member != null && member.FristName.StartsWith("A");
+                    //};
 
                     MembersDataGrid.ItemsSource = _membersView;
                     connection_name.Close();
@@ -470,45 +473,60 @@ namespace Gym_Aplication
 
         private void AddTrainer_Click(object sender, RoutedEventArgs e)
         {
-            string trainerName = "New Trainer";
-            string trainerSurname = "Surname";
-            string trainerPhone = "Phone";
-            string trainerEmail = "Email";
-            string trainerDateOfBirth = "DateOfBirth";
-            string trainerAddress = "Address";
-            string trainerDateOfEmployment = "DateOfEmployment";
+            try
+            {
+                if (user_privilege == 1)
+                {
+                    connection_name.Open();
 
-            connection_name.Open();
+                    string trainerName = "New Trainer";
+                    string trainerSurname = "Surname";
+                    string trainerPhone = "Phone";
+                    string trainerEmail = "Email";
+                    string trainerDateOfBirth = "DateOfBirth";
+                    string trainerAddress = "Address";
+                    string trainerDateOfEmployment = "DateOfEmployment";
 
-            string sql =
-                $"INSERT INTO Trenerzy (imie, nazwisko, telefon, `e-mail`, data_urodzenia, adres, data_zatrudnienia) VALUES ('{trainerName}', '{trainerSurname}', '{trainerPhone}', '{trainerEmail}', '{trainerDateOfBirth}', '{trainerAddress}', '{trainerDateOfEmployment}')";
 
-            MySqlCommand command = new MySqlCommand(sql, connection_name);
-            command.ExecuteNonQuery();
 
-            connection_name.Close();
+                    string sql = "INSERT INTO `Trenerzy` (`imie`, `nazwisko`, `telefon`, `e-mail`, `data_urodzenia`, `adres`, `data_zatrudnienia`) VALUES ('{trainerName}', '{trainerSurname}', '{trainerPhone}', '{trainerEmail}', '{trainerDateOfBirth}', '{trainerAddress}', '{trainerDateOfEmployment}')";
 
-            Zarzadzanie_Click(sender, e);
+                    MySqlCommand command = new MySqlCommand(sql, connection_name);
+                    command.ExecuteNonQuery();
 
-            MessageBox.Show($"Successfully added trainer {trainerName}.");
-        }
 
+                    connection_name.Close();
+
+                    Zarzadzanie_Click(sender, e);
+
+                    MessageBox.Show($"Successfully added trainer {trainerName}.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Błąd dodawania trenera!");
+            }
+
+
+            }
         private void RemoveTrainer_Click(object sender, RoutedEventArgs e)
-        {
-            string trainerId = "1";
+            {
+                string trainerId = "1";
 
-            connection_name.Open();
+                connection_name.Open();
 
-            string sql = $"DELETE FROM Trenerzy WHERE id_trenera = {trainerId}";
+                string sql = $"DELETE FROM Trenerzy WHERE id_trenera = {trainerId}";
 
-            MySqlCommand command = new MySqlCommand(sql, connection_name);
-            command.ExecuteNonQuery();
+                MySqlCommand command = new MySqlCommand(sql, connection_name);
+                command.ExecuteNonQuery();
 
-            connection_name.Close();
+                connection_name.Close();
 
-            Zarzadzanie_Click(sender, e);
+                Zarzadzanie_Click(sender, e);
 
-            MessageBox.Show($"Successfully removed trainer with ID {trainerId}.");
+                MessageBox.Show($"Successfully removed trainer with ID {trainerId}.");
+
+            
         }
 
         private void EditTrainer_Click(object sender, RoutedEventArgs e)
