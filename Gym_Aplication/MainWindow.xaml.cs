@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -10,13 +11,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-using iText.Kernel.Pdf;
-using iText.Layout.Element;
 using Microsoft.Win32;
 using System.Windows.Media.Imaging;
 using Gym_Aplication.Windows;
 using Microsoft.ProjectServer.Client;
-using Newtonsoft.Json;
 using LiveCharts.Wpf.Charts.Base;
 
 
