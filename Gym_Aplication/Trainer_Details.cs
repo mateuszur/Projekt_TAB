@@ -69,7 +69,7 @@ namespace Gym_Aplication
                     _trainersView.Filter = obj =>
                     {
                         TrainerManagement trainer = obj as TrainerManagement;
-                        return trainer != null && trainer.Name.StartsWith("A");
+                        return trainer != null && trainer.Name.StartsWith("");
                     };
 
                     TrenersData.ItemsSource = _trainersView;

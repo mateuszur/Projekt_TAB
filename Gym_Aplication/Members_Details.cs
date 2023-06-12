@@ -52,7 +52,7 @@ namespace Gym_Aplication
                     _membersView.Filter = obj =>
                     {
                         MembersManagement member = obj as MembersManagement;
-                        return member != null && member.FristName.StartsWith("A");
+                        return member != null && member.FristName.StartsWith("");
                     };
 
                     MembersDataGrid.ItemsSource = _membersView;
