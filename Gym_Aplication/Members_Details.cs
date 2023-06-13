@@ -22,7 +22,7 @@ namespace Gym_Aplication
                 {
                     connection_name.Open();
 
-                    string querry = "SELECT * FROM `Klienci`;";
+                    string querry = "SELECT * FROM `Klienci` WHERE imie NOT LIKE '';";
 
                     MySqlCommand commend = new MySqlCommand(querry, connection_name);
                     MySqlDataReader data_from_querry = commend.ExecuteReader();
@@ -39,7 +39,7 @@ namespace Gym_Aplication
                             E_Mail = data_from_querry["e-mail"].ToString(),
                             Phone = data_from_querry["telefon"].ToString(),
                             DateOfRegistration = data_from_querry["data_utworzenia"].ToString(),
-                            Sex = data_from_querry["płec"].ToString(),
+                            Sex = data_from_querry["plec"].ToString(),
                             Adress = data_from_querry["adres"].ToString(),
                         };
 

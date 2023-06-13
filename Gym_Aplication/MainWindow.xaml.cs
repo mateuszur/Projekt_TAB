@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
-using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
@@ -13,9 +12,6 @@ using System.Windows.Data;
 using System.Windows.Media;
 using Microsoft.Win32;
 using System.Windows.Media.Imaging;
-using Gym_Aplication.Windows;
-using Microsoft.ProjectServer.Client;
-using LiveCharts.Wpf.Charts.Base;
 
 
 namespace Gym_Aplication
@@ -116,8 +112,8 @@ namespace Gym_Aplication
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            username = UsernameTextBox.Text;
-            password = PasswordBox.Visibility == Visibility.Visible ? PasswordBox.Password : PasswordTextBox.Text;
+            username = "mateusz";// UsernameTextBox.Text;
+            password = "Pa$$w0rd";// PasswordBox.Visibility == Visibility.Visible ? PasswordBox.Password : PasswordTextBox.Text;
             NazwaUżytkownika.Content = username;
 
             using (SHA1 sha1 = SHA1.Create())
@@ -146,8 +142,8 @@ namespace Gym_Aplication
 
                     if (user_id != 0)
                     {
-                        MessageBox.Show("Logowanie zakończone pomyślnie. Witaj: " + username +
-                                        " Twoje uprawnienia to: " + user_privilege);
+                        //MessageBox.Show("Logowanie zakończone pomyślnie. Witaj: " + username +
+                        //                " Twoje uprawnienia to: " + user_privilege);
                         EnableButtons();
                         connection_name.Close();
 
@@ -210,56 +206,7 @@ namespace Gym_Aplication
             ChangePageVisibility(Content_Logowanie);
         }
 
-        private void Harmonogram_Click(object sender, RoutedEventArgs e)
-        {
-            ChangePageVisibility(Content_Harmonogram);
-            try
-            {
-                if (user_privilege == 1)
-                {
-                    connection_name.Open();
-
-                    string querry = "SELECT * FROM `rezerwacje2`;";
-
-                    MySqlCommand commend = new MySqlCommand(querry, connection_name);
-                    MySqlDataReader data_from_querry = commend.ExecuteReader();
-
-                    var listOfSchedule = new List<ScheduleEntry>();
-
-
-                    while (data_from_querry.Read())
-                    {
-                        ScheduleEntry feld = new ScheduleEntry
-                        {
-                            ID = (data_from_querry["id"]).ToString(),
-                            Name = (data_from_querry["imie"]).ToString(),
-                            Surname = (data_from_querry["nazwisko"]).ToString(),
-                            Phone = data_from_querry["telefon"].ToString(),
-                            Activity = (data_from_querry["Temat"]).ToString(),
-                            Room = (data_from_querry["Sala"]).ToString(),
-                            Date = (data_from_querry["DataRezerwacji"]).ToString(),
-                            Start_time = (data_from_querry["start_time"]).ToString(),
-                            End_time = (data_from_querry["end_time"]).ToString(),
-                        };
-
-
-                        listOfSchedule.Add(feld);
-                    }
-
-
-                    ScheduleDataGrid.ItemsSource = listOfSchedule;
-                    connection_name.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Brak uprawnień!");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Otwieranie zarządzania hermonogramem...");
-            }
-        }
+     
 
 
         private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -487,69 +434,5 @@ namespace Gym_Aplication
         }
 
 
-        /*public async Task UpdateWeatherAsync()
-        {
-            string apiKey = "your_openweathermap_api_key";
-            string city = "your_city_name";
-
-            using (HttpClient client = new HttpClient())
-            {
-                // Get current weather
-                string currentWeatherResponse =
-                    await client.GetStringAsync(
-                        $"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={apiKey}&units=metric");
-                dynamic currentWeather = JsonConvert.DeserializeObject(currentWeatherResponse);
-                CurrentTemperature = currentWeather.main.temp;
-
-                // Get weather forecast
-                string forecastResponse =
-                    await client.GetStringAsync(
-                        $"http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={apiKey}&units=metric");
-                dynamic forecast = JsonConvert.DeserializeObject(forecastResponse);
-                TomorrowTemperature =
-                    forecast.list[8].main
-                        .temp; // This is a simplified way to get tomorrow's temperature, it might not be accurate
-            }
-
-            return Task.CompletedTask;
-        }*/
     }
 }
-
-
-/*Rezerwacja.IsEnabled = true;
-Ocenianie.IsEnabled = true;
-RezerwacjaZajec.IsEnabled = true;*/
-
-/*Informacje.IsEnabled = false;
-Rezerwacja.IsEnabled = false;
-Ocenianie.IsEnabled = false;
-RezerwacjaZajec.IsEnabled = false;*/
-
-
-/*Content_RezerwacjaZajęć.Visibility = Visibility.Collapsed;
-Content_RezerwacjaSprzetu.Visibility = Visibility.Collapsed;
-Content_OcenianieTreningów.Visibility = Visibility.Collapsed;*/
-
-/*
-private void RezerwacjaZajec_Click(object sender, RoutedEventArgs e)
-{
-    ChangePageVisibility(Content_RezerwacjaZajęć);
-}
-
-private void Rezerwacja_Click(object sender, RoutedEventArgs e)
-{
-    ChangePageVisibility(Content_RezerwacjaSprzetu);
-}
-
-private void Ocenianie_Click(object sender, RoutedEventArgs e)
-{
-    ChangePageVisibility(Content_OcenianieTreningów);
-}
-*/
-
-/*
-private void UsernameButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-{
-    UserContextMenu.IsOpen = true;
-}*/

@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NumericComparer.cs" />
+    <Compile Remove="ReverseComparer .cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="FacebookIcon.png" />
     <None Remove="Icons\sun.png" />
     <None Remove="Icons\UserIcon.png" />
@@ -28,6 +33,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="7.0.5" />
     <PackageReference Include="Microsoft.SharePointOnline.CSOM" Version="16.1.23710.12000" />
     <PackageReference Include="MySql.Data" Version="8.0.33" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

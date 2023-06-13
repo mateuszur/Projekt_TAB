@@ -1,18 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Gym_Aplication.Windows
 {
@@ -36,10 +26,6 @@ namespace Gym_Aplication.Windows
 
         DateTime dataUrodzenia_Day;
         DateTime dataZatrudnienia_Day;
-
-
-
- 
 
         public WindowEditujTrenera()
         {
@@ -87,9 +73,6 @@ namespace Gym_Aplication.Windows
 
         private void Edit_Click_Zapisz_zmiany(object sender, RoutedEventArgs e)
         {
-
-         
-
             try
             {
                 id = IdTextBox.Text;
@@ -107,7 +90,6 @@ namespace Gym_Aplication.Windows
 
                 string email_pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
                 string phone_pattern = @"^\d{9}$";
-
 
 
                 if (string.IsNullOrWhiteSpace(imie) || string.IsNullOrWhiteSpace(nazwisko))
@@ -177,7 +159,7 @@ namespace Gym_Aplication.Windows
 
 
                 MessageBox.Show("Z powodzeniem edytowano trenera " + imie + " ID: " + id + "!");
-
+               
 
             }
             catch (Exception ex)
