@@ -1,5 +1,4 @@
 ﻿using Gym_Aplication.Windows;
-using iText.Layout.Element;
 using Microsoft.Win32;
 using MySql.Data.MySqlClient;
 using System;
@@ -14,6 +13,7 @@ namespace Gym_Aplication
     public partial class MainWindow : Window
     {
         private void Zarzadzanie_Click(object sender, RoutedEventArgs e)
+
         {
             ChangePageVisibility(Content_ZarządzanieTrenerami);
 
@@ -29,6 +29,7 @@ namespace Gym_Aplication
                     MySqlDataReader data_from_querry2 = commend2.ExecuteReader();
 
                     var listOfTrainers = new List<TrainerManagement>();
+
                     string id = "";
                     string name = "";
                     string surname = "";
@@ -51,7 +52,7 @@ namespace Gym_Aplication
 
                         TrainerManagement feld = new TrainerManagement
                         {
-                            ID = id,
+                            ID = int.Parse(data_from_querry2["id_trenera"].ToString()),
                             Name = name,
                             Surname = surname,
                             Phone = phone,
@@ -65,7 +66,7 @@ namespace Gym_Aplication
                     }
 
                     _trainersView = CollectionViewSource.GetDefaultView(listOfTrainers);
-                    _trainersView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+                    _trainersView.SortDescriptions.Add(new SortDescription("ID", ListSortDirection.Ascending));
                     _trainersView.Filter = obj =>
                     {
                         TrainerManagement trainer = obj as TrainerManagement;
@@ -100,11 +101,8 @@ namespace Gym_Aplication
             catch (Exception ex)
             {
                 MessageBox.Show("Błąd podczas otwierania okna  dodawania trenera!");
-
             }
         }
-
-
 
 
         private void EditTrainer_Click(object sender, RoutedEventArgs e)
@@ -118,7 +116,6 @@ namespace Gym_Aplication
             {
                 MessageBox.Show("Błąd podczas otwierania okna edytowania trenera!");
             }
-
         }
 
 
@@ -136,72 +133,57 @@ namespace Gym_Aplication
             {
                 MessageBox.Show("Błąd podczas otwierania okna  usuwania trenera!");
             }
-
         }
 
         private void Export_to_CSV_Trainer(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-
-
-
         }
 
         //private void ExportToPDF_Click(object sender, RoutedEventArgs e)
-       // {
-            //    try
-            //    {
-            //        // Create a PDF document
-            //        string pdfFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, "List_of_Trainers.pdf");
-            //       // var writer = new PdfWriter(pdfFilePath);
-            //        //var pdf = new PdfDocument(writer);
-            //        var document = new iText.Layout.Document(pdf);
+        // {
+        //    try
+        //    {
+        //        // Create a PDF document
+        //        string pdfFilePath = System.IO.Path.Combine(Environment.CurrentDirectory, "List_of_Trainers.pdf");
+        //       // var writer = new PdfWriter(pdfFilePath);
+        //        //var pdf = new PdfDocument(writer);
+        //        var document = new iText.Layout.Document(pdf);
 
-            //        // Create a table and add headers
-            //        var table = new Table(TrenersData.Columns.Count);
-            //        foreach (DataGridColumn column in TrenersData.Columns)
-            //        {
-            //            table.AddHeaderCell(new Cell().Add(new Paragraph(column.Header.ToString())));
-            //        }
+        //        // Create a table and add headers
+        //        var table = new Table(TrenersData.Columns.Count);
+        //        foreach (DataGridColumn column in TrenersData.Columns)
+        //        {
+        //            table.AddHeaderCell(new Cell().Add(new Paragraph(column.Header.ToString())));
+        //        }
 
-            //        // Add data to the table
-            //        foreach (var item in TrenersData.ItemsSource)
-            //        {
-            //            foreach (DataGridColumn column in TrenersData.Columns)
-            //            {
-            //                if (column.GetCellContent(item) is TextBlock)
-            //                {
-            //                    table.AddCell(
-            //                        new Cell().Add(new Paragraph((column.GetCellContent(item) as TextBlock).Text)));
-            //                }
-            //                else
-            //                {
-            //                    table.AddCell(new Cell().Add(new Paragraph("")));
-            //                }
-            //            }
-            //        }
+        //        // Add data to the table
+        //        foreach (var item in TrenersData.ItemsSource)
+        //        {
+        //            foreach (DataGridColumn column in TrenersData.Columns)
+        //            {
+        //                if (column.GetCellContent(item) is TextBlock)
+        //                {
+        //                    table.AddCell(
+        //                        new Cell().Add(new Paragraph((column.GetCellContent(item) as TextBlock).Text)));
+        //                }
+        //                else
+        //                {
+        //                    table.AddCell(new Cell().Add(new Paragraph("")));
+        //                }
+        //            }
+        //        }
 
-            //        // Add the table to the document and close it
-            //        document.Add(table);
-            //        document.Close();
+        //        // Add the table to the document and close it
+        //        document.Add(table);
+        //        document.Close();
 
-            //        MessageBox.Show("List of trainers exported to PDF successfully.");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show("Error exporting the list of trainers to PDF.");
-            //    }
-      //  }
-
-
+        //        MessageBox.Show("List of trainers exported to PDF successfully.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error exporting the list of trainers to PDF.");
+        //    }
+        //  }
     }
-    }
-
-
-
-    
-
-
-
-
-
+}

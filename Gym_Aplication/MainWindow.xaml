@@ -663,7 +663,37 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Lista członków:" />
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <extToolkit:WatermarkTextBox 
+                            x:Name="FilterTextBox2"
+                            Width="150"
+                            Height="25"
+                            TextChanged="FilterTextBox2_TextChanged"
+                            Watermark="Filtruj według nazwy..." Margin="222,0,165,2" HorizontalAlignment="Right" />
+
+                        <ComboBox
+                            x:Name="SortComboBox2"
+                            Width="150"
+                            Height="25"
+                            SelectionChanged="SortComboBox2_SelectionChanged" Grid.ColumnSpan="2" Margin="377,1,10,1" HorizontalAlignment="Right">
+                            <ComboBoxItem Content="ID" />
+                            <ComboBoxItem Content="Imię" />
+                            <ComboBoxItem Content="Nazwisko" />
+                            <ComboBoxItem Content="Telefon" />
+                            <ComboBoxItem Content="E-mail" />
+                            <ComboBoxItem Content="Data urodzenia" />
+                            <ComboBoxItem Content="Adres" />
+                            <ComboBoxItem Content="Data zatrudnienia" />
+                        </ComboBox>
+                    </Grid>
+
+                    <Label Grid.Row="0" Content="Lista członków:" Width="100" HorizontalAlignment="Left" />
                     <DataGrid
                         x:Name="MembersDataGrid"
                         AutoGenerateColumns="False"
@@ -681,6 +711,7 @@
                             <DataGridTextColumn Binding="{Binding Adress}" Header="Adres" />
                         </DataGrid.Columns>
                     </DataGrid>
+
                     <Grid
                         Grid.Row="1"
                         Margin="10,514,0,-252" HorizontalAlignment="Left" Width="445">

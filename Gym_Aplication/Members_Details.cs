@@ -12,7 +12,6 @@ namespace Gym_Aplication
 {
     public partial class MainWindow : Window
     {
-
         private void Czlonek_Click(object sender, RoutedEventArgs e)
         {
             ChangePageVisibility(Content_ZarzadzanieCzlonkami);
@@ -34,7 +33,7 @@ namespace Gym_Aplication
                     {
                         MembersManagement feld = new MembersManagement()
                         {
-                            ID = (data_from_querry["id_klienta"]).ToString(),
+                            ID = int.Parse(data_from_querry["id_klienta"].ToString()),
                             FristName = (data_from_querry["imie"]).ToString(),
                             LastName = (data_from_querry["nazwisko"]).ToString(),
                             E_Mail = data_from_querry["e-mail"].ToString(),
@@ -48,7 +47,7 @@ namespace Gym_Aplication
                     }
 
                     _membersView = CollectionViewSource.GetDefaultView(listOfMembers);
-                    _membersView.SortDescriptions.Add(new SortDescription("FristName", ListSortDirection.Ascending));
+                    _membersView.SortDescriptions.Add(new SortDescription("ID", ListSortDirection.Ascending));
                     _membersView.Filter = obj =>
                     {
                         MembersManagement member = obj as MembersManagement;
@@ -76,11 +75,11 @@ namespace Gym_Aplication
             {
                 WindowDodajczlonka window = new WindowDodajczlonka();
                 window.Show();
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Błąd podczas otwierania okna  dodawania członka!");
             }
-
         }
 
         private void Editujczlonka_Click(object sender, RoutedEventArgs e)
@@ -88,13 +87,12 @@ namespace Gym_Aplication
             try
             {
                 WindowEditujczlonka window = new WindowEditujczlonka();
-            window.Show();
+                window.Show();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Błąd podczas otwierania okna  edycji członka!");
             }
-
         }
 
         private void Usunczlonka_Click(object sender, RoutedEventArgs e)
@@ -102,21 +100,18 @@ namespace Gym_Aplication
             try
             {
                 WindowUsunczlonka window = new WindowUsunczlonka();
-            window.Show();
+                window.Show();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Błąd podczas otwierania okna  usuwania członka!");
             }
         }
+
         private void Pobierzraport3_Click(object sender, RoutedEventArgs e)
         {
             WindowPobierzraport3 window = new WindowPobierzraport3();
             window.Show();
         }
     }
-
-
-
-
 }

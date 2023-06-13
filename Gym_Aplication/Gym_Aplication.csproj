@@ -22,8 +22,6 @@
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
     <PackageReference Include="Intersoft.Crosslight" Version="6.0.5000.975" />
-    <PackageReference Include="itext7" Version="8.0.0" />
-    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="MaterialDesignColors" Version="2.1.4" IncludeAssets="all" />
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" IncludeAssets="all" />

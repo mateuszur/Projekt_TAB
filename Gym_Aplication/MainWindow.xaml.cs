@@ -31,7 +31,7 @@ namespace Gym_Aplication
         private ICollectionView _membersView;
 
         private string connection_string =
-        "Server=polsl.online;Uid=test;Pwd=Pa$$w0rd;Database=Baza_projekt;";
+            "Server=polsl.online;Uid=test;Pwd=Pa$$w0rd;Database=Baza_projekt;";
 
         MySqlConnection connection_name = new MySqlConnection();
 
@@ -42,6 +42,8 @@ namespace Gym_Aplication
         {
             InitializeComponent();
             //PopulateScheduleDataGrid();
+            var members = new ObservableCollection<MembersManagement>();
+            _membersView = CollectionViewSource.GetDefaultView(members);
         }
 
         private void EnableButtons()
@@ -260,15 +262,12 @@ namespace Gym_Aplication
         }
 
 
-
-
-
         private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             _trainersView.Filter = obj =>
             {
                 TrainerManagement trainer = obj as TrainerManagement;
-                return trainer != null && trainer.Name.StartsWith(FilterTextBox.Text);
+                return trainer != null && trainer.Name.ToLower().StartsWith(FilterTextBox.Text.ToLower());
             };
         }
 
@@ -281,6 +280,26 @@ namespace Gym_Aplication
                     ListSortDirection.Ascending));
             }
         }
+
+        private void FilterTextBox2_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _membersView.Filter = obj =>
+            {
+                MembersManagement member = obj as MembersManagement;
+                return member != null && member.FristName.ToLower().StartsWith(FilterTextBox2.Text.ToLower());
+            };
+        }
+
+        private void SortComboBox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _membersView.SortDescriptions.Clear();
+            if (SortComboBox2.SelectedItem is ComboBoxItem selectedItem)
+            {
+                _membersView.SortDescriptions.Add(new SortDescription(selectedItem.Content.ToString(),
+                    ListSortDirection.Ascending));
+            }
+        }
+
 
         private void Artykuly_Click(object sender, RoutedEventArgs e)
         {
@@ -353,7 +372,6 @@ namespace Gym_Aplication
         }
 
 
-
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -365,9 +383,6 @@ namespace Gym_Aplication
                 IssueImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
             }
         }
-
-
-       
 
 
         private void ReserveClass_Click(object sender, RoutedEventArgs e)
@@ -420,8 +435,6 @@ namespace Gym_Aplication
                 WyszukajKlientaTextBox.Foreground = Brushes.Gray;
             }
         }
-
-
 
 
         private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
