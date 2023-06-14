@@ -294,27 +294,6 @@ namespace Gym_Aplication
             window.ShowDialog();
         }
 
-        private void Dodaj_Click(object sender, RoutedEventArgs e)
-        {
-            WindowDodaj window = new WindowDodaj();
-            window.Show();
-        }
-
-        private void Usun_Click(object sender, RoutedEventArgs e)
-        {
-            WindowUsun window = new WindowUsun();
-            window.Show();
-        }
-
-   
-
-        private void Edituj_Click(object sender, RoutedEventArgs e)
-        {
-            WindowEdituj window = new WindowEdituj();
-            window.Show();
-        }
-
-
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();

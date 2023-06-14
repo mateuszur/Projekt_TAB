@@ -538,7 +538,7 @@
                         <Button x:Name="PobierzRaport_1"
                                 Grid.Column="3"
                                 Height="25"
-                                Click="Pobierz1_Click"
+                                Click="Export_to_Raport_H"
                                 Content="Pobierz Raport" RenderTransformOrigin="0.037,0.604" Margin="11,0,0,0" HorizontalAlignment="Left" Width="112" />
                         <Button x:Name="Edituj"
                                 Grid.Column="1"

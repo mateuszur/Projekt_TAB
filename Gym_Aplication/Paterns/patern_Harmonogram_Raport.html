@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Raport Harmonogram</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Raport Klientów</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Telefon</th>
+            <th>Temat</th>
+            <th>Sala</th>
+            <th>Data rezerwacji</th>
+            <th>Godzina początkowa </th>
+            <th>Godzina końcowa </th>
+
+
+        </tr>
+        @foreach (var row in Model.Rows)
+        {
+        <tr>
+            <td>@row["id"]</td>
+            <td>@row["imie"]</td>
+            <td>@row["nazwisko"]</td>
+            <td>@row["telefon"]</td>
+            <td>@row["Temat"]</td>
+            <td>@row["Sala"]</td>
+            <td>@row["DataRezerwacji"]</td>
+            <td>@row["start_time"]</td>
+            <td>@row["end_time"]</td>
+
+        </tr>
+        }
+    </table>
+</body>
+</html>
