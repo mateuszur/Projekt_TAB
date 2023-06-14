@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Raport Trenera</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Raport Trenera</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>E-mail</th>
+            <th>Telefon</th>
+            <th>Data urodzenia</th>
+            <th>Płeć</th>
+            <th>Adres</th>
+            <th>Data zatrudnienia</th>
+            
+        </tr>
+        @foreach (var row in Model.Rows)
+        {
+            <tr>
+                <td>@row["id_trenera"]</td>
+                <td>@row["imie"]</td>
+                <td>@row["nazwisko"]</td>
+                <td>@row["e-mail"]</td>
+                <td>@row["telefon"]</td>
+                <td>@row["data_urodzenia"]</td>
+                <td>@row["plec"]</td>
+                <td>@row["adres"]</td>
+                <td>@row["data_zatrudnienia"]</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

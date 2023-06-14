@@ -1,10 +1,11 @@
 ﻿using MySql.Data.MySqlClient;
+using RazorEngine;
+using RazorEngine.Templating;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
+using System.IO;
 using System.Windows;
 using System.Windows.Data;
 
@@ -108,10 +109,66 @@ namespace Gym_Aplication
             }
         }
 
-        private void Pobierzraport3_Click(object sender, RoutedEventArgs e)
+        private void Export_to_Raport_M(object sender, EventArgs e)
         {
-            WindowPobierzraport3 window = new WindowPobierzraport3();
-            window.Show();
+
+            try
+            {
+                connection_name.Open();
+
+                string querry2 = "SELECT * FROM `Klienci` WHERE imie NOT LIKE '';";
+
+                MySqlCommand commend2 = new MySqlCommand(querry2, connection_name);
+                
+
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter(commend2);
+
+                DataSet dataSet = new DataSet();
+                adapter.Fill(dataSet, "NazwaTabeli");
+
+
+                // Wczytaj zawartość szablonu HTML z pliku
+                string templatePath = "../../../\\Paterns\\patern_Members_Raport.html";
+                string template = File.ReadAllText(templatePath); // Wprowadź ścieżkę do swojego szablonu
+
+                // Wygeneruj raport HTML z danymi
+                string generatedHTML = Engine.Razor.RunCompile(template, "templateKey", null, dataSet.Tables["NazwaTabeli"]);
+
+                string outputPath = "";
+                // Configure save file dialog box
+                var dialog = new Microsoft.Win32.SaveFileDialog();
+                dialog.FileName = "raport_Członkowie_"; // Default file name
+                dialog.DefaultExt = ".html"; // Default file extension
+                dialog.Filter = "HTML documents (.html)|*.html"; // Filter files by extension
+
+                // Show save file dialog box
+                bool? result = dialog.ShowDialog();
+
+                // Process save file dialog box results
+                if (result == true)
+                {
+                    // Save document
+                    outputPath = dialog.FileName;
+                }
+
+                // Zapisz raport HTML do wybranej lokalizacji
+                if (!string.IsNullOrEmpty(outputPath))
+                {
+                    File.WriteAllText(outputPath, generatedHTML);
+                    MessageBox.Show("Raport został zapisany.", "Sukces");
+                }
+
+                connection_name.Close();
+            }
+
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Report could not be created");
+            }
+
         }
+
     }
 }

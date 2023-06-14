@@ -306,11 +306,7 @@ namespace Gym_Aplication
             window.Show();
         }
 
-        private void Pobierz1_Click(object sender, RoutedEventArgs e)
-        {
-            WindowPobierz1 window = new WindowPobierz1();
-            window.Show();
-        }
+   
 
         private void Edituj_Click(object sender, RoutedEventArgs e)
         {
@@ -433,6 +429,9 @@ namespace Gym_Aplication
         {
         }
 
+      private void Pobierz1_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }
