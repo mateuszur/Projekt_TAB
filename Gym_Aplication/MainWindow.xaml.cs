@@ -54,6 +54,7 @@ namespace Gym_Aplication
             Statystyki.IsEnabled = true;
             ObslugaKlienta.IsEnabled = true;
             UserContextMenu.IsEnabled = true;
+            Harmonogram2.IsEnabled = true;
 
             if (user_privilege == 1)
             {
@@ -78,6 +79,7 @@ namespace Gym_Aplication
             Statystyki.IsEnabled = false;
             ObslugaKlienta.IsEnabled = false;
             UserContextMenu.IsEnabled = false;
+            Harmonogram2.IsEnabled = false;
         }
 
         private void ChangePageVisibility(Grid pageToShow)
@@ -91,6 +93,7 @@ namespace Gym_Aplication
             Content_ObslugaKlienta.Visibility = Visibility.Collapsed;
             Content_RaportowanieAwarii.Visibility = Visibility.Collapsed;
             Content_Informacje.Visibility = Visibility.Collapsed;
+            Content_Harmonogram2.Visibility = Visibility.Collapsed;
 
             pageToShow.Visibility = Visibility.Visible;
         }

@@ -22,14 +22,8 @@ namespace Gym_Aplication
     public partial class WindowUsun : Window
     {
         string id;
-        string imie = "";
-        string nazwisko = "";
-        //string telefon = "000000000";
-        //string temat = "";
-        //string sala = "";
-        //string data_rezerwacji = "1999-05-08";
-        
-
+      
+      
         private string connection_string = "Server=polsl.online;Uid=test;Pwd=Pa$$w0rd;Database=Baza_projekt;";
 
         MySqlConnection connection_name = new MySqlConnection();
@@ -53,7 +47,7 @@ namespace Gym_Aplication
                 connection_name.Open();
 
                 string sql =
-                "UPDATE `rezerwacje2` SET  `imie` = '" + imie + "'," + "`nazwisko` = '" + nazwisko + "'"  + " WHERE `rezerwacje2`.`id`=" + IdTextBox.Text + ";";
+                "UPDATE `Rezerwacje` SET  `czy_wazne` = 0  WHERE `Rezerwacje`.`id`=" + IdTextBox.Text + ";";
 
                 MySqlCommand command = new MySqlCommand(sql, connection_name);
                 command.ExecuteNonQuery();

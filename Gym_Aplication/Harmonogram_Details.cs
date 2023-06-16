@@ -6,6 +6,8 @@ using RazorEngine;
 using System.Data;
 using System.IO;
 using RazorEngine.Templating;
+using System.Reflection.PortableExecutable;
+using System.Xml.Linq;
 
 namespace Gym_Aplication
 {
@@ -20,17 +22,17 @@ namespace Gym_Aplication
                 {
                     connection_name.Open();
 
-                    string querry = "SELECT * FROM `rezerwacje2` where imie NOT LIKE '';";
+                    string querry = "SELECT * FROM `rezerwacje2` where czy_wazne != 0;";
 
                     MySqlCommand commend = new MySqlCommand(querry, connection_name);
                     MySqlDataReader data_from_querry = commend.ExecuteReader();
 
-                    var listOfSchedule = new List<ScheduleEntry>();
+                    var listOfSchedule = new List<ScheduleEntry1>();
 
 
                     while (data_from_querry.Read())
                     {
-                        ScheduleEntry feld = new ScheduleEntry
+                        ScheduleEntry1 feld = new ScheduleEntry1
                         {
                             ID = (data_from_querry["id"]).ToString(),
                             Name = (data_from_querry["imie"]).ToString(),
@@ -62,6 +64,61 @@ namespace Gym_Aplication
             }
         }
 
+         private void Harmonogram_Click2(object sender, RoutedEventArgs e)
+        {
+            ChangePageVisibility(Content_Harmonogram2);
+            try
+            {
+                if (user_privilege == 1)
+                {
+                    connection_name.Open();
+
+                    string querry = "SELECT * FROM `Rezerwacje_indywidualne_Widok` where czy_wazne != 0;";
+
+                    MySqlCommand commend = new MySqlCommand(querry, connection_name);
+                    MySqlDataReader data_from_querry = commend.ExecuteReader();
+
+                    var listOfSchedule = new List<ScheduleEntry2>();
+
+
+                    while (data_from_querry.Read())
+                    {
+
+                        string iD= data_from_querry.GetString(0);
+
+                        string nameT= data_from_querry.GetString(1);
+                        string surnameT= data_from_querry.GetString(2);
+                        string nameK=data_from_querry.GetString(3);
+                        string surnameK= data_from_querry.GetString(4);
+                        string activity= data_from_querry.GetString(5);
+                        string date= data_from_querry.GetString(6);
+                        string start_time = data_from_querry.GetString(7);
+                        string end_time=data_from_querry.GetString(8);
+
+
+                        ScheduleEntry2 feld = new ScheduleEntry2( iD,  nameT,  surnameT,  nameK,  surnameK,  activity,  date,  start_time,  end_time);
+                        
+
+
+                        listOfSchedule.Add(feld);
+                    }
+
+
+                    ScheduleDataGrid2.ItemsSource = listOfSchedule;
+                    connection_name.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Brak uprawnień!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Otwieranie zarządzania hermonogramem...");
+            }
+        }
+
+
         private void Dodaj_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -74,7 +131,7 @@ namespace Gym_Aplication
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Błąd podczas otwierania okna  dodawania terminu!");
+                MessageBox.Show("Błąd podczas otwierania okna  dodawania terminu! " + ex.Message);
             }
         }
 

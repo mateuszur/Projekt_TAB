@@ -250,7 +250,23 @@
                             Margin="0,0,5,0"
                             VerticalAlignment="Center"
                             Kind="Calendar" />
-                        <TextBlock VerticalAlignment="Center" Text="Harmonogram" />
+                        <TextBlock VerticalAlignment="Center" Text="Harmonogram Zajęć" />
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton
+                    x:Name="Harmonogram2"
+                    Click="Harmonogram_Click2"
+                    IsChecked="False"
+                    IsEnabled="False"
+                    Style="{StaticResource RadioButtonStyleWithAnimation}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,5,0"
+                            VerticalAlignment="Center"
+                            Kind="Calendar" />
+                        <TextBlock VerticalAlignment="Center" Text="Harmonogram Indywidualny" />
                     </StackPanel>
                 </RadioButton>
                 <RadioButton
@@ -549,7 +565,76 @@
                     </Grid>
                 </Grid>
             </Grid>
+            <Grid
+                x:Name="Content_Harmonogram2"
+                Grid.Row="1"
+                Margin="0,1,0,0"
+                Visibility="Collapsed">
+                <!--  Harmonogram content  -->
+                <Grid Height="64" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Content="Harmonogram zajęć2"
+                        Style="{StaticResource TitleLabelStyle}" />
+                    <DataGrid
+                        x:Name="ScheduleDataGrid2"
+                        Grid.Row="1"
+                        Margin="0,0,10,-483"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding ID}" Header="ID" />
+                            <DataGridTextColumn Binding="{Binding NameT}" Header="Imię i Nazwisko Trenera" />
+                            <DataGridTextColumn Binding="{Binding NameK}" Header="Imię i Nazwisko Klienta" />
+                            
+                            <DataGridTextColumn Binding="{Binding Activity}" Header="Temat" />
+                          
+                            <DataGridTextColumn Binding="{Binding Date}" Header="Data" />
 
+                            <DataGridTextColumn Binding="{Binding Start_time}" Header="Godzina rozpoczęcia" />
+                            <DataGridTextColumn Binding="{Binding End_time}" Header="Godzina zakończenia" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid
+                        Grid.Row="1"
+                        Margin="10,523,103,-513">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="296.703" />
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="123.297"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="Dodaj2"
+                                Grid.Column="1"
+                                Height="25"
+                                Click="Dodaj_Click"
+                                Content="Dodaj" Width="85" 
+                                HorizontalAlignment="Left" Margin="90,0,0,0" />
+                        <Button x:Name="Usun2"
+                                Grid.Column="1"
+                                Height="25"
+                                Click="Usun_Click"
+                                Content="Usuń" Margin="180,0,32,0" />
+                        <Button x:Name="PobierzRaport_1_2"
+                                Grid.Column="3"
+                                Height="25"
+                                Click="Export_to_Raport_H"
+                                Content="Pobierz Raport" RenderTransformOrigin="0.037,0.604" Margin="11,0,0,0" HorizontalAlignment="Left" Width="112" />
+                        <Button x:Name="Edituj2"
+                                Grid.Column="1"
+                                Height="25"
+                                Click="Edituj_Click"
+                                Content="Edituj" Width="85" 
+                                HorizontalAlignment="Left" />
+                    </Grid>
+                </Grid>
+            </Grid>
             <Grid
                 x:Name="Content_ZarządzanieTrenerami"
                 Grid.Row="1"
