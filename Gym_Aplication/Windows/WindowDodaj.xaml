@@ -73,13 +73,26 @@
         </ComboBox>
 
         <Label Content="Data" Grid.Row="6" Grid.Column="0"/>
-        <DatePicker x:Name="DataPicker" Grid.Row="6" Grid.Column="1"/>
+        <DatePicker x:Name="DataPicker_Harmonogram" Grid.Row="6" Grid.Column="1" SelectedDateChanged="DataPicker_SelectedDateChanged" IsEnabled="False"/>
 
         <Label Content="Godzina rozpoczęcia" Grid.Row="7" Grid.Column="0"/>
-        <xctk:TimePicker x:Name="GodzinarozpoczęciaTextBox" Grid.Row="7" Grid.Column="1"/>
-
+      
+        <ComboBox x:Name="GodzinarozpoczeciaTextBox" Grid.Row="7" Grid.Column="1" SelectionChanged="comboBox_SelectionChanged_Godzina_Start" IsEnabled="False" IsEditable="False" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding GodzinaS}"  />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        
         <Label Content="Godzina zakonczenia" Grid.Row="8" Grid.Column="0"/>
-        <xctk:TimePicker x:Name="GodzinazakonczeniaPicker" Grid.Row="8" Grid.Column="1"/>
+        <ComboBox x:Name="GodzinaZakonczeniaTextBox" Grid.Row="8" Grid.Column="1" SelectionChanged="comboBox_SelectionChanged_Godzina_Stop" IsEnabled="False" IsEditable="False" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding GodzinaGK}"  />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
         <!-- Save changes button -->
         <Button x:Name="Zatwierdz" Content="Zapisz zmiany" Click="Zapisz_Click" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Right" Padding="10,5" Background="#0078D7" Foreground="White" BorderThickness="0" Cursor="Hand" Width="90" Height="25" Margin="0,36,10,-36">

@@ -1,13 +1,11 @@
 ﻿using MySql.Data.MySqlClient;
-using System.Collections.Generic;
-using System;
-using System.Windows;
 using RazorEngine;
+using RazorEngine.Templating;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using RazorEngine.Templating;
-using System.Reflection.PortableExecutable;
-using System.Xml.Linq;
+using System.Windows;
 
 namespace Gym_Aplication
 {
@@ -64,7 +62,7 @@ namespace Gym_Aplication
             }
         }
 
-         private void Harmonogram_Click2(object sender, RoutedEventArgs e)
+        private void Harmonogram_Click2(object sender, RoutedEventArgs e)
         {
             ChangePageVisibility(Content_Harmonogram2);
             try
@@ -84,20 +82,20 @@ namespace Gym_Aplication
                     while (data_from_querry.Read())
                     {
 
-                        string iD= data_from_querry.GetString(0);
+                        string iD = data_from_querry.GetString(0);
 
-                        string nameT= data_from_querry.GetString(1);
-                        string surnameT= data_from_querry.GetString(2);
-                        string nameK=data_from_querry.GetString(3);
-                        string surnameK= data_from_querry.GetString(4);
-                        string activity= data_from_querry.GetString(5);
-                        string date= data_from_querry.GetString(6);
+                        string nameT = data_from_querry.GetString(1);
+                        string surnameT = data_from_querry.GetString(2);
+                        string nameK = data_from_querry.GetString(3);
+                        string surnameK = data_from_querry.GetString(4);
+                        string activity = data_from_querry.GetString(5);
+                        string date = data_from_querry.GetString(6);
                         string start_time = data_from_querry.GetString(7);
-                        string end_time=data_from_querry.GetString(8);
+                        string end_time = data_from_querry.GetString(8);
 
 
-                        ScheduleEntry2 feld = new ScheduleEntry2( iD,  nameT,  surnameT,  nameK,  surnameK,  activity,  date,  start_time,  end_time);
-                        
+                        ScheduleEntry2 feld = new ScheduleEntry2(iD, nameT, surnameT, nameK, surnameK, activity, date, start_time, end_time);
+
 
 
                         listOfSchedule.Add(feld);
@@ -140,7 +138,7 @@ namespace Gym_Aplication
             try
             {
                 WindowEdituj window = new WindowEdituj();
-            window.Show();
+                window.Show();
             }
             catch (Exception ex)
             {

@@ -1,6 +1,6 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Win32;
+using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
@@ -10,7 +10,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-using Microsoft.Win32;
 using System.Windows.Media.Imaging;
 
 
@@ -209,7 +208,7 @@ namespace Gym_Aplication
             ChangePageVisibility(Content_Logowanie);
         }
 
-     
+
 
 
         private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -411,7 +410,7 @@ namespace Gym_Aplication
         {
         }
 
-      private void Pobierz1_Click(object sender, RoutedEventArgs e)
+        private void Pobierz1_Click(object sender, RoutedEventArgs e)
         {
 
         }

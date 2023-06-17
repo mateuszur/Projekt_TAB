@@ -52,4 +52,31 @@ namespace Gym_Aplication
             Zajecia = zajecia;
         }
     }
+
+    public class ItemGS
+    {
+
+        public string GodzinaS { get; set; }
+
+        public ItemGS(string godzinaS)
+        {
+
+            GodzinaS = godzinaS;
+        }
+    }
+
+
+    public class ItemGK
+    {
+
+        public string GodzinaGK { get; set; }
+
+        public ItemGK(string godzinaGK)
+        {
+
+            GodzinaGK = godzinaGK;
+        }
+    }
+
+
 }
