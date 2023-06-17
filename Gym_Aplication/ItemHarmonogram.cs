@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Gym_Aplication
+﻿namespace Gym_Aplication
 {
     public class ItemT
     {
@@ -45,11 +39,12 @@ namespace Gym_Aplication
     {
         
         public string Zajecia { get; set; }
-
-        public ItemZ( string zajecia)
+        public int Id { get; set; }
+        public ItemZ( string zajecia, int id)
         {
 
             Zajecia = zajecia;
+            Id = id;
         }
     }
 
@@ -57,11 +52,12 @@ namespace Gym_Aplication
     {
 
         public string GodzinaS { get; set; }
-
-        public ItemGS(string godzinaS)
+        public int Id { get; set; }
+        public ItemGS(string godzinaS, int iD)
         {
 
             GodzinaS = godzinaS;
+            Id = iD;
         }
     }
 
@@ -70,11 +66,12 @@ namespace Gym_Aplication
     {
 
         public string GodzinaGK { get; set; }
-
-        public ItemGK(string godzinaGK)
+        public int Id { get; set; }
+        public ItemGK(string godzinaGK, int iD)
         {
 
             GodzinaGK = godzinaGK;
+            Id = iD;
         }
     }
 

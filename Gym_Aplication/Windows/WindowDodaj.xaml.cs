@@ -1,11 +1,8 @@
-﻿using Microsoft.SharePoint.Client;
+﻿using Intersoft.Crosslight.Mobile;
 using MySql.Data.MySqlClient;
 using System;
-using System.Data;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using Xceed.Wpf.Toolkit.Primitives;
 
 namespace Gym_Aplication
 {
@@ -17,8 +14,11 @@ namespace Gym_Aplication
         private ItemK selectedItemK;
         private ItemT selectedItemT;
         private ItemS selectedItemS;
-       
-
+        private ItemZ selectedItemZ;
+        ItemGS selectedItemGS;
+        ItemGK selectedItemGK;
+        DateTime? data_rezerwacji;
+        DateTime data_rezerwacjiD;
 
         private string connection_string = "Server=polsl.online;Uid=test;Pwd=Pa$$w0rd;Database=Baza_projekt;";
 
@@ -63,7 +63,7 @@ namespace Gym_Aplication
 
                     string sql1 = "SELECT StartRezerwacji,KoniecRezerwacji FROM `Widok_z_dwoch_rezerwacji` where id_trenera= " + selectedItemT.Id + " AND DataRezerwacji=  '" + data_rezerwacjiD.ToString("yyy-MM-dd") + "';";
 
-                    string sql2 = "SELECT end_time FROM `Przedział_czasu` where (id BETWEEN 25 AND 88) ";
+                    string sql2 = "SELECT end_time, id FROM `Przedział_czasu` where (id BETWEEN 25 AND 88) ";
 
 
                     MySqlCommand command0 = new MySqlCommand(sql0, connection_name);
@@ -105,8 +105,8 @@ namespace Gym_Aplication
                     {
 
                         string GodzinaGK = reader2.GetString(0);
-
-                        GodzinaZakonczeniaTextBox.Items.Add(new ItemGK(GodzinaGK));
+                        int ID=reader2.GetInt32(1);
+                        GodzinaZakonczeniaTextBox.Items.Add(new ItemGK(GodzinaGK,ID));
                     }
 
                     reader2.Close();
@@ -125,8 +125,8 @@ namespace Gym_Aplication
 
         private void LoadData_GodzinaS()
         {
-            DateTime? data_rezerwacji = DataPicker_Harmonogram.SelectedDate;
-            DateTime data_rezerwacjiD;
+             data_rezerwacji = DataPicker_Harmonogram.SelectedDate;
+          
 
             int count=0;
 
@@ -154,7 +154,7 @@ namespace Gym_Aplication
                     
                     string sql1 = "SELECT StartRezerwacji,KoniecRezerwacji FROM `Widok_z_dwoch_rezerwacji` where id_trenera= "+ selectedItemT.Id + " AND DataRezerwacji=  '"+ data_rezerwacjiD.ToString("yyy-MM-dd") + "';";
                     
-                    string sql2 = "SELECT start_time FROM `Przedział_czasu` where (id BETWEEN 25 AND 88) ";
+                    string sql2 = "SELECT start_time, id  FROM `Przedział_czasu` where (id BETWEEN 25 AND 88) ";
 
 
                     MySqlCommand command0 = new MySqlCommand(sql0, connection_name);
@@ -196,8 +196,8 @@ namespace Gym_Aplication
                     {
 
                         string GodzinaS = reader2.GetString(0);
-
-                        GodzinarozpoczeciaTextBox.Items.Add(new ItemGS(GodzinaS));
+                        int ID = reader2.GetInt32(1);
+                        GodzinarozpoczeciaTextBox.Items.Add(new ItemGS(GodzinaS,ID));
                     }
 
                     reader2.Close();
@@ -224,7 +224,7 @@ namespace Gym_Aplication
                 {
 
                     connection_name.Open();
-                    string sql = "SELECT nazwa_specjalnosci FROM `Specjalnosci_trenerow` WHERE id_trenera=" + selectedItemT.Id + ";";
+                    string sql = "SELECT nazwa_specjalnosci, id_specjalnosci FROM `Specjalnosci_trenerow` WHERE id_trenera=" + selectedItemT.Id + ";";
                     MySqlCommand command = new MySqlCommand(sql, connection_name);
                     MySqlDataReader reader = command.ExecuteReader();
 
@@ -232,8 +232,8 @@ namespace Gym_Aplication
                     {
 
                         string Zajecia = reader.GetString(0);
-
-                        comboBoxZajecia.Items.Add(new ItemZ(Zajecia));
+                        int id= reader.GetInt32(1);
+                        comboBoxZajecia.Items.Add(new ItemZ(Zajecia,id));
                     }
 
                     reader.Close();
@@ -258,7 +258,7 @@ namespace Gym_Aplication
                 {
 
                     connection_name.Open();
-                    string sql = "SELECT Temat FROM zajecia;";
+                    string sql = "SELECT Temat, id FROM zajecia;";
                     MySqlCommand command = new MySqlCommand(sql, connection_name);
                     MySqlDataReader reader = command.ExecuteReader();
 
@@ -266,8 +266,8 @@ namespace Gym_Aplication
                     {
 
                         string Zajecia = reader.GetString(0);
-
-                        comboBoxZajecia.Items.Add(new ItemZ(Zajecia));
+                        int id =reader.GetInt32(1);
+                        comboBoxZajecia.Items.Add(new ItemZ(Zajecia,id));
                     }
 
                     reader.Close();
@@ -457,7 +457,7 @@ namespace Gym_Aplication
 
             if (comboBoxZajecia.SelectedItem != null)
             {
-                ItemZ selectedItem = (ItemZ)comboBoxZajecia.SelectedItem;
+                selectedItemZ = (ItemZ)comboBoxZajecia.SelectedItem;
                 
             }
         }
@@ -480,7 +480,7 @@ namespace Gym_Aplication
         {
             if (GodzinarozpoczeciaTextBox.SelectedItem != null)
             {
-                ItemGS selectedItem = (ItemGS)GodzinarozpoczeciaTextBox.SelectedItem;
+                 selectedItemGS = (ItemGS)GodzinarozpoczeciaTextBox.SelectedItem;
 
                
             }
@@ -491,7 +491,7 @@ namespace Gym_Aplication
         {
             if (GodzinaZakonczeniaTextBox.SelectedItem != null)
             {
-                ItemGK selectedItem = (ItemGK)GodzinaZakonczeniaTextBox.SelectedItem;
+                 selectedItemGK = (ItemGK)GodzinaZakonczeniaTextBox.SelectedItem;
 
                 
             }
@@ -507,7 +507,7 @@ namespace Gym_Aplication
                 // Wybrano ścieżkę 1 - wypełnij formularz zgodnie z tą ścieżką
                 comboBoxTrener.IsEnabled = true;
                 comboBoxSala.IsEnabled = false;
-
+                comboBoxKlient.Items.Clear();
                 comboBoxKlient.IsEnabled = true;
                 comboBoxZajecia.IsEnabled = true;
                 LoadData_Treners();
@@ -523,6 +523,7 @@ namespace Gym_Aplication
                 comboBoxTrener.IsEnabled = true;
                 comboBoxKlient.IsEnabled = false;
                 comboBoxZajecia.IsEnabled = true;
+                comboBoxKlient.Items.Clear();
                 LoadData_Sale();
                 LoadData_Zajecia_G();
                 LoadData_Treners_Group();
@@ -532,9 +533,94 @@ namespace Gym_Aplication
 
         }
 
+        private void Zapisz_I()
+        {
+            try
+            {
+
+                if(comboBoxTrener != null && comboBoxKlient != null && comboBoxZajecia != null && comboBoxZajecia != null && data_rezerwacji.HasValue && GodzinarozpoczeciaTextBox!=null && GodzinaZakonczeniaTextBox !=null)
+                {
+
+
+                    connection_name.Open();
+
+                    string sql = "INSERT INTO `Rezerwacje_indywidualne` (`id`, `id_trenera`, `id_klienta`, `id_zajec`, `DataRezerwacji`, `StartRezerwacji`, `Koniec_Rezerwacji`, `czy_wazne`) VALUES ( NULL, " + selectedItemT.Id + " , " + selectedItemK.Id + " , " + selectedItemZ.Id + " , '" + data_rezerwacjiD.ToString("yyy-MM-dd") + "' , " + selectedItemGS.Id + " , " + selectedItemGK.Id + " , " + 1 + ");";
+
+                    MySqlCommand command = new MySqlCommand(sql, connection_name);
+                    command.ExecuteNonQuery();
+                    connection_name.Close();
+
+
+                    MessageBox.Show("Z powodzeniem dodano rezerwację indywidualną!");
+
+                }
+                else
+                {
+                    MessageBox.Show("Uzupełnij wszystkie dane!");
+                    connection_name.Close();
+                }
+
+                
+            }catch (Exception ex)
+            {
+                MessageBox.Show("Błąd podczas zapisu terminu!\n" + ex.Message);
+                connection_name.Close();
+            }
+
+
+            MessageBox.Show("Warotść trenera: " + selectedItemT.Id+ " Wartośc klienta: "+ selectedItemK.Id + " Wartość zajęć= " + selectedItemZ.Id + "Start: " + selectedItemGS.Id + "Koniec: " + selectedItemGK.Id);
+        }
+
+        private void Zapisz_G()
+        {
+            try
+            {
+
+                if (comboBoxTrener != null  && comboBoxSala != null && comboBoxZajecia != null && data_rezerwacji.HasValue && GodzinarozpoczeciaTextBox != null && GodzinaZakonczeniaTextBox != null)
+                {
+
+
+                    connection_name.Open();
+
+                    string sql = "INSERT INTO `Rezerwacje` (`id`, `id_trenera`,  `id_zajecia`,`id_sala`, `DataRezerwacji`, `StartRezerwacji`, `KoniecRezerwacji`, `czy_wazne`) VALUES ( NULL, " + selectedItemT.Id + " , " + selectedItemZ.Id + " , " + selectedItemS.Id + " , '" + data_rezerwacjiD.ToString("yyy-MM-dd") + "' , " + selectedItemGS.Id + " , " + selectedItemGK.Id + " , " + 1 + ");";
+
+                    MySqlCommand command = new MySqlCommand(sql, connection_name);
+                    command.ExecuteNonQuery();
+                    connection_name.Close();
+
+
+                    MessageBox.Show("Z powodzeniem dodano rezerwację zajęć grupowych!");
+
+                }
+                else
+                {
+                    MessageBox.Show("Uzupełnij wszystkie dane!");
+                    connection_name.Close();
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Błąd podczas zapisu terminu!\n" + ex.Message);
+                connection_name.Close();
+            }
+
+        }
 
         private void Zapisz_Click(object sender, RoutedEventArgs e)
         {
+
+            if (radioButtonTrener.IsChecked == true)
+            {
+                Zapisz_I();
+            }
+            if (radioButtonGroup.IsChecked == true)
+            {
+                Zapisz_G();
+            }
+          
+
 
         }
     }
