@@ -19,8 +19,8 @@ namespace Gym_Aplication
 
             try
             {
-                if (user_privilege == 1)
-                {
+                if (user_privilege == 1 || user_privilege == 2)
+                    {
                     connection_name.Open();
 
                     string querry = "SELECT * FROM `Klienci` WHERE imie NOT LIKE '';";
@@ -114,54 +114,56 @@ namespace Gym_Aplication
 
             try
             {
-                connection_name.Open();
-
-                string querry2 = "SELECT * FROM `Klienci` WHERE imie NOT LIKE '';";
-
-                MySqlCommand commend2 = new MySqlCommand(querry2, connection_name);
-                
-
-
-                MySqlDataAdapter adapter = new MySqlDataAdapter(commend2);
-
-                DataSet dataSet = new DataSet();
-                adapter.Fill(dataSet, "NazwaTabeli");
-
-
-                // Wczytaj zawartość szablonu HTML z pliku
-                string templatePath = "../../../\\Paterns\\patern_Members_Raport.html";
-                string template = File.ReadAllText(templatePath); // Wprowadź ścieżkę do swojego szablonu
-
-                // Wygeneruj raport HTML z danymi
-                string generatedHTML = Engine.Razor.RunCompile(template, "templateKey", null, dataSet.Tables["NazwaTabeli"]);
-
-                string outputPath = "";
-                // Configure save file dialog box
-                var dialog = new Microsoft.Win32.SaveFileDialog();
-                dialog.FileName = "raport_Członkowie_"; // Default file name
-                dialog.DefaultExt = ".html"; // Default file extension
-                dialog.Filter = "HTML documents (.html)|*.html"; // Filter files by extension
-
-                // Show save file dialog box
-                bool? result = dialog.ShowDialog();
-
-                // Process save file dialog box results
-                if (result == true)
+                if (user_privilege == 1 || user_privilege == 2)
                 {
-                    // Save document
-                    outputPath = dialog.FileName;
-                }
+                    connection_name.Open();
 
-                // Zapisz raport HTML do wybranej lokalizacji
-                if (!string.IsNullOrEmpty(outputPath))
-                {
-                    File.WriteAllText(outputPath, generatedHTML);
-                    MessageBox.Show("Raport został zapisany.", "Sukces");
-                }
+                    string querry2 = "SELECT * FROM `Klienci` WHERE imie NOT LIKE '';";
 
-                connection_name.Close();
+                    MySqlCommand commend2 = new MySqlCommand(querry2, connection_name);
+
+
+
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(commend2);
+
+                    DataSet dataSet = new DataSet();
+                    adapter.Fill(dataSet, "NazwaTabeli");
+
+
+                    // Wczytaj zawartość szablonu HTML z pliku
+                    string templatePath = "../../../\\Paterns\\patern_Members_Raport.html";
+                    string template = File.ReadAllText(templatePath); // Wprowadź ścieżkę do swojego szablonu
+
+                    // Wygeneruj raport HTML z danymi
+                    string generatedHTML = Engine.Razor.RunCompile(template, "templateKey", null, dataSet.Tables["NazwaTabeli"]);
+
+                    string outputPath = "";
+                    // Configure save file dialog box
+                    var dialog = new Microsoft.Win32.SaveFileDialog();
+                    dialog.FileName = "raport_Członkowie_"; // Default file name
+                    dialog.DefaultExt = ".html"; // Default file extension
+                    dialog.Filter = "HTML documents (.html)|*.html"; // Filter files by extension
+
+                    // Show save file dialog box
+                    bool? result = dialog.ShowDialog();
+
+                    // Process save file dialog box results
+                    if (result == true)
+                    {
+                        // Save document
+                        outputPath = dialog.FileName;
+                    }
+
+                    // Zapisz raport HTML do wybranej lokalizacji
+                    if (!string.IsNullOrEmpty(outputPath))
+                    {
+                        File.WriteAllText(outputPath, generatedHTML);
+                        MessageBox.Show("Raport został zapisany.", "Sukces");
+                    }
+
+                    connection_name.Close();
+                }
             }
-
 
             catch (Exception ex)
             {

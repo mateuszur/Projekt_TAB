@@ -51,7 +51,7 @@ namespace Gym_Aplication
             Artykuly.IsEnabled = true;
             Czlonek.IsEnabled = true;
             Statystyki.IsEnabled = true;
-            ObslugaKlienta.IsEnabled = true;
+            //ObslugaKlienta.IsEnabled = true;
             UserContextMenu.IsEnabled = true;
             Harmonogram2.IsEnabled = true;
 
@@ -76,7 +76,7 @@ namespace Gym_Aplication
             Artykuly.IsEnabled = false;
             Czlonek.IsEnabled = false;
             Statystyki.IsEnabled = false;
-            ObslugaKlienta.IsEnabled = false;
+            //ObslugaKlienta.IsEnabled = false;
             UserContextMenu.IsEnabled = false;
             Harmonogram2.IsEnabled = false;
         }
@@ -414,5 +414,7 @@ namespace Gym_Aplication
         {
 
         }
+
+        
     }
 }

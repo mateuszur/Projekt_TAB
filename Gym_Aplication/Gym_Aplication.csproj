@@ -57,8 +57,4 @@
     </Resource>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Paterns\" />
-  </ItemGroup>
-
 </Project>

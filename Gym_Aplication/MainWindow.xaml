@@ -189,7 +189,7 @@
                 MaxWidth="300" />
         </Grid.ColumnDefinitions>
 
-        <extToolkit:WatermarkTextBox Watermark="Filter by name..." />
+        
 
         <ContentControl x:Name="ContentArea" Grid.Column="1" />
 
@@ -333,7 +333,7 @@
                         <TextBlock VerticalAlignment="Center" Text="Statystyki i analizy" />
                     </StackPanel>
                 </RadioButton>
-                <RadioButton
+                <!--<RadioButton
                     x:Name="ObslugaKlienta"
                     Click="ObslugaKlienta_Click"
                     IsChecked="False"
@@ -348,7 +348,7 @@
                             Kind="Headset" />
                         <TextBlock VerticalAlignment="Center" Text="Obsługa klienta" />
                     </StackPanel>
-                </RadioButton>
+                </RadioButton>-->
                 <RadioButton
                     x:Name="Raportowanie"
                     Click="Raportowanie_Click"
@@ -554,7 +554,7 @@
                         <Button x:Name="PobierzRaport_1"
                                 Grid.Column="3"
                                 Height="25"
-                                Click="Export_to_Raport_H"
+                                Click="Export_to_Raport_G"
                                 Content="Pobierz Raport" RenderTransformOrigin="0.037,0.604" Margin="11,0,0,0" HorizontalAlignment="Left" Width="112" />
                         <Button x:Name="Edituj"
                                 Grid.Column="1"
@@ -570,7 +570,7 @@
                 Grid.Row="1"
                 Margin="0,1,0,0"
                 Visibility="Collapsed">
-                <!--  Harmonogram content  -->
+                <!--  Harmonogram content2  -->
                 <Grid Height="64" VerticalAlignment="Top">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -624,7 +624,7 @@
                         <Button x:Name="PobierzRaport_1_2"
                                 Grid.Column="3"
                                 Height="25"
-                                Click="Export_to_Raport_H"
+                                Click="Export_to_Raport_I"
                                 Content="Pobierz Raport" RenderTransformOrigin="0.037,0.604" Margin="11,0,0,0" HorizontalAlignment="Left" Width="112" />
                         <Button x:Name="Edituj2"
                                 Grid.Column="1"
