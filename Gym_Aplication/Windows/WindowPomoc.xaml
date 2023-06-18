@@ -6,27 +6,78 @@
         xmlns:local="clr-namespace:Gym_Aplication"
         mc:Ignorable="d"
         Title="WindowPomoc" 
-        Width="650"
-        Height="500">
+        Width="800"
+        Height="500"
+        MinWidth="400"
+        MinHeight="240"
+        >
+        
 
-    <Grid Margin="0,0,10,5">
+    <Grid Margin="0,0,5,5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Pomoc" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20" FontWeight="Bold"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Pomoc" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20" FontWeight="Bold" Grid.ColumnSpan="3"/>
         <TextBlock Text="Witamy w sekcji pomocy. Tutaj znajdziesz informacje na temat korzystania z aplikacji."
-                   FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,60"/>
+                   FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,60" Grid.ColumnSpan="3"/>
+        <GridSplitter Grid.Column="1" Grid.Row="1" Width="5" HorizontalAlignment="Stretch" />
+        <Label Content="Spis treści" Grid.Row="0" Grid.Column="0" Margin="0,100,0,0" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+        <!-- Contents section -->
+        <TreeView Grid.Row="2" Margin="5,0,5,0">
+            <TreeViewItem Header="Pomoc" IsExpanded="True">
+                <TreeViewItem Header="FAQ" MouseUp="ShowFAQ" />
+                <TreeViewItem Header="Menu boczne" IsExpanded="True">
+                    <TreeViewItem Header="Harmonogram zajęć" MouseUp="ShowClassSchedule"/>
+                    <TreeViewItem Header="Harmonogram indywidualny" MouseUp="ShowPersonalSchedule"/>
+                    <TreeViewItem Header="Zarządzanie trenerami" MouseUp="ShowTrainersMenage"/>
+                    <TreeViewItem Header="Zarządzanie członkami" MouseUp="ShowMembersMenage"/>
+                    <TreeViewItem Header="Artykuły i porady" MouseUp="ShowArticles"/>
+                    <TreeViewItem Header="Statystyki i analizy" MouseUp="ShowStatistic"/>
+                    <TreeViewItem Header="Raportowanie awarii" MouseUp="ShowReports"/>
+                    <TreeViewItem Header="Informacje" MouseUp="ShowInfo"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Level 2.3" />
+            </TreeViewItem>
+        </TreeView>
+
+        <Border
+            BorderThickness="1"
+            BorderBrush="Gray"
+            Grid.Column="2" Grid.Row="1"
+            Margin="5,0,0,0">
+
+            <Canvas Name="ContentCanvas">
+                <TextBlock Name="ClassSchedule" Margin="5,5,5,5" Visibility="Collapsed"/>
+                <TextBlock Name="PersonalSchedule" Margin="5,5,5,5" Visibility="Collapsed"/>
+                <TextBlock Name="TrainersMenage" Margin="5,5,5,5" Visibility="Collapsed"/>
+                <TextBlock Name="MembersMenage" Margin="5,5,5,5" Visibility="Collapsed"/>
+                <TextBlock Name="Articles" Margin="5,5,5,5" Visibility="Collapsed"/>
+                <TextBlock Name="Statistic" Margin="5,5,5,5" Visibility="Collapsed"/>
+                <TextBlock Name="Reports" Margin="5,5,5,5" Visibility="Collapsed"/>
+                <TextBlock Name="Info" Margin="5,5,5,5" Visibility="Collapsed"/>
+            </Canvas>
+
+        </Border>
+        
         <!-- FAQ section -->
-        <Label Content="Często Zadawane Pytania:" Grid.Row="0" Margin="0,100,0,0" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"/>
-        <ListBox x:Name="FAQListBox" ItemsSource="{Binding FAQs}" Margin="20,141,0,0" Grid.RowSpan="2">
+        <Label Name="contentLabel" Content=":)" Grid.Row="0" Grid.Column="2" Margin="0,100,0,0" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+        <ListBox x:Name="FAQListBox" ItemsSource="{Binding FAQs}" Margin="5,0,0,0" Grid.Column="2" Grid.Row="1" Visibility="Collapsed">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Expander Header="{Binding Question}" FontSize="16">
-                        <TextBlock Text="{Binding Answer}" TextWrapping="Wrap" Margin="10" FontSize="14"/>
+                    <Expander Header="{Binding Question}" FontSize="12" FontWeight="Bold">
+                        <TextBlock Text="{Binding Answer}" TextWrapping="Wrap" Margin="10" FontSize="12" FontWeight="Normal"/>
                     </Expander>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        
     </Grid>
 </Window>
