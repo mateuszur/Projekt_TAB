@@ -15,24 +15,60 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Ustawienia" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20" FontWeight="Bold"/>
-        <Grid Grid.Row="1" Margin="20">
+        <Grid Grid.Row="1" Margin="20,47,20,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35*"/>
+                <ColumnDefinition Width="26*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Tutaj możesz zmieniać ustawienia aplikacji, takie jak język, motyw i inne preferencje."
-                       FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBlock  FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Height="100" Grid.RowSpan="2" Margin="35,-59,0,0" Grid.ColumnSpan="2">
+            Tutaj możesz zmieniać ustawienia aplikacji, takie jak język lub dodać nowego<LineBreak/>użytkownika  (wymaga dodatkowych uprawnień).
+            </TextBlock>
+
             <!-- Language settings -->
             <Label Content="Język:" Grid.Row="1" Width="70" Height="25" HorizontalAlignment="Left"/>
-            <ComboBox x:Name="LanguageComboBox" SelectedItem="{Binding SelectedLanguage}" ItemsSource="{Binding Languages}" Grid.Row="2" Margin="0,0,0,10" Padding="5" Width="100" Height="25" HorizontalAlignment="Left"/>
+
+            <ComboBox x:Name="LanguageComboBox" SelectedItem="" Grid.Row="1" Margin="140,9,0,9" Padding="5" Width="100" Height="25" HorizontalAlignment="Left">
+                <ComboBoxItem IsSelected="True">polski</ComboBoxItem>
+            </ComboBox>
+
+
+            <ComboBox x:Name="ComboBox_User" Width="150" Height="25" Margin="0,32,110,83" Grid.Row="3" Grid.Column="1">
+                <ComboBoxItem Content="Użytkownik" Tag="1" IsSelected="True" />
+                <ComboBoxItem Content="Administrator" Tag="2" />
+            </ComboBox>
+
             <!-- Theme settings -->
-            <Label x:Name="ThemeLabel" Content="Theme:" Grid.Row="2" Margin="0,36,0,15" Grid.RowSpan="2" Width="50" Height="25" HorizontalAlignment="Left" />
-            <CheckBox x:Name="DarkModeCheckBox" Content="Dark Mode" IsChecked="{Binding IsDarkMode}" Grid.Row="3" Margin="0,35,0,-25" Width="100" Height="20" HorizontalAlignment="Left" />
-            <CheckBox x:Name="WhiteModeCheckBox" Content="White Mode" IsChecked="{Binding IsDarkMode}" Grid.Row="3" Margin="0,63,0,-53" Width="100" Height="20" HorizontalAlignment="Left" />
+            <Label  Content="Login:" Grid.Row="3" Margin="0,145,0,-65" Width="110" HorizontalAlignment="Left" />
+            <TextBox x:Name="Login" Grid.Row="3" Margin="125,147,80,-36" Grid.ColumnSpan="2" IsEnabled="False"/>
+
+            <Label  Content="Hasło:" Grid.Row="3" Margin="0,181,0,-73" Width="100" HorizontalAlignment="Left" />
+            <Label  Content="Powtórz hasło:" Grid.Row="3" Margin="0,218,0,-107" Width="100" HorizontalAlignment="Left" />
+            <TextBox x:Name="Haslo" Grid.Row="3" Margin="125,181,80,-71" Grid.ColumnSpan="2" IsEnabled="False"/>
+            <TextBox x:Name="Haslo2" Grid.Row="3" Margin="125,218,80,-107" Grid.ColumnSpan="2" IsEnabled="False"/>
+
+            <Label Content="Imię" HorizontalAlignment="Left" Margin="0,80,0,0" Grid.Row="3" VerticalAlignment="Top" Width="70"/>
+            <Label Content="Nazwikso" HorizontalAlignment="Left" Margin="0,117,0,0" Grid.Row="3" VerticalAlignment="Top" Height="23" Width="75" RenderTransformOrigin="0.668,1.48">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.319"/>
+                        <TranslateTransform X="-0.127" Y="0.07"/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <TextBox x:Name="Imie" Grid.Row="3" Margin="125,78,80,39" Grid.ColumnSpan="2" IsEnabled="False"/>
+            <TextBox x:Name="Nazwisko" Grid.Row="3" Margin="125,106,80,-2" Grid.ColumnSpan="2" IsEnabled="False"/>
+
+
             <!-- Save changes button -->
-            <Button x:Name="SaveButton" Content="Zapisz zmiany" Click="SaveChanges_Click" Grid.Row="3" Margin="460,204,10,-184" Padding="10,5" Background="#0078D7" Foreground="White" BorderThickness="0" Cursor="Hand" Width="90" Height="25">
+            <Button x:Name="SaveButton" Content="Zapisz zmiany" Click="SaveChanges_Click" Grid.Row="3" Margin="130,253,40,-172" Padding="10,5" Background="#0078D7" Foreground="White" BorderThickness="0" Cursor="Hand" Width="90" Height="25" Grid.Column="1">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}">
@@ -46,6 +82,8 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
+            <RadioButton Content="Tworzę nowego użytkownika" Name="Check" HorizontalAlignment="Left" Margin="123,32,0,0" Grid.Row="3" VerticalAlignment="Top" Height="31" Width="200" Checked="RadioButton_Checked_Check"/>
+
         </Grid>
     </Grid>
 </Window>

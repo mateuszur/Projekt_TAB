@@ -141,7 +141,7 @@ namespace Gym_Aplication
                     adapter.Fill(dataSet, "NazwaTabeli");
 
                     // Wczytaj zawartość szablonu HTML z pliku
-                    string templatePath = "../../../\\Paterns\\patern_Treners_Raport.html";
+                    string templatePath = "Paterns\\patern_Treners_Raport.html";
                     string template = File.ReadAllText(templatePath); // Wprowadź ścieżkę do swojego szablonu
 
                     // Wygeneruj raport HTML z danymi
@@ -178,6 +178,7 @@ namespace Gym_Aplication
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Report could not be created");
+                connection_name.Close();
             }
 
         }

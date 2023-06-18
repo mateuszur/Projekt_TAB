@@ -61,11 +61,13 @@ namespace Gym_Aplication
                 else
                 {
                     MessageBox.Show("Brak uprawnień!");
+                    
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Otwieranie zarządzania klientami...");
+                connection_name.Close();
             }
         }
 
@@ -131,7 +133,7 @@ namespace Gym_Aplication
 
 
                     // Wczytaj zawartość szablonu HTML z pliku
-                    string templatePath = "../../../\\Paterns\\patern_Members_Raport.html";
+                    string templatePath = "Paterns\\patern_Members_Raport.html";
                     string template = File.ReadAllText(templatePath); // Wprowadź ścieżkę do swojego szablonu
 
                     // Wygeneruj raport HTML z danymi
@@ -168,6 +170,7 @@ namespace Gym_Aplication
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Report could not be created");
+                connection_name.Close();
             }
 
         }

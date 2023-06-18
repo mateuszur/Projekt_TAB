@@ -446,7 +446,7 @@
                         Width="200"
                         Height="20"
                         HorizontalAlignment="Center"
-                        TextAlignment="Left" />
+                       />
 
                     <Label
                         Grid.Row="2"
@@ -556,12 +556,12 @@
                                 Height="25"
                                 Click="Export_to_Raport_G"
                                 Content="Pobierz Raport" RenderTransformOrigin="0.037,0.604" Margin="11,0,0,0" HorizontalAlignment="Left" Width="112" />
-                        <Button x:Name="Edituj"
+                        <!--<Button x:Name="Edituj"
                                 Grid.Column="1"
                                 Height="25"
                                 Click="Edituj_Click"
                                 Content="Edituj" Width="85" 
-                                HorizontalAlignment="Left" />
+                                HorizontalAlignment="Left" />-->
                     </Grid>
                 </Grid>
             </Grid>
@@ -578,7 +578,7 @@
                     </Grid.RowDefinitions>
                     <Label
                         Grid.Row="0"
-                        Content="Harmonogram zajęć2"
+                        Content="Harmonogram zajęć indywidualnych"
                         Style="{StaticResource TitleLabelStyle}" />
                     <DataGrid
                         x:Name="ScheduleDataGrid2"
@@ -626,12 +626,12 @@
                                 Height="25"
                                 Click="Export_to_Raport_I"
                                 Content="Pobierz Raport" RenderTransformOrigin="0.037,0.604" Margin="11,0,0,0" HorizontalAlignment="Left" Width="112" />
-                        <Button x:Name="Edituj2"
+                        <!--<Button x:Name="Edituj2"
                                 Grid.Column="1"
                                 Height="25"
                                 Click="Edituj_Click"
                                 Content="Edituj" Width="85" 
-                                HorizontalAlignment="Left" />
+                                HorizontalAlignment="Left" />-->
                     </Grid>
                 </Grid>
             </Grid>

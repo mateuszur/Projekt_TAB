@@ -27,26 +27,74 @@
         <Label Content="ID" Grid.Row="0" Grid.Column="0"/>
         <TextBox x:Name="IdTextBox" Grid.Row="0" Grid.Column="1"/>
 
-        <Label Content="Imię" Grid.Row="1" Grid.Column="0"/>
-        <TextBox x:Name="ImieTextBox" Grid.Row="1" Grid.Column="1"/>
+        <!--<Label Content="Wybór zajęć" Grid.Row="1" Grid.Column="0"/>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <RadioButton x:Name="radioButtonTrener" Content="Zajęcia indywidualne" Checked="RadioButton_Checked"/>
+            <RadioButton x:Name="radioButtonGroup" Content="Zajęcia grupowe" Checked="RadioButton_Checked"/>
+        </StackPanel>
 
-        <Label Content="Nazwisko" Grid.Row="2" Grid.Column="0"/>
-        <TextBox x:Name="NazwiskoTextBox" Grid.Row="2" Grid.Column="1"/>
 
-        <Label Content="Telefon" Grid.Row="3" Grid.Column="0"/>
-        <TextBox x:Name="TelefonTextBox" Grid.Row="3" Grid.Column="1"/>
+        <Label Content="Wybór trenera" Grid.Row="2" Grid.Column="0"/>
+        <ComboBox x:Name="comboBoxTrener" Grid.Row="2" Grid.Column="1" SelectionChanged="comboBox_SelectionChanged_Treners" IsEnabled="False" IsEditable="False" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding FullName}"  />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
-        <Label Content="Temat" Grid.Row="4" Grid.Column="0"/>
-        <TextBox x:Name="TematTextBox" Grid.Row="4" Grid.Column="1"/>
 
-        <Label Content="Data" Grid.Row="5" Grid.Column="0"/>
-        <DatePicker x:Name="DataPicker" Grid.Row="5" Grid.Column="1"/>
+        <Label Content="Wybór klienta" Grid.Row="3" Grid.Column="0"/>
+        <ComboBox x:Name="comboBoxKlient" Grid.Row="3" Grid.Column="1" SelectionChanged="comboBox_SelectionChanged_Klient" IsEnabled="False" IsEditable="False" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name_Surname}"  />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
-        <Label Content="Godzina rozpoczęcia" Grid.Row="6" Grid.Column="0"/>
-        <xctk:TimePicker x:Name="GodzinarozpoczęciaTextBox" Grid.Row="6" Grid.Column="1"/>
 
-        <Label Content="Godzina zakonczenia" Grid.Row="7" Grid.Column="0"/>
-        <xctk:TimePicker x:Name="GodzinazakonczeniaPicker" Grid.Row="7" Grid.Column="1"/>
+        <Label Content="Sala" Grid.Row="4" Grid.Column="0"/>
+        <ComboBox x:Name="comboBoxSala" Grid.Row="4" Grid.Column="1" SelectionChanged="comboBox_SelectionChanged_Sala" IsEnabled="False" IsEditable="False" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding SalaName}"  />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+
+
+        <Label Content="Zajęcia" Grid.Row="5" Grid.Column="0"/>
+        <ComboBox x:Name="comboBoxZajecia" Grid.Row="5" Grid.Column="1" SelectionChanged="comboBox_SelectionChanged_Zajecia" IsEnabled="False" IsEditable="False" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Zajecia}"  />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Label Content="Data" Grid.Row="6" Grid.Column="0"/>
+        <DatePicker x:Name="DataPicker_Harmonogram" Grid.Row="6" Grid.Column="1" SelectedDateChanged="DataPicker_SelectedDateChanged" IsEnabled="False"/>
+
+        <Label Content="Godzina rozpoczęcia" Grid.Row="7" Grid.Column="0"/>
+
+        <ComboBox x:Name="GodzinarozpoczeciaTextBox" Grid.Row="7" Grid.Column="1" SelectionChanged="comboBox_SelectionChanged_Godzina_Start" IsEnabled="False" IsEditable="False" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding GodzinaS}"  />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Label Content="Godzina zakonczenia" Grid.Row="8" Grid.Column="0"/>
+        <ComboBox x:Name="GodzinaZakonczeniaTextBox" Grid.Row="8" Grid.Column="1" SelectionChanged="comboBox_SelectionChanged_Godzina_Stop" IsEnabled="False" IsEditable="False" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding GodzinaGK}"  />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>-->
 
         <!-- Save changes button -->
         <Button x:Name="Zatwierdz" Content="Zapisz zmiany" Click="Zapisz_Click" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" Padding="10,5" Background="#0078D7" Foreground="White" BorderThickness="0" Cursor="Hand" Width="90" Height="25" Margin="0,36,10,-36">

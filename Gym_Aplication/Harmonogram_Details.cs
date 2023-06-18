@@ -181,7 +181,7 @@ namespace Gym_Aplication
 
 
                     // Wczytaj zawartość szablonu HTML z pliku
-                    string templatePath = "../../../\\Paterns\\patern_Harmonogram_Raport.html";
+                    string templatePath = "Paterns\\patern_Harmonogram_Raport.html";
                     string template = File.ReadAllText(templatePath); // Wprowadź ścieżkę do swojego szablonu
 
                     // Wygeneruj raport HTML z danymi
@@ -219,6 +219,7 @@ namespace Gym_Aplication
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Report could not be created");
+                connection_name.Close();
             }
 
         }
@@ -227,12 +228,12 @@ namespace Gym_Aplication
 
         private void Export_to_Raport_I(object sender, EventArgs e)
         {
-            {
+            try{
                 if (user_privilege == 1 || user_privilege == 2)
                 {
                     connection_name.Open();
 
-                    string querry2 = "SELECT * FROM `Rezerwacje_indywidualne_Widok` where czy_wazne != 0;";
+                    string querry2 = "SELECT * FROM `Rezerwacje_indywidualne_Widok` where czy_wazne= 0;";
 
                     MySqlCommand commend2 = new MySqlCommand(querry2, connection_name);
 
@@ -245,7 +246,9 @@ namespace Gym_Aplication
 
 
                     // Wczytaj zawartość szablonu HTML z pliku
-                    string templatePath = "../../../\\Paterns\\patern_Harmonogram_Raport _2.html";
+                    //                    string templatePath = "\\Paterns\\patern_Harmonogram_Raport _2.html";
+                    string templatePath = "Paterns\\patern_Harmonogram_Raport _2.html";
+
                     string template = File.ReadAllText(templatePath); // Wprowadź ścieżkę do swojego szablonu
 
                     // Wygeneruj raport HTML z danymi
@@ -277,6 +280,10 @@ namespace Gym_Aplication
 
                     connection_name.Close();
                 }
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Raport nie został zapisany.", "Porażka!");
+                connection_name.Close();
             }
 
 
