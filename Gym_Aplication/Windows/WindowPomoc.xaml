@@ -6,27 +6,245 @@
         xmlns:local="clr-namespace:Gym_Aplication"
         mc:Ignorable="d"
         Title="WindowPomoc" 
-        Width="650"
-        Height="500">
+        Width="800"
+        Height="500"
+        MinWidth="400"
+        MinHeight="240"
+        >
 
-    <Grid Margin="0,0,10,5">
+
+    <Grid Margin="0,0,5,5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Pomoc" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20" FontWeight="Bold"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Pomoc" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20" FontWeight="Bold" Grid.ColumnSpan="3"/>
         <TextBlock Text="Witamy w sekcji pomocy. Tutaj znajdziesz informacje na temat korzystania z aplikacji."
-                   FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,60"/>
+                   FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,60" Grid.ColumnSpan="3"/>
+        <GridSplitter Grid.Column="1" Grid.Row="1" Width="5" HorizontalAlignment="Stretch" />
+        <Label Content="Spis treści" Grid.Row="0" Grid.Column="0" Margin="0,100,0,0" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+        <!-- Contents section -->
+        <TreeView Grid.Row="2" Margin="5,0,5,0">
+            <TreeViewItem Header="Pomoc" IsExpanded="True">
+                <TreeViewItem Header="FAQ" MouseUp="ShowFAQ" />
+                <TreeViewItem Header="Menu boczne" IsExpanded="True">
+                    <TreeViewItem Header="Harmonogram zajęć" MouseUp="ShowClassSchedule"/>
+                    <TreeViewItem Header="Harmonogram indywidualny" MouseUp="ShowPersonalSchedule"/>
+                    <TreeViewItem Header="Zarządzanie trenerami" MouseUp="ShowTrainersMenage"/>
+                    <TreeViewItem Header="Zarządzanie członkami" MouseUp="ShowMembersMenage"/>
+                    <TreeViewItem Header="Artykuły i porady" MouseUp="ShowArticles"/>
+                    <TreeViewItem Header="Statystyki i analizy" MouseUp="ShowStatistic"/>
+                    <TreeViewItem Header="Raportowanie awarii" MouseUp="ShowReports"/>
+                    <TreeViewItem Header="Informacje" MouseUp="ShowInfo"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Level 2.3" />
+            </TreeViewItem>
+        </TreeView>
+
+        <Border
+            BorderThickness="1"
+            BorderBrush="Gray"
+            Grid.Column="2" Grid.Row="1"
+            Margin="5,0,0,0">
+
+            <DockPanel Name="ContentCanvas" >
+                <ScrollViewer Name="ClassScheduleScroll" Visibility="Collapsed">
+                    <TextBlock Name="ClassSchedule" Margin="5,5,5,5" Visibility="Collapsed" TextWrapping="Wrap"> 
+                            W tej sekcji znajdziesz wszystkie wprowadzone do systemu zajęcia grupowe. <LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Budowa</Span><LineBreak/>
+                            Lista składa się z następujących elementów:<LineBreak/>
+                            » <Bold>ID</Bold> - indywidualny numer wiersza, nadaawny automatycznie<LineBreak/>
+                            » <Bold>Imię</Bold> - personalia trenera, prowadzącego zajęcia<LineBreak/>
+                            » <Bold>Nazwisko</Bold> - personalia trenera, prowadzącego zajęcia<LineBreak/>
+                            » <Bold>Telefon</Bold> - personalia trenera, prowadzącego zajęcia<LineBreak/>
+                            » <Bold>Temat</Bold> - rodzaj wykonywanych zajęć<LineBreak/>
+                            » <Bold>Salę</Bold> - pomieszczenie zarezerwowane na czas zajęć<LineBreak/>
+                            » <Bold>Data</Bold> - termin zajęć<LineBreak/>
+                            » <Bold>Godzina rozpoczęcia</Bold> - termin zajęć<LineBreak/>
+                            » <Bold>Godzina zakończenia</Bold> - termin zajęć<LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Własności</Span><LineBreak/>
+                            Kolumny można dowolnie przestawiać naciskając i przytrzymując jej nagłówek, a następnie przeciągając go w obrębie innych kolumn.<LineBreak/>
+                            Istnieje możliwosć sortowania wierszy względem kolumn w górę lub w dół, naciskając nagłówek kolumny.<LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Modyfikacja</Span><LineBreak/>
+                            » <Bold>Dodawanie</Bold><LineBreak/>
+                            Aby element należy nacisnąć przycisk <Italic>Dodaj</Italic> znajdujący się u dołu listy, który otworzy formularz dodawania elementu. Należy uzupełnić każde jego pole, a następnie wybrać przycisk <Italic>Zapisz zmiany</Italic>. Jeżeli proces dodawanie przebiegł poprawnie, wyświetli się komunikat: <Italic>Z powodzeniem dodano rezerwację zajęć grupowych!</Italic><LineBreak/>
+                            <LineBreak/>
+                            » <Bold>Usuwanie</Bold><LineBreak/>
+                            Aby usunąć element należy wybrać przycisk <Italic>Usuń</Italic>, znajdujący się pod listą. W nowym oknie, należy wpisać unikalne ID wiersza, który ma zostać usunięty, a następnie wybrać przycisk <Italic>Zapisz zmiany</Italic>. Jeżeli proces dodawanie przebiegł poprawnie, wyświetli się komunikat: <Italic>Z powodzeniem usunięto rezerwację ID:<Italic>(tu odpowienie ID)</Italic>!</Italic><LineBreak/>
+                            <LineBreak/>
+                            » <Bold>Edytowanie</Bold><LineBreak/>
+                            Aby dodać element należy nacisnąć przycisk <Italic>Edytuj</Italic> znajdujący się u dołu listy. Otworzy to nowe okno zawierające formularz edycji elementu, w którym w pierwszej kolejności należy wpisać unikalne ID wiersza oraz zmodyfikować dane. Jeżeli proces dodawanie przebiegł poprawnie, wyświetli się odpowiedni komunikat.<LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Raport</Span><LineBreak/>
+                            Za pomocą przycisku <Italic>Pobierz raport</Italic>, można stworzyc i pobrać na dysk lokalny, raport w formacie HTML, który może zostać otworzony za pomocą dowolnej przeglądarki.<LineBreak/>
+                    </TextBlock>
+                </ScrollViewer>
+
+                <ScrollViewer Name="PersonalScheduleScroll" Visibility="Collapsed">
+                    <TextBlock Name="PersonalSchedule" Margin="5,5,5,5" Visibility="Collapsed" TextWrapping="Wrap">
+                            W tej sekcji znajdziesz wszystkie wprowadzone do systemu zajęcia indywidualne. <LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Budowa</Span><LineBreak/>
+                            Lista składa się z następujących elementów:<LineBreak/>
+                            » <Bold>ID</Bold> - indywidualny numer wiersza, nadaawny automatycznie<LineBreak/>
+                            » <Bold>Imię i Nazwsko Trenera</Bold> - personalia trenera, prowadzącego zajęcia<LineBreak/>
+                            » <Bold>Imię i Nazwisko Klienta</Bold> - personalia osoby uczesticzącej w zajęciach<LineBreak/>
+                            » <Bold>Temat</Bold> - rodzaj wykonywanych zajęć<LineBreak/>
+                            » <Bold>Salę</Bold> - pomieszczenie zarezerwowane na czas zajęć<LineBreak/>
+                            » <Bold>Data</Bold> - termin zajęć<LineBreak/>
+                            » <Bold>Godzina rozpoczęcia</Bold> - termin zajęć<LineBreak/>
+                            » <Bold>Godzina zakończenia</Bold> - termin zajęć<LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Własności</Span><LineBreak/>
+                            Kolumny można dowolnie przestawiać naciskając i przytrzymując jej nagłówek, a następnie przeciągając go w obrębie innych kolumn.<LineBreak/>
+                            Istnieje możliwosć sortowania wierszy względem kolumn w górę lub w dół, naciskając nagłówek kolumny.<LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Modyfikacja</Span><LineBreak/>
+                            » <Bold>Dodawanie</Bold><LineBreak/>
+                            Aby element należy nacisnąć przycisk <Italic>Dodaj</Italic> znajdujący się u dołu listy, który otworzy formularz dodawania elementu. Należy uzupełnić każde jego pole, a następnie wybrać przycisk <Italic>Zapisz zmiany</Italic>. Jeżeli proces dodawanie przebiegł poprawnie, wyświetli się komunikat: <Italic>Z powodzeniem dodano rezerwację zajęć indywidualnych!</Italic><LineBreak/>
+                            <LineBreak/>
+                            » <Bold>Usuwanie</Bold><LineBreak/>
+                            Aby usunąć element należy wybrać przycisk <Italic>Usuń</Italic>, znajdujący się pod listą. W nowym oknie, należy wpisać unikalne ID wiersza, który ma zostać usunięty, a następnie wybrać przycisk <Italic>Zapisz zmiany</Italic>. Jeżeli proces dodawanie przebiegł poprawnie, wyświetli się komunikat: <Italic>Z powodzeniem usunięto rezerwację ID:<Italic>(tu odpowienie ID)</Italic>!</Italic><LineBreak/>
+                            <LineBreak/>
+                            » <Bold>Edytowanie</Bold><LineBreak/>
+                            Aby dodać element należy nacisnąć przycisk <Italic>Edytuj</Italic> znajdujący się u dołu listy. Otworzy to nowe okno zawierające formularz edycji elementu, w którym w pierwszej kolejności należy wpisać unikalne ID wiersza oraz zmodyfikować dane. Jeżeli proces dodawanie przebiegł poprawnie, wyświetli się odpowiedni komunikat.<LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Raport</Span><LineBreak/>
+                            Za pomocą przycisku <Italic>Pobierz raport</Italic>, można stworzyc i pobrać na dysk lokalny, raport w formacie HTML, który może zostać otworzony za pomocą dowolnej przeglądarki.<LineBreak/>
+
+                    </TextBlock>
+                </ScrollViewer>
+
+                <ScrollViewer Name="TrainersMenageScroll" Visibility="Collapsed">
+                    <TextBlock Name="TrainersMenage" Margin="5,5,5,5" Visibility="Collapsed" TextWrapping="Wrap">
+                            W tej sekcji znajdziesz informacje o zatrudnionych w siłowni trenerach, ich personalia. <LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Budowa</Span><LineBreak/>
+                            Lista składa się z następujących elementów:<LineBreak/>
+                            » <Bold>ID</Bold> - indywidualny numer wiersza, nadawny automatycznie<LineBreak/>
+                            » <Bold>Imię</Bold><LineBreak/>
+                            » <Bold>Nazwisko</Bold><LineBreak/>
+                            » <Bold>Telefon</Bold><LineBreak/>
+                            » <Bold>Email</Bold><LineBreak/>
+                            » <Bold>Data rejestracji</Bold> do systemu<LineBreak/>
+                            » <Bold>Płeć</Bold> (do wyboru: K/M)<LineBreak/>
+                            » <Bold>Adres</Bold> zamieszkania<LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Własności</Span><LineBreak/>
+                            Kolumny można dowolnie przestawiać naciskając i przytrzymując jej nagłówek, a następnie przeciągając go w obrębie innych kolumn.<LineBreak/>
+                            Istnieje możliwosć sortowania wierszy względem kolumn w górę lub w dół, naciskając nagłówek kolumny.<LineBreak/>
+                            W prawym górnym rogu, nad listą znajduje się konfigurator filtru. Aby przefiltrować daną listę należy wybrać kolumnę po, której chcemy filtrować, a następnie wpisać szukaną frazę.<LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Modyfikacja</Span><LineBreak/>
+                            » <Bold>Dodawanie</Bold><LineBreak/>
+                            Aby element należy nacisnąć przycisk <Italic>Dodaj</Italic> znajdujący się u dołu listy, który otworzy formularz dodawania elementu. Należy uzupełnić każde jego pole, a następnie wybrać przycisk <Italic>Zapisz zmiany</Italic>. Jeżeli proces dodawanie przebiegł poprawnie, wyświetli się komunikat: <Italic>Z powodzeniem dodano rezerwację zajęć indywidualnych!</Italic><LineBreak/>
+                            <LineBreak/>
+                            » <Bold>Usuwanie</Bold><LineBreak/>
+                            Aby usunąć element należy wybrać przycisk <Italic>Usuń</Italic>, znajdujący się pod listą. W nowym oknie, należy wpisać unikalne ID wiersza, który ma zostać usunięty, a następnie wybrać przycisk <Italic>Zapisz zmiany</Italic>. Jeżeli proces dodawanie przebiegł poprawnie, wyświetli się komunikat: <Italic>Z powodzeniem usunięto rezerwację ID:<Italic>(tu odpowienie ID)</Italic>!</Italic><LineBreak/>
+                            <LineBreak/>
+                            » <Bold>Edytowanie</Bold><LineBreak/>
+                            Aby dodać element należy nacisnąć przycisk <Italic>Edytuj</Italic> znajdujący się u dołu listy. Otworzy to nowe okno zawierające formularz edycji elementu, w którym w pierwszej kolejności należy wpisać unikalne ID wiersza oraz zmodyfikować dane. Jeżeli proces dodawanie przebiegł poprawnie, wyświetli się odpowiedni komunikat.<LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Raport</Span><LineBreak/>
+                            Za pomocą przycisku <Italic>Pobierz raport</Italic>, można stworzyc i pobrać na dysk lokalny, raport w formacie HTML, który może zostać otworzony za pomocą dowolnej przeglądarki.<LineBreak/>
+
+                    </TextBlock>
+                </ScrollViewer>
+
+                <ScrollViewer Name="MembersMenageScroll" Visibility="Collapsed">
+                    <TextBlock Name="MembersMenage" Margin="5,5,5,5" Visibility="Collapsed" TextWrapping="Wrap">
+                            W tej sekcji znajdziesz informację o członkach siłowni, ich personalia. <LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Budowa</Span><LineBreak/>
+                            Lista składa się z następujących elementów:<LineBreak/>
+                            » <Bold>ID</Bold> - indywidualny numer wiersza, nadawny automatycznie<LineBreak/>
+                            » <Bold>Imię</Bold><LineBreak/>
+                            » <Bold>Nazwisko</Bold><LineBreak/>
+                            » <Bold>Telefon</Bold><LineBreak/>
+                            » <Bold>Email</Bold><LineBreak/>
+                            » <Bold>Data rejestracji</Bold> do systemu<LineBreak/>
+                            » <Bold>Płeć</Bold> (do wyboru: K/M)<LineBreak/>
+                            » <Bold>Adres</Bold> zamieszkania<LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Własności</Span><LineBreak/>
+                            Kolumny można dowolnie przestawiać naciskając i przytrzymując jej nagłówek, a następnie przeciągając go w obrębie innych kolumn.<LineBreak/>
+                            Istnieje możliwosć sortowania wierszy względem kolumn w górę lub w dół, naciskając nagłówek kolumny.<LineBreak/>
+                            W prawym górnym rogu, nad listą znajduje się konfigurator filtru. Aby przefiltrować daną listę należy wybrać kolumnę po, której chcemy filtrować, a następnie wpisać szukaną frazę.<LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Modyfikacja</Span><LineBreak/>
+                            » <Bold>Dodawanie</Bold><LineBreak/>
+                            Aby element należy nacisnąć przycisk <Italic>Dodaj członka</Italic> znajdujący się u dołu listy, który otworzy formularz dodawania elementu. Należy uzupełnić każde jego pole, a następnie wybrać przycisk <Italic>Zapisz zmiany</Italic>. Jeżeli proces dodawanie przebiegł poprawnie, wyświetli się komunikat: <Italic>Z powodzeniem dodano rezerwację zajęć indywidualnych!</Italic><LineBreak/>
+                            <LineBreak/>
+                            » <Bold>Usuwanie</Bold><LineBreak/>
+                            Aby usunąć element należy wybrać przycisk <Italic>Usuń członka</Italic>, znajdujący się pod listą. W nowym oknie, należy wpisać unikalne ID wiersza, który ma zostać usunięty, a następnie wybrać przycisk <Italic>Zapisz zmiany</Italic>. Jeżeli proces dodawanie przebiegł poprawnie, wyświetli się komunikat: <Italic>Z powodzeniem usunięto rezerwację ID:<Italic>(tu odpowienie ID)</Italic>!</Italic><LineBreak/>
+                            <LineBreak/>
+                            » <Bold>Edytowanie</Bold><LineBreak/>
+                            Aby dodać element należy nacisnąć przycisk <Italic>Edytuj członka</Italic> znajdujący się u dołu listy. Otworzy to nowe okno zawierające formularz edycji elementu, w którym w pierwszej kolejności należy wpisać unikalne ID wiersza oraz zmodyfikować dane. Jeżeli proces dodawanie przebiegł poprawnie, wyświetli się odpowiedni komunikat.<LineBreak/>
+                            <LineBreak/>
+                            <Span FontWeight="Bold" FontSize="14">Raport</Span><LineBreak/>
+                            Za pomocą przycisku <Italic>Pobierz raport</Italic>, można stworzyc i pobrać na dysk lokalny, raport w formacie HTML, który może zostać otworzony za pomocą dowolnej przeglądarki.<LineBreak/>
+
+                    </TextBlock>
+                </ScrollViewer>
+
+                <ScrollViewer Name="ArticlesScroll" Visibility="Collapsed">
+                    <TextBlock Name="Articles" Margin="5,5,5,5" Visibility="Collapsed" TextWrapping="Wrap">
+                            W tej sekcji znajdziesz przydatne artykuły i porady. Kliknij interenujący cię temat, a zostaniesz piekierowany na odpowienią witrynę.<LineBreak/>
+                            <LineBreak/>
+                            To narzędzie jest w trakcie rozwoju. Jeśli masz jakieś uwagi, co do działania aplikacji - daj znać na <Italic>silownia.kontakt@gmail.com</Italic>.<LineBreak/>
+                    </TextBlock>
+                </ScrollViewer>
+
+                <ScrollViewer Name="StatisticScroll" Visibility="Collapsed">
+                    <TextBlock Name="Statistic" Margin="5,5,5,5" Visibility="Collapsed" TextWrapping="Wrap">
+                            W tej sekcji masz szansę podejrzeć statystyki związane z działaniem aplikacji.<LineBreak/>
+                            <LineBreak/>
+                            To narzędzie jest w trakcie rozwoju. Jeśli masz jakieś uwagi, co do działania aplikacji - daj znać na <Italic>silownia.kontakt@gmail.com</Italic>.<LineBreak/>
+                    </TextBlock>
+                </ScrollViewer>
+
+                <ScrollViewer Name="ReportsScroll" Visibility="Collapsed">
+                    <TextBlock Name="Reports" Margin="5,5,5,5" Visibility="Collapsed" TextWrapping="Wrap" Width="auto">
+                            W tej sekcji możesz zgłaszać awarie sprzętu.<LineBreak/>
+                            <LineBreak/>
+                            Aby zgłosić awarię, należy wypełnić formularz, a następnie klikąć <Italic>Wyślij</Italic>.<LineBreak/>
+                            <LineBreak/>
+                            To narzędzie jest w trakcie rozwoju. Jeśli masz jakieś uwagi, co do działania aplikacji - daj znać na <Italic>silownia.kontakt@gmail.com</Italic>.<LineBreak/>
+                    </TextBlock>
+                </ScrollViewer>
+
+                <ScrollViewer Name="InfoScroll" Visibility="Collapsed">
+                    <TextBlock Name="Info" Margin="5,5,5,5" Visibility="Collapsed" TextWrapping="Wrap">
+                            W tej sekcji wymienione są najważniejsze informacje dotyczące firmy.
+                             <LineBreak/>
+                            To narzędzie jest w trakcie rozwoju. Jeśli masz jakieś uwagi, co do działania aplikacji - daj znać na <Italic>silownia.kontakt@gmail.com</Italic>.<LineBreak/>
+                    </TextBlock>
+                </ScrollViewer>
+            </DockPanel>
+
+        </Border>
+
         <!-- FAQ section -->
-        <Label Content="Często Zadawane Pytania:" Grid.Row="0" Margin="0,100,0,0" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"/>
-        <ListBox x:Name="FAQListBox" ItemsSource="{Binding FAQs}" Margin="20,141,0,0" Grid.RowSpan="2">
+        <Label Name="contentLabel" Content="Najczęściej zadawane pytania (FAQ)" Grid.Row="0" Grid.Column="2" Margin="0,100,0,0" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+        <ListBox x:Name="FAQListBox" ItemsSource="{Binding FAQs}" Margin="5,0,0,0" Grid.Column="2" Grid.Row="1" Visibility="Visible">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Expander Header="{Binding Question}" FontSize="16">
-                        <TextBlock Text="{Binding Answer}" TextWrapping="Wrap" Margin="10" FontSize="14"/>
+                    <Expander Header="{Binding Question}" FontSize="12" FontWeight="Bold">
+                        <TextBlock Text="{Binding Answer}" TextWrapping="Wrap" Margin="10" FontSize="12" FontWeight="Normal"/>
                     </Expander>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
     </Grid>
 </Window>

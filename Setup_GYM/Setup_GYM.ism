@@ -2027,6 +2027,7 @@
 		<col key="yes" def="s72">Tag</col>
 		<col def="S255">Data</col>
 		<row><td>Gym_Aplication.exe</td><td/></row>
+		<row><td>Gym_Aplication.exe2</td><td/></row>
 		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td></row>
 		<row><td>PROJECT_ASSISTANT_FEATURES</td><td>NonSelectable</td></row>
 	</table>
@@ -2851,7 +2852,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1045</td><td>GrupaProjektowa</td><td>0</td><td/><td>-1825859059</td></row>
+		<row><td>COMPANY_NAME</td><td>1045</td><td>GrupaProjektowa</td><td>0</td><td/><td>-1825871311</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1045</td><td>Zawsze instaluj</td><td>0</td><td/><td/></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ACROBAT5FOLDER</td><td>1045</td><td>   W celu kontynuowania tej instalacji należy zainstalować program Adobe Acrobat 5.</td><td>0</td><td/><td/></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ADOBEREADER10FOLDER</td><td>1045</td><td>W celu kontynuowania tej instalacji należy zainstalować program Adobe Acrobat 10.</td><td>0</td><td/><td/></row>
@@ -3999,7 +4000,7 @@
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1045</td><td>Rozdzielczość ekranu jest niewystarczająca do uruchomienia programu [ProductName].</td><td>0</td><td/><td/></row>
 		<row><td>ID_STRING1</td><td>1045</td><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>0</td><td/><td>-1825839284</td></row>
 		<row><td>ID_STRING2</td><td>1045</td><td/><td>0</td><td/><td>-1825879635</td></row>
-		<row><td>ID_STRING3</td><td>1045</td><td>https://polsl.online:8000/</td><td>0</td><td/><td>-1825846771</td></row>
+		<row><td>ID_STRING3</td><td>1045</td><td>http://www.GrupaProjektowa.com</td><td>0</td><td/><td>-1825871311</td></row>
 		<row><td>ID_STRING4</td><td>1045</td><td>LAUNCH~1.EXE|Launch Gym_Aplication.exe</td><td>0</td><td/><td>-1825838387</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1045</td><td>Ten składnik nie zostanie zainstalowany.</td><td>0</td><td/><td/></row>
 	</table>

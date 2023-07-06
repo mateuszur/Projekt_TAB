@@ -50,7 +50,7 @@ namespace Gym_Aplication
 
                         listOfTrainers.Add(feld);
                     }
-                    connection_name.Close();
+                   
 
                     _trainersView = CollectionViewSource.GetDefaultView(listOfTrainers);
                     _trainersView.SortDescriptions.Add(new SortDescription("ID", ListSortDirection.Ascending));
@@ -61,7 +61,7 @@ namespace Gym_Aplication
                     };
 
                     TrenersData.ItemsSource = _trainersView;
-                   
+                    connection_name.Close();
                 }
                 else
                 {
@@ -70,7 +70,7 @@ namespace Gym_Aplication
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Otwieranie zarządzania trenerami...");
+                MessageBox.Show("Otwieranie zarządzania trenerami... \n" + ex.Message);
                 connection_name.Close();
             }
         }
@@ -145,7 +145,7 @@ namespace Gym_Aplication
                     string template = File.ReadAllText(templatePath); // Wprowadź ścieżkę do swojego szablonu
 
                     // Wygeneruj raport HTML z danymi
-                    string generatedHTML = Engine.Razor.RunCompile(template, "templateKey", null, dataSet.Tables["NazwaTabeli"]);
+                    string generatedHTML = Engine.Razor.RunCompile(template, "templateKeyT", null, dataSet.Tables["NazwaTabeli"]);
 
                     string outputPath = "";
                     // Configure save file dialog box
@@ -168,7 +168,7 @@ namespace Gym_Aplication
                     if (!string.IsNullOrEmpty(outputPath))
                     {
                         File.WriteAllText(outputPath, generatedHTML);
-                        MessageBox.Show("Raport został zapisany.", "Sukces");
+                        MessageBox.Show("Raport został zapisany.", "Sukces!");
                     }
 
                     connection_name.Close();

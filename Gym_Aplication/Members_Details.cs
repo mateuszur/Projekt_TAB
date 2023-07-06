@@ -137,7 +137,7 @@ namespace Gym_Aplication
                     string template = File.ReadAllText(templatePath); // Wprowadź ścieżkę do swojego szablonu
 
                     // Wygeneruj raport HTML z danymi
-                    string generatedHTML = Engine.Razor.RunCompile(template, "templateKey", null, dataSet.Tables["NazwaTabeli"]);
+                    string generatedHTML = Engine.Razor.RunCompile(template, "templateKeyM", null, dataSet.Tables["NazwaTabeli"]);
 
                     string outputPath = "";
                     // Configure save file dialog box

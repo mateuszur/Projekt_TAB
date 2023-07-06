@@ -36,7 +36,7 @@ namespace Gym_Aplication
                 connection_name.Open();
 
                 string sql =
-                "UPDATE `Rezerwacje` SET  `czy_wazne` = 0  WHERE `Rezerwacje`.`id`=" + IdTextBox.Text + ";";
+                "UPDATE `Rezerwacje` SET  `czy_wazne` = 0, `StartRezerwacji` = '0', `KoniecRezerwacji` = '0'  WHERE `Rezerwacje`.`id`=" + IdTextBox.Text + ";";
 
                 MySqlCommand command = new MySqlCommand(sql, connection_name);
                 command.ExecuteNonQuery();
@@ -66,7 +66,7 @@ namespace Gym_Aplication
                 connection_name.Open();
 
                 string sql =
-                "UPDATE `Rezerwacje_indywidualne` SET  `czy_wazne` = 0  WHERE id=" + IdTextBox.Text + ";";
+                "UPDATE `Rezerwacje_indywidualne` SET  `czy_wazne` = 0, `StartRezerwacji` = '0', `Koniec_Rezerwacji` = '0'  WHERE id=" + IdTextBox.Text + ";";
 
                 MySqlCommand command = new MySqlCommand(sql, connection_name);
                 command.ExecuteNonQuery();
@@ -87,16 +87,18 @@ namespace Gym_Aplication
 
         private void Zapisz_Click_Usun(object sender, RoutedEventArgs e)
         {
-            IdTextBox.Text = "";
+            
 
             if (radioButtonI.IsChecked == true)
             {
                 Zapisz_Click_I();
-                
+                IdTextBox.Text = "";
+
             }
             if (radioButtonG.IsChecked == true)
             {
                 Zapisz_ClickG();
+                IdTextBox.Text = "";
             }
 
         }

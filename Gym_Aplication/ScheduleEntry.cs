@@ -1,11 +1,12 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 
 namespace Gym_Aplication
 {
     internal class ScheduleEntry1
     {
        
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Phone { get; set; }
@@ -13,7 +14,7 @@ namespace Gym_Aplication
        
         public string Room { get; set; }
 
-        public string Date { get; set; }
+        public string Date{ get; set; }
 
         public string Start_time { get; set; }
         public string End_time { get; set;}
@@ -22,7 +23,7 @@ namespace Gym_Aplication
     internal class ScheduleEntry2
     {
 
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string NameT { get; set; }
         public string NameK { get; set; }
         
@@ -36,7 +37,7 @@ namespace Gym_Aplication
         public string End_time { get; set; }
 
 
-        public ScheduleEntry2(string iD, string nameT, string surnameT, string nameK, string surnameK, string activity, string date, string start_time, string end_time)
+        public ScheduleEntry2(int  iD, string nameT, string surnameT, string nameK, string surnameK, string activity, string date, string start_time, string end_time)
         {
             ID = iD;
             NameT = nameT+" "+ surnameT;

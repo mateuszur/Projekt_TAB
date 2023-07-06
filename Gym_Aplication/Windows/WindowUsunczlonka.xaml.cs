@@ -37,17 +37,33 @@ namespace Gym_Aplication
                 }
 
                 connection_name.Open();
-
+                string sql0 = "SELECT COUNT(id_klienta) FROM `Klienci` WHERE  imie NOT LIKE \"\" AND id_klienta=" + IdTextBox.Text + ";";
                 string sql =
                 "UPDATE `Klienci` SET  `imie` = '" + imie + "'," + "`nazwisko` = '" + nazwisko + "'," + "`e-mail`= '" + email + "'," + " `telefon`= '" + telefon + "',  `plec`= '" + plec + "', `adres`= '" + adres + "'" + " WHERE `Klienci`.`id_klienta`=" + IdTextBox.Text + ";";
 
-                MySqlCommand command = new MySqlCommand(sql, connection_name);
-                command.ExecuteNonQuery();
-                connection_name.Close();
+
+                MySqlCommand command0 = new MySqlCommand(sql0, connection_name);
+                MySqlDataReader data_from_querry0 = command0.ExecuteReader();
+
+                data_from_querry0.Read();
+                int number = data_from_querry0.GetInt32(0);
+                data_from_querry0.Close();
+
+                if (number == 0)
+                {
+                    MessageBox.Show("Najwyraźniej brak trenera o podanym ID...  ");
+                    connection_name.Close();
+                }
+                else
+                {
+
+                    MySqlCommand command = new MySqlCommand(sql, connection_name);
+                    command.ExecuteNonQuery();
+                    connection_name.Close();
 
 
-                MessageBox.Show("Z powodzeniem usunięto trenera " + imie + " ID: " + IdTextBox.Text + "!");
-
+                    MessageBox.Show("Z powodzeniem usunięto trenera " + imie + " ID: " + IdTextBox.Text + "!");
+                }
 
             }
             catch (Exception ex)

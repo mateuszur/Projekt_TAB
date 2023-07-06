@@ -25,7 +25,7 @@
         </Grid.RowDefinitions>
 
         <Label Content="ID" Grid.Row="0" Grid.Column="0"/>
-        <TextBox x:Name="IdTextBox" Grid.Row="0" Grid.Column="1" TextChanged="IdTextBox_TextChanged"/>
+        <TextBox x:Name="IdTextBox" Grid.Row="0" Grid.Column="1" KeyDown="IdTextBox_TextChanged"/>
 
         <Label Content="Imię" Grid.Row="1" Grid.Column="0"/>
         <TextBox x:Name="ImieTextBox" Grid.Row="1" Grid.Column="1"/>

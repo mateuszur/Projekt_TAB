@@ -38,7 +38,9 @@ namespace Gym_Aplication
             InitializeComponent();
             //PopulateScheduleDataGrid();
             var members = new ObservableCollection<MembersManagement>();
+            var treners = new ObservableCollection<TrainerManagement>();
             _membersView = CollectionViewSource.GetDefaultView(members);
+            _trainersView = CollectionViewSource.GetDefaultView(treners);
         }
 
         private void EnableButtons()
@@ -114,8 +116,8 @@ namespace Gym_Aplication
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            username =  UsernameTextBox.Text;
-            password =  PasswordBox.Visibility == Visibility.Visible ? PasswordBox.Password : PasswordTextBox.Text;
+            username = "mateusz"; //UsernameTextBox.Text;
+            password = "Pa$$w0rd";//PasswordBox.Visibility == Visibility.Visible ? PasswordBox.Password : PasswordTextBox.Text;
             NazwaUżytkownika.Content = username;
 
             using (SHA1 sha1 = SHA1.Create())

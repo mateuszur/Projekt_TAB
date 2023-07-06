@@ -3,6 +3,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Gym_Aplication
 {
@@ -33,42 +34,73 @@ namespace Gym_Aplication
             connection_name.ConnectionString = connection_string;
         }
 
-        private void IdTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void IdTextBox_TextChanged(object sender, KeyEventArgs e)
         {
-            try
+            if (e.Key == Key.Enter)
             {
-                if (IdTextBox.Text == "")
+                try
                 {
+                    if (IdTextBox.Text == "")
+                    {
+                        return;
+                    }
+
+                    connection_name.Open();
+                    string sql0 = "SELECT COUNT(id_klienta) FROM `Klienci` WHERE  imie NOT LIKE \"\" AND id_klienta=" + IdTextBox.Text + ";";
+                    string sql1 = "SELECT * FROM `Klienci` where `id_klienta` = " + IdTextBox.Text + ";";
+
+                    MySqlCommand command0 = new MySqlCommand(sql0, connection_name);
+                    MySqlDataReader data_from_querry0 = command0.ExecuteReader();
+
+
+                    data_from_querry0.Read();
+                    int number = data_from_querry0.GetInt32(0);
+
+                    data_from_querry0.Close();
+
+                    
+                    if (number == 0)
+                    {
+                        MessageBox.Show("Najwyraźniej brak trenera o podanym ID...  ");
+                        connection_name.Close();
+                        ImieTextBox.Text = "";
+                        NazwiskoTextBox.Text = "";
+                        TelefonTextBox.Text = "";
+                        EmailTextBox.Text = "";
+                        AdresTextBox.Text = "";
+                        PlecTextBox.Text = "";
+                        DataPicker.Text = "";
+
+
+                    }
+                    else
+                    {
+                        MySqlCommand command1 = new MySqlCommand(sql1, connection_name);
+                        MySqlDataReader data_from_querry1 = command1.ExecuteReader();
+
+
+                        while (data_from_querry1.Read())
+                        {
+                            ImieTextBox.Text = (data_from_querry1["imie"]).ToString();
+                            NazwiskoTextBox.Text = (data_from_querry1["nazwisko"]).ToString();
+                            EmailTextBox.Text = data_from_querry1["e-mail"].ToString();
+                            TelefonTextBox.Text = data_from_querry1["telefon"].ToString();
+                            PlecTextBox.Text = data_from_querry1["plec"].ToString();
+                            DataPicker.Text = data_from_querry1["data_utworzenia"].ToString();
+                            AdresTextBox.Text = data_from_querry1["adres"].ToString();
+
+                        }
+                        connection_name.Close();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Najwyraźniej brak członka o podanym ID...");
                     return;
                 }
-
-                connection_name.Open();
-                string sql = "SELECT * FROM `Klienci` where `id_klienta` = " + IdTextBox.Text + ";";
-
-                MySqlCommand command = new MySqlCommand(sql, connection_name);
-                command.ExecuteNonQuery();
-
-                MySqlDataReader data_from_querry = command.ExecuteReader();
-
-                while (data_from_querry.Read())
-                {
-                    ImieTextBox.Text = (data_from_querry["imie"]).ToString();
-                    NazwiskoTextBox.Text = (data_from_querry["nazwisko"]).ToString();
-                    EmailTextBox.Text = data_from_querry["e-mail"].ToString();
-                    TelefonTextBox.Text = data_from_querry["telefon"].ToString();
-                    PlecTextBox.Text = data_from_querry["plec"].ToString();
-                    DataPicker.Text = data_from_querry["data_utworzenia"].ToString();
-                    AdresTextBox.Text = data_from_querry["adres"].ToString();
-
-                }
-
+                connection_name.Close();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Najwyraźniej brak członka o podanym ID...");
-                return;
-            }
-            connection_name.Close();
         }
 
         private void Edit_Click_Zapisz_zmiany(object sender, RoutedEventArgs e)

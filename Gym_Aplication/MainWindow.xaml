@@ -505,6 +505,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Label
                         Grid.Row="0"
@@ -519,16 +520,15 @@
                         CanUserDeleteRows="False"
                         IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding ID}" Header="ID" />
-                            <DataGridTextColumn Binding="{Binding Name}" Header="Imię" />
-                            <DataGridTextColumn Binding="{Binding Surname}" Header="Nazwisko" />
-                            <DataGridTextColumn Binding="{Binding Phone}" Header="Telefon" />
-                            <DataGridTextColumn Binding="{Binding Activity}" Header="Temat" />
-                            <DataGridTextColumn Binding="{Binding Room}" Header="Sala" />
-                            <DataGridTextColumn Binding="{Binding Date}" Header="Data" />
-
-                            <DataGridTextColumn Binding="{Binding Start_time}" Header="Godzina rozpoczęcia" />
-                            <DataGridTextColumn Binding="{Binding End_time}" Header="Godzina zakończenia" />
+                            <DataGridTextColumn Binding="{Binding ID}" Header="ID" Width="SizeToCells" />
+                            <DataGridTextColumn Binding="{Binding Name}" Header="Imię" Width="*" />
+                            <DataGridTextColumn Binding="{Binding Surname}" Header="Nazwisko" Width="*" />
+                            <DataGridTextColumn Binding="{Binding Phone}" Header="Telefon" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Activity}" Header="Temat" Width="*" />
+                            <DataGridTextColumn Binding="{Binding Room}" Header="Sala" Width="*" />
+                            <DataGridTextColumn Binding="{Binding Date}" Header="Data" Width="*" />
+                            <DataGridTextColumn Binding="{Binding Start_time}" Header="Godzina rozpoczęcia" Width="*" />
+                            <DataGridTextColumn Binding="{Binding End_time}" Header="Godzina zakończenia" Width="*" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <Grid
@@ -556,15 +556,12 @@
                                 Height="25"
                                 Click="Export_to_Raport_G"
                                 Content="Pobierz Raport" RenderTransformOrigin="0.037,0.604" Margin="11,0,0,0" HorizontalAlignment="Left" Width="112" />
-                        <!--<Button x:Name="Edituj"
-                                Grid.Column="1"
-                                Height="25"
-                                Click="Edituj_Click"
-                                Content="Edituj" Width="85" 
-                                HorizontalAlignment="Left" />-->
+                     
                     </Grid>
                 </Grid>
             </Grid>
+           
+            
             <Grid
                 x:Name="Content_Harmonogram2"
                 Grid.Row="1"
@@ -575,6 +572,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Label
                         Grid.Row="0"
@@ -589,16 +587,13 @@
                         CanUserDeleteRows="False"
                         IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding ID}" Header="ID" />
-                            <DataGridTextColumn Binding="{Binding NameT}" Header="Imię i Nazwisko Trenera" />
-                            <DataGridTextColumn Binding="{Binding NameK}" Header="Imię i Nazwisko Klienta" />
-                            
-                            <DataGridTextColumn Binding="{Binding Activity}" Header="Temat" />
-                          
-                            <DataGridTextColumn Binding="{Binding Date}" Header="Data" />
-
-                            <DataGridTextColumn Binding="{Binding Start_time}" Header="Godzina rozpoczęcia" />
-                            <DataGridTextColumn Binding="{Binding End_time}" Header="Godzina zakończenia" />
+                            <DataGridTextColumn Binding="{Binding ID}" Header="ID" Width="SizeToCells" />
+                            <DataGridTextColumn Binding="{Binding NameT}" Header="Imię i Nazwisko Trenera" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding NameK}" Header="Imię i Nazwisko Klienta" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Activity}" Header="Temat" Width="*" />
+                            <DataGridTextColumn Binding="{Binding Date}" Header="Data" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Start_time}" Header="Godzina rozpoczęcia" Width="*" />
+                            <DataGridTextColumn Binding="{Binding End_time}" Header="Godzina zakończenia" Width="*" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <Grid
@@ -626,50 +621,52 @@
                                 Height="25"
                                 Click="Export_to_Raport_I"
                                 Content="Pobierz Raport" RenderTransformOrigin="0.037,0.604" Margin="11,0,0,0" HorizontalAlignment="Left" Width="112" />
-                        <!--<Button x:Name="Edituj2"
-                                Grid.Column="1"
-                                Height="25"
-                                Click="Edituj_Click"
-                                Content="Edituj" Width="85" 
-                                HorizontalAlignment="Left" />-->
+                       
                     </Grid>
                 </Grid>
             </Grid>
+          
+            
             <Grid
                 x:Name="Content_ZarządzanieTrenerami"
                 Grid.Row="1"
-                Margin="0,1,0,0"
-                Visibility="Collapsed">
+                Visibility="Collapsed"
+                Height="325" 
+                VerticalAlignment="Top"
+                Margin="0,1,0,0">
+                
                 <!--  Zarządzanie trenerami content  -->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Label
-                        Grid.Row="0"
-                        Grid.RowSpan="2"
-                        Margin="0,0,0,26"
-                        Content="Lista trenerów:" Width="100" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" />
-                    <extToolkit:WatermarkTextBox 
-                        x:Name="FilterTextBox"
-                        Grid.Row="1"
-                        Width="150"
-                        Height="25"
-                        Margin="188,0,199,33"
-                        TextChanged="FilterTextBox_TextChanged"
-                        Watermark="Filtruj według nazwy..." VerticalAlignment="Top" HorizontalAlignment="Right" />
+                 </Grid.RowDefinitions>
 
-                    <ComboBox
+                <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+
+
+                    <extToolkit:WatermarkTextBox 
+                            x:Name="FilterTextBox"
+                            TextChanged="FilterTextBox_TextChanged"
+                            Width="150"
+                            Height="25"
+                            Watermark="Filtruj według nazwy..." Margin="222,0,165,2" HorizontalAlignment="Right" />
+
+                        <ComboBox
                         x:Name="SortComboBox"
-                        Grid.Row="1"
-                        Width="150"
-                        Height="25"
-                        Margin="343,1,44,32"
-                        SelectionChanged="SortComboBox_SelectionChanged" HorizontalAlignment="Right" VerticalAlignment="Top">
-                        <ComboBoxItem Content="ID" />
+                          SelectionChanged="SortComboBox_SelectionChanged"
+                             Width="150"
+                            Height="25"
+                            Grid.ColumnSpan="2" Margin="377,1,10,1" 
+							HorizontalAlignment="Right">
+                          <ComboBoxItem Content="ID" />
                         <ComboBoxItem Content="Imię" />
                         <ComboBoxItem Content="Nazwisko" />
                         <ComboBoxItem Content="Telefon" />
@@ -678,35 +675,38 @@
                         <ComboBoxItem Content="Adres" />
                         <ComboBoxItem Content="Data zatrudnienia" />
                     </ComboBox>
+                 </Grid>
 
-                    <DataGrid
+
+                    <Label Grid.Row="0" Content="Lista trenerów:" Width="100" HorizontalAlignment="Left" />
+                    
+                <DataGrid
                         x:Name="TrenersData"
-                        Grid.Row="1"
-                        Margin="0,26,10,-489"
                         AutoGenerateColumns="False"
                         CanUserAddRows="False"
                         CanUserDeleteRows="False"
-                        IsReadOnly="True" Grid.RowSpan="3"
-                       >
+                        IsReadOnly="True" Margin="0,27,0,-211" Grid.RowSpan="2">
+                       
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding ID}" Header="ID"  />
-                            <DataGridTextColumn Binding="{Binding Name}" Header="Imię" />
-                            <DataGridTextColumn Binding="{Binding Surname}" Header="Nazwisko" />
-                            <DataGridTextColumn Binding="{Binding Phone}" Header="Telefon" />
-                            <DataGridTextColumn Binding="{Binding E_Mail}" Header="E-mail" />
-                            <DataGridTextColumn Binding="{Binding DateOfBirth}" Header="Data urodzenia" />
-                            <DataGridTextColumn Binding="{Binding Address}" Header="Adres" />
-                            <DataGridTextColumn Binding="{Binding DateOfEmployment}" Header="Data zatrudnienia" />
+                            <DataGridTextColumn Binding="{Binding ID}" Header="ID" Width="SizeToCells" />
+                            <DataGridTextColumn Binding="{Binding Name}" Header="Imię" Width="*" />
+                            <DataGridTextColumn Binding="{Binding Surname}" Header="Nazwisko" Width="*" />
+                            <DataGridTextColumn Binding="{Binding Phone}" Header="Telefon"  Width="SizeToCells"/>
+                            <DataGridTextColumn Binding="{Binding E_Mail}" Header="E-mail" Width="*" />
+                            <DataGridTextColumn Binding="{Binding DateOfBirth}" Header="Data urodzenia" Width="*" />
+                            <DataGridTextColumn Binding="{Binding Address}" Header="Adres" Width="*" />
+                            <DataGridTextColumn Binding="{Binding DateOfEmployment}" Header="Data zatrudnienia" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
                     <Grid
-                        Grid.Row="3"
-                        Margin="10,0,0,-519" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="445">
+                        Grid.Row="1"
+                         Margin="10,514,0,-252" HorizontalAlignment="Left" Width="445">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
+                        
                         <Button x:Name="DodajTrenera"
                             Grid.Column="1"
                             Height="25"
@@ -742,18 +742,24 @@
             <Grid
                 x:Name="Content_ZarzadzanieCzlonkami"
                 Grid.Row="1"
-                Visibility="Collapsed" Height="325" VerticalAlignment="Top" Margin="0,1,0,0">
+                Visibility="Collapsed"
+                Height="325" 
+                VerticalAlignment="Top"
+                Margin="0,1,0,0">
                 <!--  Zarzadzanie Czlonkami content  -->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            
                         </Grid.ColumnDefinitions>
 
                         <extToolkit:WatermarkTextBox 
@@ -785,16 +791,16 @@
                         AutoGenerateColumns="False"
                         CanUserAddRows="True"
                         CanUserDeleteRows="True"
-                        IsReadOnly="False" Margin="0,27,0,-211" Grid.RowSpan="2">
+                        IsReadOnly="True" Margin="0,27,0,-211" Grid.RowSpan="2">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding ID}" Header="ID" />
-                            <DataGridTextColumn Binding="{Binding FristName}" Header="Imię" />
-                            <DataGridTextColumn Binding="{Binding LastName}" Header="Nazwisko" />
-                            <DataGridTextColumn Binding="{Binding E_Mail}" Header="Email" />
-                            <DataGridTextColumn Binding="{Binding Phone}" Header="Telefon" />
-                            <DataGridTextColumn Binding="{Binding DateOfRegistration}" Header="Data rejestracji" />
-                            <DataGridTextColumn Binding="{Binding Sex}" Header="Płeć" />
-                            <DataGridTextColumn Binding="{Binding Adress}" Header="Adres" />
+                            <DataGridTextColumn Binding="{Binding ID}" Header="ID" Width="SizeToCells" />
+                            <DataGridTextColumn Binding="{Binding FristName}" Header="Imię" Width="*" />
+                            <DataGridTextColumn Binding="{Binding LastName}" Header="Nazwisko" Width="*" />
+                            <DataGridTextColumn Binding="{Binding E_Mail}" Header="Email" Width="*" />
+                            <DataGridTextColumn Binding="{Binding Phone}" Header="Telefon" Width="*" />
+                            <DataGridTextColumn Binding="{Binding DateOfRegistration}" Header="Data rejestracji" Width="*" />
+                            <DataGridTextColumn Binding="{Binding Sex}" Header="Płeć"  Width="SizeToHeader"/>
+                            <DataGridTextColumn Binding="{Binding Adress}" Header="Adres" Width="*" />
                         </DataGrid.Columns>
                     </DataGrid>
 

@@ -31,6 +31,8 @@
             <th>Płeć</th>
             <th>Adres</th>
             <th>Data zatrudnienia</th>
+            <th>Zajęcia grupowe</th>
+
             
         </tr>
         @foreach (var row in Model.Rows)
@@ -45,6 +47,7 @@
                 <td>@row["plec"]</td>
                 <td>@row["adres"]</td>
                 <td>@row["data_zatrudnienia"]</td>
+                <td>@row["czy_grupowe"]</td>
             </tr>
         }
     </table>

@@ -2,6 +2,7 @@
 using System;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Gym_Aplication.Windows
 {
@@ -20,6 +21,7 @@ namespace Gym_Aplication.Windows
         string email;
         string adres;
         string plec;
+        int zajecia;
 
 
 
@@ -102,6 +104,28 @@ namespace Gym_Aplication.Windows
                     plec = "M";
                 }
 
+                if(ZajeciaComboBox.SelectedItem != null)
+                {
+                    ComboBoxItem selectedOption = (ComboBoxItem)ZajeciaComboBox.SelectedItem;
+                    string selectedValue = selectedOption.Content.ToString();
+
+                    if (selectedValue == "Tak") 
+                    {
+                        zajecia = 1;
+                    }
+                    else
+                    {
+                        zajecia = 0;
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Wskarz, czy trener prowadzi zajęcia grupowe!", "Błąd walidacji", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+
             }
             catch (Exception ex1)
             {
@@ -114,7 +138,7 @@ namespace Gym_Aplication.Windows
                 connection_name.Open();
 
                 string sql =
-                "INSERT INTO `Trenerzy` (`id_trenera`, `imie`, `nazwisko`, `e-mail`, `telefon`, `data_urodzenia`, `plec`, `adres`, `data_zatrudenienia`) VALUES (NULL, '" + imie + "'," + "'" + nazwisko + "'," + "'" + email + "'," + "'" + telefon + "'," + "'" + dataUrodzenia_Day.ToString("yyy-MM-dd") + "'," + "'" + plec + "'," + "'" + adres + "'," + "'" + dataZatrudnienia_Day.ToString("yyy-MM-dd") + "');";
+                "INSERT INTO `Trenerzy` (`id_trenera`, `imie`, `nazwisko`, `e-mail`, `telefon`, `data_urodzenia`, `plec`, `adres`, `data_zatrudnienia`, `czy_grupowe`) VALUES (NULL, '" + imie + "'," + "'" + nazwisko + "'," + "'" + email + "'," + "'" + telefon + "'," + "'" + dataUrodzenia_Day.ToString("yyy-MM-dd") + "'," + "'" + plec + "'," + "'" + adres + "'," + "'" + dataZatrudnienia_Day.ToString("yyy-MM-dd") + "', "+zajecia+");";
 
 
 

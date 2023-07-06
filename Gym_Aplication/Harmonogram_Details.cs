@@ -20,7 +20,7 @@ namespace Gym_Aplication
                 {
                     connection_name.Open();
 
-                    string querry = "SELECT * FROM `rezerwacje2` where czy_wazne != 0;";
+                    string querry = "SELECT * FROM `rezerwacje2` where czy_wazne = 1;";
 
                     MySqlCommand commend = new MySqlCommand(querry, connection_name);
                     MySqlDataReader data_from_querry = commend.ExecuteReader();
@@ -30,17 +30,18 @@ namespace Gym_Aplication
 
                     while (data_from_querry.Read())
                     {
+                        DateTime data = (data_from_querry.GetDateTime(6));
                         ScheduleEntry1 feld = new ScheduleEntry1
                         {
-                            ID = (data_from_querry["id"]).ToString(),
-                            Name = (data_from_querry["imie"]).ToString(),
-                            Surname = (data_from_querry["nazwisko"]).ToString(),
-                            Phone = data_from_querry["telefon"].ToString(),
-                            Activity = (data_from_querry["Temat"]).ToString(),
-                            Room = (data_from_querry["Sala"]).ToString(),
-                            Date = (data_from_querry["DataRezerwacji"]).ToString(),
-                            Start_time = (data_from_querry["start_time"]).ToString(),
-                            End_time = (data_from_querry["end_time"]).ToString(),
+                            ID = int.Parse(data_from_querry.GetString(0)),
+                            Name = data_from_querry.GetString(1),
+                            Surname = data_from_querry.GetString(2),
+                            Phone = data_from_querry.GetString(3),
+                            Activity = data_from_querry.GetString(4),
+                            Room = data_from_querry.GetString(5),
+                            Date = data.ToString("dd-MM-yyyy"),
+                            Start_time = data_from_querry.GetString(7),
+                            End_time = data_from_querry.GetString(8),
                         };
 
 
@@ -71,7 +72,7 @@ namespace Gym_Aplication
                 {
                     connection_name.Open();
 
-                    string querry = "SELECT * FROM `Rezerwacje_indywidualne_Widok` where czy_wazne != 0;";
+                    string querry = "SELECT * FROM `Rezerwacje_indywidualne_Widok` where czy_wazne = 1;";
 
                     MySqlCommand commend = new MySqlCommand(querry, connection_name);
                     MySqlDataReader data_from_querry = commend.ExecuteReader();
@@ -81,15 +82,15 @@ namespace Gym_Aplication
 
                     while (data_from_querry.Read())
                     {
-
-                        string iD = data_from_querry.GetString(0);
+                        DateTime data = (data_from_querry.GetDateTime(6));
+                        int iD = int.Parse(data_from_querry.GetString(0));
 
                         string nameT = data_from_querry.GetString(1);
                         string surnameT = data_from_querry.GetString(2);
                         string nameK = data_from_querry.GetString(3);
                         string surnameK = data_from_querry.GetString(4);
                         string activity = data_from_querry.GetString(5);
-                        string date = data_from_querry.GetString(6);
+                        string date = data.ToString("dd-MM-yyyy");
                         string start_time = data_from_querry.GetString(7);
                         string end_time = data_from_querry.GetString(8);
 
@@ -168,7 +169,7 @@ namespace Gym_Aplication
                 {
                     connection_name.Open();
 
-                    string querry2 = "SELECT * FROM `rezerwacje2` where czy_wazne != 0;";
+                    string querry2 = "SELECT * FROM `rezerwacje2` where czy_wazne = 1;";
 
                     MySqlCommand commend2 = new MySqlCommand(querry2, connection_name);
 
@@ -233,7 +234,7 @@ namespace Gym_Aplication
                 {
                     connection_name.Open();
 
-                    string querry2 = "SELECT * FROM `Rezerwacje_indywidualne_Widok` where czy_wazne= 0;";
+                    string querry2 = "SELECT * FROM `Rezerwacje_indywidualne_Widok` where czy_wazne= 1;";
 
                     MySqlCommand commend2 = new MySqlCommand(querry2, connection_name);
 

@@ -568,7 +568,6 @@ namespace Gym_Aplication
             }
 
 
-            MessageBox.Show("Warotść trenera: " + selectedItemT.Id+ " Wartośc klienta: "+ selectedItemK.Id + " Wartość zajęć= " + selectedItemZ.Id + "Start: " + selectedItemGS.Id + "Koniec: " + selectedItemGK.Id);
         }
 
         private void Zapisz_G()

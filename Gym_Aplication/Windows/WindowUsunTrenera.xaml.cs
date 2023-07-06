@@ -43,22 +43,36 @@ namespace Gym_Aplication.Windows
                 }
 
                 connection_name.Open();
-
-                string sql =
+                string sql0 = "SELECT COUNT(id_trenera) FROM `Trenerzy` WHERE  imie NOT LIKE \"\" AND id_trenera=" + IdTextBox.Text + ";";
+                string sql1 =
                 "UPDATE `Trenerzy` SET  `imie` = '" + imie + "'," + "`nazwisko` = '" + nazwisko + "'," + "`e-mail`= '" + email + "'," + " `telefon`= '" + telefon + "',  `plec`= '" + plec + "', `adres`= '" + adres + "'"+" WHERE `Trenerzy`.`id_trenera`=" + IdTextBox.Text + ";";
 
-                MySqlCommand command = new MySqlCommand(sql, connection_name);
-                command.ExecuteNonQuery();
-                connection_name.Close();
+
+                MySqlCommand command0 = new MySqlCommand(sql0, connection_name);
+                MySqlDataReader data_from_querry0 = command0.ExecuteReader();
 
 
-                MessageBox.Show("Z powodzeniem usunięto trenera " + imie + " ID: " + IdTextBox.Text + "!");
+                data_from_querry0.Read();
+                int number = data_from_querry0.GetInt32(0);
+                data_from_querry0.Close();
 
+                if (number == 0)
+                {
+                    MessageBox.Show("Najwyraźniej brak trenera o podanym ID...  " );
+                    connection_name.Close();
+                }
+                else
+                {
+                    MySqlCommand command1 = new MySqlCommand(sql1, connection_name);
+                    command1.ExecuteNonQuery();
+                    connection_name.Close();
+                    MessageBox.Show("Z powodzeniem usunięto trenera " + imie + " ID: " + IdTextBox.Text + "!");
+                }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Podczas usuwaniu rekordu w bazie danych wystąpił błąd!", "Błąd bazy!", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Podczas usuwaniu rekordu w bazie danych wystąpił błąd! \n" + ex.Message, "Błąd bazy!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
         }
