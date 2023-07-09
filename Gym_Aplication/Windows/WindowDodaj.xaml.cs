@@ -20,13 +20,14 @@ namespace Gym_Aplication
         DateTime? data_rezerwacji;
         DateTime data_rezerwacjiD;
 
-        private string connection_string = "Server=polsl.online;Uid=test;Pwd=Pa$$w0rd;Database=Baza_projekt;";
-
+        private string connection_string;
+        ParametryFileManager fileManager = new ParametryFileManager();
         MySqlConnection connection_name = new MySqlConnection();
 
         public WindowDodaj()
         {
             InitializeComponent();
+           connection_string = fileManager.OdczytajParametry();
             connection_name.ConnectionString = connection_string;
              
 

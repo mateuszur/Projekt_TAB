@@ -25,8 +25,11 @@ namespace Gym_Aplication
         private ICollectionView _trainersView;
         private ICollectionView _membersView;
 
-        private string connection_string =
-            "Server=polsl.online;Uid=test;Pwd=Pa$$w0rd;Database=Baza_projekt;";
+       
+
+        ParametryFileManager fileManager = new ParametryFileManager();
+        private string connection_string;
+
 
         MySqlConnection connection_name = new MySqlConnection();
 
@@ -35,6 +38,7 @@ namespace Gym_Aplication
 
         public MainWindow()
         {
+            connection_string = fileManager.OdczytajParametry();
             InitializeComponent();
             //PopulateScheduleDataGrid();
             var members = new ObservableCollection<MembersManagement>();
@@ -116,8 +120,8 @@ namespace Gym_Aplication
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            username = "mateusz"; //UsernameTextBox.Text;
-            password = "Pa$$w0rd";//PasswordBox.Visibility == Visibility.Visible ? PasswordBox.Password : PasswordTextBox.Text;
+            username = UsernameTextBox.Text;
+            password = PasswordBox.Visibility == Visibility.Visible ? PasswordBox.Password : PasswordTextBox.Text;
             NazwaUżytkownika.Content = username;
 
             using (SHA1 sha1 = SHA1.Create())

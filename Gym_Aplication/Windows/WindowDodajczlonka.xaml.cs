@@ -11,8 +11,9 @@ namespace Gym_Aplication
     public partial class WindowDodajczlonka : Window
     {
 
-        private string connection_string = "Server=polsl.online;Uid=test;Pwd=Pa$$w0rd;Database=Baza_projekt;";
+        private string connection_string;
 
+        ParametryFileManager fileManager = new ParametryFileManager();
         MySqlConnection connection_name = new MySqlConnection();
 
         string imie;
@@ -30,7 +31,7 @@ namespace Gym_Aplication
         public WindowDodajczlonka()
         {
             InitializeComponent();
-            
+            connection_string = fileManager.OdczytajParametry();
             DataPicker.Text = dataDodania_D.Date.ToString("dd-MM-yyyy");
             connection_name.ConnectionString = connection_string;
         }

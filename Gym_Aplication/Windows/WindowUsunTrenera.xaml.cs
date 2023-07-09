@@ -9,7 +9,8 @@ namespace Gym_Aplication.Windows
     /// </summary>
     public partial class WindowUsunTrenera : Window
     {
-        private string connection_string = "Server=polsl.online;Uid=test;Pwd=Pa$$w0rd;Database=Baza_projekt;";
+        ParametryFileManager fileManager = new ParametryFileManager();
+        private string connection_string;
 
         MySqlConnection connection_name = new MySqlConnection();
 
@@ -30,6 +31,7 @@ namespace Gym_Aplication.Windows
         public WindowUsunTrenera()
         {
             InitializeComponent();
+            connection_string = fileManager.OdczytajParametry();
             connection_name.ConnectionString = connection_string;
         }
 

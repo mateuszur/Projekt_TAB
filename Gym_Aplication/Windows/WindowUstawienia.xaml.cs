@@ -13,7 +13,8 @@ namespace Gym_Aplication
     /// </summary>
     public partial class WindowUstawienia : Window
     {
-        private string connection_string = "Server=polsl.online;Uid=test;Pwd=Pa$$w0rd;Database=Baza_projekt;";
+        ParametryFileManager fileManager = new ParametryFileManager();
+        private string connection_string;
         private string login;
         private string haslo;
         private string haslo1;
@@ -26,6 +27,7 @@ namespace Gym_Aplication
         public WindowUstawienia(int user_p)
         {
             InitializeComponent();
+            connection_string = fileManager.OdczytajParametry();
             this.User_p = user_p;
 
 

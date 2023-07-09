@@ -340,9 +340,6 @@
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>AllOtherFiles</td><td>{C3EFDCC1-F26F-496E-A255-6B660D097EBC}</td><td>INSTALLDIR</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles1</td><td>{07ECFB44-4FAE-4AC5-B133-DC4B7DB1A024}</td><td>DATABASECONNECTION</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles2</td><td>{00F65CD8-66B4-48F4-9BDB-20EBFF10D7D3}</td><td>ICONS</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles3</td><td>{8C610A34-F566-4E33-BFC6-F7BD833BAA44}</td><td>PATERNS</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>BouncyCastle.Crypto.dll</td><td>{5EC83635-9D76-4A3C-8D76-F04BBB3DEEE9}</td><td>INSTALLDIR</td><td>8</td><td/><td>bouncycastle.crypto.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>EntityFramework.SqlServer.dll</td><td>{B09938D8-FE2E-4BB5-A4CD-019185C205E5}</td><td>INSTALLDIR</td><td>8</td><td/><td>entityframework.sqlserver.dl</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>EntityFramework.dll</td><td>{1D08E422-A9E8-4B60-8DA1-ED6BBF486BE0}</td><td>INSTALLDIR</td><td>8</td><td/><td>entityframework.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -1161,7 +1158,6 @@
 		<row><td>CommonFiles64Folder</td><td>TARGETDIR</td><td>.:Common64</td><td/><td>0</td><td/></row>
 		<row><td>CommonFilesArmFolder</td><td>TARGETDIR</td><td>.:COMMON~3|Common Files (Arm)</td><td/><td>0</td><td/></row>
 		<row><td>CommonFilesFolder</td><td>TARGETDIR</td><td>.:Common</td><td/><td>0</td><td/></row>
-		<row><td>DATABASECONNECTION</td><td>INSTALLDIR</td><td>DATABA~1|DataBaseConnection</td><td/><td>0</td><td/></row>
 		<row><td>DATABASEDIR</td><td>ISYourDataBaseDir</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>DesktopFolder</td><td>TARGETDIR</td><td>.:Desktop</td><td/><td>3</td><td/></row>
 		<row><td>FavoritesFolder</td><td>TARGETDIR</td><td>.:FAVORI~1|Favorites</td><td/><td>0</td><td/></row>
@@ -1170,7 +1166,6 @@
 		<row><td>GRUPAPROJEKTOWA</td><td>ProgramFilesFolder</td><td>GRUPAP~1|GrupaProjektowa</td><td/><td>0</td><td/></row>
 		<row><td>GYM_APP</td><td>GRUPAPROJEKTOWA</td><td>Gym_App</td><td/><td>0</td><td/></row>
 		<row><td>GlobalAssemblyCache</td><td>TARGETDIR</td><td>.:Global~1|GlobalAssemblyCache</td><td/><td>0</td><td/></row>
-		<row><td>ICONS</td><td>INSTALLDIR</td><td>Icons</td><td/><td>0</td><td/></row>
 		<row><td>INSTALLDIR</td><td>GYM_APP</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>ISCommonFilesFolder</td><td>CommonFilesFolder</td><td>Instal~1|InstallShield</td><td/><td>0</td><td/></row>
 		<row><td>ISMyCompanyDir</td><td>ProgramFilesFolder</td><td>MYCOMP~1|My Company Name</td><td/><td>0</td><td/></row>
@@ -1180,7 +1175,6 @@
 		<row><td>MY_PRODUCT_NAME</td><td>GRUP</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>MY_PRODUCT_NAME1</td><td>GRUPAPROJEKTOWA</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
-		<row><td>PATERNS</td><td>INSTALLDIR</td><td>Paterns</td><td/><td>0</td><td/></row>
 		<row><td>PUBLIC</td><td>TARGETDIR</td><td>.:PUBLIC~1|Public</td><td/><td>0</td><td/></row>
 		<row><td>PersonalFolder</td><td>TARGETDIR</td><td>.:Personal</td><td/><td>0</td><td/></row>
 		<row><td>PrimaryVolumePath</td><td>TARGETDIR</td><td>.:Primar~1|PrimaryVolumePath</td><td/><td>0</td><td/></row>
@@ -1895,9 +1889,6 @@
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
 		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>AllOtherFiles</td></row>
-		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>AllOtherFiles1</td></row>
-		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>AllOtherFiles2</td></row>
-		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>AllOtherFiles3</td></row>
 		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>BouncyCastle.Crypto.dll</td></row>
 		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>EntityFramework.SqlServer.dll</td></row>
 		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>EntityFramework.dll</td></row>
@@ -1970,10 +1961,8 @@
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
 		<row><td>bouncycastle.crypto.dll</td><td>BouncyCastle.Crypto.dll</td><td>BOUNCY~1.DLL|BouncyCastle.Crypto.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\BouncyCastle.Crypto.dll</td><td>1</td><td/></row>
-		<row><td>connectionstring.txt</td><td>AllOtherFiles1</td><td>CONNEC~1.TXT|ConnectionString.txt</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Gym_Aplication\DataBaseConnection\ConnectionString.txt</td><td>1</td><td/></row>
 		<row><td>entityframework.dll</td><td>EntityFramework.dll</td><td>ENTITY~1.DLL|EntityFramework.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\EntityFramework.dll</td><td>1</td><td/></row>
 		<row><td>entityframework.sqlserver.dl</td><td>EntityFramework.SqlServer.dll</td><td>ENTITY~1.DLL|EntityFramework.SqlServer.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\EntityFramework.SqlServer.dll</td><td>1</td><td/></row>
-		<row><td>facebookicon.png</td><td>AllOtherFiles2</td><td>FACEBO~1.PNG|FacebookIcon.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_ICONS_FILES&gt;\FacebookIcon.png</td><td>1</td><td/></row>
 		<row><td>google.protobuf.dll</td><td>Google.Protobuf.dll</td><td>GOOGLE~1.DLL|Google.Protobuf.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\Google.Protobuf.dll</td><td>1</td><td/></row>
 		<row><td>gym_aplication.deps.json</td><td>AllOtherFiles</td><td>GYM_AP~1.JSO|Gym_Aplication.deps.json</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\Gym_Aplication.deps.json</td><td>1</td><td/></row>
 		<row><td>gym_aplication.dll</td><td>Gym_Aplication.dll</td><td>GYM_AP~1.DLL|Gym_Aplication.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\Gym_Aplication.dll</td><td>1</td><td/></row>
@@ -1981,15 +1970,12 @@
 		<row><td>gym_aplication.exe</td><td>Gym_Aplication.exe1</td><td>GYM_AP~1.EXE|Gym_Aplication.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\Gym_Aplication.exe</td><td>1</td><td/></row>
 		<row><td>gym_aplication.pdb</td><td>AllOtherFiles</td><td>GYM_AP~1.PDB|Gym_Aplication.pdb</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\Gym_Aplication.pdb</td><td>1</td><td/></row>
 		<row><td>gym_aplication.runtimeconfig</td><td>AllOtherFiles</td><td>GYM_AP~1.JSO|Gym_Aplication.runtimeconfig.json</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\Gym_Aplication.runtimeconfig.json</td><td>1</td><td/></row>
-		<row><td>instagramicon.png</td><td>AllOtherFiles2</td><td>INSTAG~1.PNG|InstagramIcon.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_ICONS_FILES&gt;\InstagramIcon.png</td><td>1</td><td/></row>
 		<row><td>intersoft.crosslight.dll</td><td>Intersoft.Crosslight.dll</td><td>INTERS~1.DLL|Intersoft.Crosslight.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\Intersoft.Crosslight.dll</td><td>1</td><td/></row>
 		<row><td>k4os.compression.lz4.dll</td><td>K4os.Compression.LZ4.dll</td><td>K4OSCO~1.DLL|K4os.Compression.LZ4.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\K4os.Compression.LZ4.dll</td><td>1</td><td/></row>
 		<row><td>k4os.compression.lz4.streams</td><td>K4os.Compression.LZ4.Streams.dll</td><td>K4OSCO~1.DLL|K4os.Compression.LZ4.Streams.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\K4os.Compression.LZ4.Streams.dll</td><td>1</td><td/></row>
 		<row><td>k4os.hash.xxhash.dll</td><td>K4os.Hash.xxHash.dll</td><td>K4OSHA~1.DLL|K4os.Hash.xxHash.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\K4os.Hash.xxHash.dll</td><td>1</td><td/></row>
 		<row><td>livecharts.dll</td><td>LiveCharts.dll</td><td>LIVECH~1.DLL|LiveCharts.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\LiveCharts.dll</td><td>1</td><td/></row>
 		<row><td>livecharts.wpf.dll</td><td>LiveCharts.Wpf.dll</td><td>LIVECH~1.DLL|LiveCharts.Wpf.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\LiveCharts.Wpf.dll</td><td>1</td><td/></row>
-		<row><td>logogymapp.ico</td><td>AllOtherFiles2</td><td>LOGOGY~1.ICO|LogoGymApp.ico</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_ICONS_FILES&gt;\LogoGymApp.ico</td><td>1</td><td/></row>
-		<row><td>logogymapp.png</td><td>AllOtherFiles2</td><td>LOGOGY~1.PNG|LogoGymApp.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_ICONS_FILES&gt;\LogoGymApp.png</td><td>1</td><td/></row>
 		<row><td>materialdesigncolors.dll</td><td>MaterialDesignColors.dll</td><td>MATERI~1.DLL|MaterialDesignColors.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\MaterialDesignColors.dll</td><td>1</td><td/></row>
 		<row><td>materialdesignthemes.wpf.dll</td><td>MaterialDesignThemes.Wpf.dll</td><td>MATERI~1.DLL|MaterialDesignThemes.Wpf.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\MaterialDesignThemes.Wpf.dll</td><td>1</td><td/></row>
 		<row><td>microsoft.aspnetcore.cryptog</td><td>Microsoft.AspNetCore.Cryptography.Internal.dll</td><td>MICROS~1.DLL|Microsoft.AspNetCore.Cryptography.Internal.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\Microsoft.AspNetCore.Cryptography.Internal.dll</td><td>1</td><td/></row>
@@ -2014,19 +2000,12 @@
 		<row><td>microsoft.win32.systemevents</td><td>Microsoft.Win32.SystemEvents.dll</td><td>MICROS~1.DLL|Microsoft.Win32.SystemEvents.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\Microsoft.Win32.SystemEvents.dll</td><td>1</td><td/></row>
 		<row><td>microsoft.xaml.behaviors.dll</td><td>Microsoft.Xaml.Behaviors.dll</td><td>MICROS~1.DLL|Microsoft.Xaml.Behaviors.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\Microsoft.Xaml.Behaviors.dll</td><td>1</td><td/></row>
 		<row><td>mysql.data.dll</td><td>MySql.Data.dll</td><td>MYSQLD~1.DLL|MySql.Data.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\MySql.Data.dll</td><td>1</td><td/></row>
-		<row><td>patern_harmonogram_raport.ht</td><td>AllOtherFiles3</td><td>PATERN~1.HTM|patern_Harmonogram_Raport.html</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Gym_Aplication\Paterns\patern_Harmonogram_Raport.html</td><td>1</td><td/></row>
-		<row><td>patern_harmonogram_raport__2</td><td>AllOtherFiles3</td><td>PATERN~1.HTM|patern_Harmonogram_Raport _2.html</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Gym_Aplication\Paterns\patern_Harmonogram_Raport _2.html</td><td>1</td><td/></row>
-		<row><td>patern_members_raport.html</td><td>AllOtherFiles3</td><td>PATERN~1.HTM|patern_Members_Raport.html</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Gym_Aplication\Paterns\patern_Members_Raport.html</td><td>1</td><td/></row>
-		<row><td>patern_treners_raport.html</td><td>AllOtherFiles3</td><td>PATERN~1.HTM|patern_Treners_Raport.html</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;VSSolutionFolder&gt;\Gym_Aplication\Paterns\patern_Treners_Raport.html</td><td>1</td><td/></row>
 		<row><td>razorengine.netcore.dll</td><td>RazorEngine.NetCore.dll</td><td>RAZORE~1.DLL|RazorEngine.NetCore.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\RazorEngine.NetCore.dll</td><td>1</td><td/></row>
-		<row><td>sun.png</td><td>AllOtherFiles2</td><td>sun.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_ICONS_FILES&gt;\sun.png</td><td>1</td><td/></row>
 		<row><td>system.data.sqlclient.dll</td><td>System.Data.SqlClient.dll</td><td>SYSTEM~1.DLL|System.Data.SqlClient.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\System.Data.SqlClient.dll</td><td>1</td><td/></row>
 		<row><td>system.drawing.common.dll</td><td>System.Drawing.Common.dll</td><td>SYSTEM~1.DLL|System.Drawing.Common.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\System.Drawing.Common.dll</td><td>1</td><td/></row>
 		<row><td>system.io.pipelines.dll</td><td>System.IO.Pipelines.dll</td><td>SYSTEM~1.DLL|System.IO.Pipelines.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\System.IO.Pipelines.dll</td><td>1</td><td/></row>
 		<row><td>system.text.encodings.web.dl</td><td>System.Text.Encodings.Web.dll</td><td>SYSTEM~1.DLL|System.Text.Encodings.Web.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\System.Text.Encodings.Web.dll</td><td>1</td><td/></row>
 		<row><td>system.text.json.dll</td><td>System.Text.Json.dll</td><td>SYSTEM~1.DLL|System.Text.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\System.Text.Json.dll</td><td>1</td><td/></row>
-		<row><td>twittericon.png</td><td>AllOtherFiles2</td><td>TWITTE~1.PNG|TwitterIcon.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_ICONS_FILES&gt;\TwitterIcon.png</td><td>1</td><td/></row>
-		<row><td>usericon.png</td><td>AllOtherFiles2</td><td>UserIcon.png</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_ICONS_FILES&gt;\UserIcon.png</td><td>1</td><td/></row>
 		<row><td>xceed.wpf.avalondock.net5.dl</td><td>Xceed.Wpf.AvalonDock.NET5.dll</td><td>XCEEDW~1.DLL|Xceed.Wpf.AvalonDock.NET5.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\Xceed.Wpf.AvalonDock.NET5.dll</td><td>1</td><td/></row>
 		<row><td>xceed.wpf.avalondock.themes.</td><td>Xceed.Wpf.AvalonDock.Themes.Aero.NET5.dll</td><td>XCEEDW~1.DLL|Xceed.Wpf.AvalonDock.Themes.Aero.NET5.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\Xceed.Wpf.AvalonDock.Themes.Aero.NET5.dll</td><td>1</td><td/></row>
 		<row><td>xceed.wpf.avalondock.themes.1</td><td>Xceed.Wpf.AvalonDock.Themes.Metro.NET5.dll</td><td>XCEEDW~1.DLL|Xceed.Wpf.AvalonDock.Themes.Metro.NET5.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_FILES&gt;\net6.0-windows\Xceed.Wpf.AvalonDock.Themes.Metro.NET5.dll</td><td>1</td><td/></row>
@@ -2178,9 +2157,6 @@
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
 		<row><td>AllOtherFiles</td><td/><td/><td>_FCDCA963_8E28_4EAE_BBBB_05D80F925ABC_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles1</td><td/><td/><td>_ECDCB69D_4DA6_4550_AD7F_903C9C1591DD_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles2</td><td/><td/><td>_E646207F_A720_41B2_B1DB_E92B2050962E_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AllOtherFiles3</td><td/><td/><td>_579CDEEB_B6C7_4B8E_81E7_6D3EF902E1EC_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>BouncyCastle.Crypto.dll</td><td/><td/><td>_14F05AF6_C358_4546_8BA3_C29E99A378CB_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>EntityFramework.SqlServer.dll</td><td/><td/><td>_C6D14BE3_A88B_4A05_A041_9987EEF1F0E2_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>EntityFramework.dll</td><td/><td/><td>_7A257FED_809F_407A_BA9A_4ABA992B8797_FILTER</td><td/><td/><td/><td/></row>
@@ -2373,7 +2349,7 @@
 	<table name="ISLanguage">
 		<col key="yes" def="s50">ISLanguage</col>
 		<col def="I2">Included</col>
-		<row><td>1045</td><td>0</td></row>
+		<row><td>1045</td><td>1</td></row>
 	</table>
 
 	<table name="ISLinkerLibrary">
@@ -2862,19 +2838,6 @@
 		<col def="I2">Order</col>
 		<col def="I2">ISSetupLocation</col>
 		<col def="S255">ISReleaseFlags</col>
-	</table>
-
-	<table name="ISSetupType">
-		<col key="yes" def="s38">ISSetupType</col>
-		<col def="L255">Description</col>
-		<col def="L255">Display_Name</col>
-		<col def="i2">Display</col>
-		<col def="S255">Comments</col>
-	</table>
-
-	<table name="ISSetupTypeFeatures">
-		<col key="yes" def="s38">ISSetupType_</col>
-		<col key="yes" def="s38">Feature_</col>
 	</table>
 
 	<table name="ISStorages">
@@ -4037,7 +4000,7 @@
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1045</td><td>Rozdzielczość ekranu jest niewystarczająca do uruchomienia programu [ProductName].</td><td>0</td><td/><td/></row>
 		<row><td>ID_STRING1</td><td>1045</td><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>0</td><td/><td>-1825839284</td></row>
 		<row><td>ID_STRING2</td><td>1045</td><td/><td>0</td><td/><td>-1825879635</td></row>
-		<row><td>ID_STRING3</td><td>1045</td><td>https://polsl.online:8000/</td><td>0</td><td/><td>1269533295</td></row>
+		<row><td>ID_STRING3</td><td>1045</td><td>http://www.GrupaProjektowa.com</td><td>0</td><td/><td>-1825871311</td></row>
 		<row><td>ID_STRING4</td><td>1045</td><td>LAUNCH~1.EXE|Launch Gym_Aplication.exe</td><td>0</td><td/><td>-1825838387</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1045</td><td>Ten składnik nie zostanie zainstalowany.</td><td>0</td><td/><td/></row>
 	</table>
@@ -4311,7 +4274,7 @@ UgBlAGwAZQBhAHMAZQABAEQAZQBmAGEAdQBsAHQAIABDAG8AbgBmAGkAZwB1AHIAYQB0AGkAbwBuAA==
 		<row><td>SaveAsSchema</td><td/></row>
 		<row><td>SccEnabled</td><td>0</td></row>
 		<row><td>SccPath</td><td/></row>
-		<row><td>SchemaVersion</td><td>788</td></row>
+		<row><td>SchemaVersion</td><td>787</td></row>
 		<row><td>Type</td><td>MSI</td></row>
 	</table>
 
@@ -4672,7 +4635,7 @@ UgBlAGwAZQBhAHMAZQABAEQAZQBmAGEAdQBsAHQAIABDAG8AbgBmAGkAZwB1AHIAYQB0AGkAbwBuAA==
 		<row><td>ProductID</td><td>none</td><td/></row>
 		<row><td>ProductLanguage</td><td>1033</td><td/></row>
 		<row><td>ProductName</td><td>Gym_App</td><td/></row>
-		<row><td>ProductVersion</td><td>1.25.0907</td><td/></row>
+		<row><td>ProductVersion</td><td>1.00.0000</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -5666,13 +5629,6 @@ UgBlAGwAZQBhAHMAZQABAEQAZQBmAGEAdQBsAHQAIABDAG8AbgBmAGkAZwB1AHIAYQB0AGkAbwBuAA==
 		<row><td>ISSetupPrerequisites</td><td>ISSetupLocation</td><td>Y</td><td/><td/><td/><td/><td/><td>0;1;2</td><td/></row>
 		<row><td>ISSetupPrerequisites</td><td>ISSetupPrerequisites</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>ISSetupPrerequisites</td><td>Order</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISSetupType</td><td>Comments</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td>User Comments.</td></row>
-		<row><td>ISSetupType</td><td>Description</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td>Longer descriptive text describing a visible feature item.</td></row>
-		<row><td>ISSetupType</td><td>Display</td><td>N</td><td>0</td><td>32767</td><td/><td/><td/><td/><td>Numeric sort order, used to force a specific display ordering.</td></row>
-		<row><td>ISSetupType</td><td>Display_Name</td><td>Y</td><td/><td/><td/><td/><td>Formatted</td><td/><td>A string used to set the initial text contained within a control (if appropriate).</td></row>
-		<row><td>ISSetupType</td><td>ISSetupType</td><td>N</td><td/><td/><td/><td/><td>Identifier</td><td/><td>Primary key used to identify a particular feature record.</td></row>
-		<row><td>ISSetupTypeFeatures</td><td>Feature_</td><td>N</td><td/><td/><td>Feature</td><td>1</td><td>Identifier</td><td/><td>Foreign key into Feature table.</td></row>
-		<row><td>ISSetupTypeFeatures</td><td>ISSetupType_</td><td>N</td><td/><td/><td>ISSetupType</td><td>1</td><td>Identifier</td><td/><td>Foreign key into ISSetupType table.</td></row>
 		<row><td>ISStorages</td><td>ISBuildSourcePath</td><td>Y</td><td/><td/><td/><td/><td/><td/><td>Path to the file to stream into sub-storage</td></row>
 		<row><td>ISStorages</td><td>Name</td><td>N</td><td/><td/><td/><td/><td/><td/><td>Name of the sub-storage key</td></row>
 		<row><td>ISString</td><td>Comment</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td>Comment</td></row>
